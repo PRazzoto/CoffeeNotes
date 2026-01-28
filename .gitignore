@@ -1,0 +1,112 @@
+############################
+# Build artifacts
+############################
+target/
+build/
+out/
+
+############################
+# Logs & temp files
+############################
+logs/
+*.log
+*.tmp
+*.swp
+*.swo
+hs_err_pid*
+
+############################
+# OS-specific files
+############################
+.DS_Store
+Thumbs.db
+
+############################
+# Environment variables & secrets
+############################
+.env
+.env.*
+!.env.example
+
+credentials.*
+secret.*
+secrets.*
+*.secret
+
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+
+############################
+# Spring Boot local overrides
+# (never commit local configs)
+############################
+application-local.yml
+application-local.yaml
+application-local.properties
+
+############################
+# IDEs
+############################
+
+# IntelliJ IDEA
+.idea
+*.iws
+*.iml
+*.ipr
+
+# Eclipse / STS
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# VS Code
+.vscode/
+
+############################
+# Build tools
+############################
+
+# Gradle
+.gradle/
+
+# Maven (extra safety)
+.mvn/wrapper/maven-wrapper.jar
+
+############################
+# Docker
+############################
+docker-data/
+**/docker-data/
+
+############################
+# Test output & reports
+############################
+test-output/
+surefire-reports/
+failsafe-reports/
+
+############################
+# Database & local storage
+############################
+*.db
+*.sqlite
+
+############################
+# Misc
+############################
+HELP.md

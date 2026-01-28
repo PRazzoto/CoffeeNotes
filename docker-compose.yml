@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres:16
+    container_name: coffeenotes-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: coffeenotes
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    volumes:
+      - coffeenotes_pgdata:/var/lib/postgresql/data
+
+volumes:
+  coffeenotes_pgdata:
