@@ -1,0 +1,120 @@
+package com.example.coffeenotes.api.controller;
+
+import com.example.coffeenotes.api.dto.EquipmentDTO;
+import com.example.coffeenotes.domain.catalog.Equipment;
+import com.example.coffeenotes.feature.catalog.service.EquipmentService;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.http.HttpStatus;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.List;
+
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+@WebMvcTest(EquipmentController.class)
+class EquipmentControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @MockitoBean
+    private EquipmentService equipmentService;
+
+    @Test
+    void listAll_returnsDtos() throws Exception {
+        when(equipmentService.listAllEquipments()).thenReturn(List.of(
+                new Equipment(1L, "Grinder", "Burr"),
+                new Equipment(2L, "Scale", "Precision")
+        ));
+
+        mockMvc.perform(get("/api/equipment/listAll"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[*].name", containsInAnyOrder("Grinder", "Scale")))
+                .andExpect(jsonPath("$[*].description", containsInAnyOrder("Burr", "Precision")))
+                .andExpect(jsonPath("$[*].id").doesNotExist());
+    }
+
+    @Test
+    void create_returnsDtoAnd201() throws Exception {
+        Equipment saved = new Equipment(10L, "Kettle", "Stovetop");
+        when(equipmentService.add(any())).thenReturn(saved);
+
+        mockMvc.perform(post("/api/equipment/createEquipment")
+                        .contentType("application/json")
+                        .content("{\"name\":\"Kettle\",\"description\":\"Stovetop\"}"))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.name").value("Kettle"))
+                .andExpect(jsonPath("$.description").value("Stovetop"))
+                .andExpect(jsonPath("$.id").doesNotExist());
+    }
+
+    @Test
+    void edit_returnsDtoAnd200() throws Exception {
+        Equipment updated = new Equipment(1L, "New Name", "Old Desc");
+        when(equipmentService.update(eq(1L), any())).thenReturn(updated);
+
+        mockMvc.perform(put("/api/equipment/editEquipment/1")
+                        .contentType("application/json")
+                        .content("{\"name\":\"New Name\"}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value("New Name"))
+                .andExpect(jsonPath("$.description").value("Old Desc"))
+                .andExpect(jsonPath("$.id").doesNotExist());
+    }
+
+    @Test
+    void edit_whenNotFound_returns404() throws Exception {
+        when(equipmentService.update(eq(99L), any()))
+                .thenThrow(new ResponseStatusException(HttpStatus.NOT_FOUND, "Equipment not found"));
+
+        mockMvc.perform(put("/api/equipment/editEquipment/99")
+                        .contentType("application/json")
+                        .content("{}"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void create_whenServiceThrows400_returns400() throws Exception {
+        when(equipmentService.add(any()))
+                .thenThrow(new ResponseStatusException(HttpStatus.BAD_REQUEST, "name is required"));
+
+        mockMvc.perform(post("/api/equipment/createEquipment")
+                        .contentType("application/json")
+                        .content("{\"description\":\"x\"}"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void edit_whenServiceThrows400_returns400() throws Exception {
+        when(equipmentService.update(eq(1L), any()))
+                .thenThrow(new ResponseStatusException(HttpStatus.BAD_REQUEST, "name or description is required"));
+
+        mockMvc.perform(put("/api/equipment/editEquipment/1")
+                        .contentType("application/json")
+                        .content("{}"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void delete_whenNotFound_returns404() throws Exception {
+        doThrow(new ResponseStatusException(HttpStatus.NOT_FOUND, "Equipment not found"))
+                .when(equipmentService).delete(99L);
+
+        mockMvc.perform(delete("/api/equipment/deleteEquipment/99"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void delete_returns204() throws Exception {
+        mockMvc.perform(delete("/api/equipment/deleteEquipment/1"))
+                .andExpect(status().isNoContent());
+        verify(equipmentService).delete(1L);
+    }
+}
