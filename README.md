@@ -6,7 +6,8 @@ CoffeeNotes is a Spring Boot backend for a notes/recipes app focused on coffee b
 
 - Runs locally with PostgreSQL via Docker Compose
 - Flyway migrations enabled
-- First endpoint work in progress
+- Equipment CRUD endpoints implemented
+- Controller and service tests added for Equipment flow
 
 ## Tech Stack
 
@@ -54,9 +55,18 @@ The server runs on `http://localhost:8080` by default.
 
 ## API (WIP)
 
-Current endpoints are being shaped. For now, check:
+Current endpoints:
+
+- `GET /api/equipment/listAll`
+- `POST /api/equipment/createEquipment`
+- `PUT /api/equipment/editEquipment/{id}`
+- `DELETE /api/equipment/deleteEquipment/{id}`
+
+For implementation details, check:
 
 - `src/main/java/com/example/coffeenotes/api/controller`
+- `src/main/java/com/example/coffeenotes/feature/catalog/service`
+- `src/test/java/com/example/coffeenotes`
 
 ## Project Notes (Blog)
 
@@ -65,4 +75,11 @@ Current endpoints are being shaped. For now, check:
 - Set up PostgreSQL via `docker-compose.yml`
 - Enabled Flyway and started schema migration work
 - Began mapping domain entities to DTOs for API responses
+
+### 2026-02-10
+
+- Implemented full Equipment CRUD controller flow
+- Added validation and error handling in `EquipmentService`
+- Added controller tests (`@WebMvcTest`) for Equipment endpoints
+- Added service unit tests for add, update, and delete scenarios
 
