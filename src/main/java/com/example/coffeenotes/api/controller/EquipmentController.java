@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/catalog")
-class CatalogController {
+@RequestMapping("/api/catalog")
+public class CatalogController {
 
     private final CatalogService catalogService;
 
-    CatalogController(CatalogService catalogService) {
+    public CatalogController(CatalogService catalogService) {
         this.catalogService = catalogService;
     }
 
@@ -38,5 +38,9 @@ class CatalogController {
         return new ResponseEntity<>(addedEquipment, HttpStatus.CREATED);
     }
 
-
+    @DeleteMapping("/deleteEquipment/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable String id){
+        catalogService.delete(id);
+    }
 }
