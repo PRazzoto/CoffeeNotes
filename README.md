@@ -5,17 +5,18 @@ CoffeeNotes is a Spring Boot backend for a notes/recipes app focused on coffee b
 ## Status
 
 - Runs locally with PostgreSQL via Docker Compose
-- Flyway migrations enabled
+- Flyway migrations enabled (Spring Boot 4 + `spring-boot-flyway`)
 - Equipment CRUD endpoints implemented
-- Controller and service tests added for Equipment flow
+- Equipment IDs migrated to UUID
+- Controller and service tests updated for UUID flow
 
 ## Tech Stack
 
 - Java 17
 - Spring Boot 4.x
 - Maven
-- PostgreSQL (Docker)
-- Flyway (schema migrations)
+- PostgreSQL 16 (Docker)
+- Flyway 11 (schema migrations)
 
 ## Local Setup
 
@@ -49,9 +50,9 @@ The server runs on `http://localhost:8080` by default.
 
 - Migrations live in `src/main/resources/db/migration`
 - Flyway runs automatically on startup
-- If startup fails with schema validation errors, it usually means:
-  - a migration wasn’t applied, or
-  - the entity mapping and the SQL schema don’t match
+- Current migration set:
+  - `V1`..`V3`: initial equipment setup
+  - `V4`: core domain schema (`users`, `brew_methods`, `recipes`, `recipe_water_pours`, `recipe_equipment`, `favorites`, `media_assets`) and UUID strategy alignment
 
 ## API (WIP)
 
@@ -61,6 +62,10 @@ Current endpoints:
 - `POST /api/equipment/createEquipment`
 - `PUT /api/equipment/editEquipment/{id}`
 - `DELETE /api/equipment/deleteEquipment/{id}`
+
+Notes:
+- `{id}` is UUID for update/delete routes.
+- Equipment DTO responses currently expose `name` and `description`.
 
 For implementation details, check:
 
@@ -83,3 +88,10 @@ For implementation details, check:
 - Added controller tests (`@WebMvcTest`) for Equipment endpoints
 - Added service unit tests for add, update, and delete scenarios
 
+### 2026-02-13
+
+- Added PostgreSQL datasource configuration in `application.yml`
+- Added Flyway dependencies and Spring Boot 4 Flyway auto-configuration module
+- Added `V4__core_domain_schema.sql` with full domain schema
+- Migrated Equipment entity/repository/service/controller IDs to UUID
+- Updated Equipment controller/service tests to UUID

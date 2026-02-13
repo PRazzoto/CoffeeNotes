@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/equipment")
@@ -43,12 +44,12 @@ public class EquipmentController {
 
     @DeleteMapping("/deleteEquipment/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id){
+    public void delete(@PathVariable UUID id){
         equipmentService.delete(id);
     }
 
     @PutMapping("/editEquipment/{id}")
-    public ResponseEntity<EquipmentDTO> updateEquipment(@PathVariable Long id, @RequestBody EquipmentDTO body){
+    public ResponseEntity<EquipmentDTO> updateEquipment(@PathVariable UUID id, @RequestBody EquipmentDTO body){
         Equipment updated = equipmentService.update(id, body);
         EquipmentDTO dto = new EquipmentDTO();
         dto.setName(updated.getName());

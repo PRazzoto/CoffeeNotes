@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Entity
 @Setter
 @Getter
@@ -16,7 +18,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Equipment {
     private @Id
-    @GeneratedValue Long id;
+    @GeneratedValue UUID id;
 
     @Column(nullable=false)
     private String name;

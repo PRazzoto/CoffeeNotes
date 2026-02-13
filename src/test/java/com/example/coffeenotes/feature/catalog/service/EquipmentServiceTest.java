@@ -13,12 +13,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class EquipmentServiceTest {
+    private static final UUID ID_1 = UUID.fromString("11111111-1111-1111-1111-111111111111");
+    private static final UUID ID_10 = UUID.fromString("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa");
 
     @Mock
     private EquipmentRepository equipmentRepository;
@@ -28,11 +31,11 @@ class EquipmentServiceTest {
 
     @Test
     void update_whenNotFound_throws404() {
-        when(equipmentRepository.findById(1L)).thenReturn(Optional.empty());
+        when(equipmentRepository.findById(ID_1)).thenReturn(Optional.empty());
 
         ResponseStatusException ex = assertThrows(
                 ResponseStatusException.class,
-                () -> equipmentService.update(1L, new EquipmentDTO())
+                () -> equipmentService.update(ID_1, new EquipmentDTO())
         );
 
         assertEquals(HttpStatus.NOT_FOUND, ex.getStatusCode());
@@ -40,12 +43,12 @@ class EquipmentServiceTest {
 
     @Test
     void update_whenEmptyBody_throws400() {
-        Equipment existing = new Equipment(1L, "Grinder", "Old");
-        when(equipmentRepository.findById(1L)).thenReturn(Optional.of(existing));
+        Equipment existing = new Equipment(ID_1, "Grinder", "Old");
+        when(equipmentRepository.findById(ID_1)).thenReturn(Optional.of(existing));
 
         ResponseStatusException ex = assertThrows(
                 ResponseStatusException.class,
-                () -> equipmentService.update(1L, new EquipmentDTO())
+                () -> equipmentService.update(ID_1, new EquipmentDTO())
         );
 
         assertEquals(HttpStatus.BAD_REQUEST, ex.getStatusCode());
@@ -53,14 +56,14 @@ class EquipmentServiceTest {
 
     @Test
     void update_whenPartial_updatesOnlyProvidedFields() {
-        Equipment existing = new Equipment(1L, "Grinder", "Old");
-        when(equipmentRepository.findById(1L)).thenReturn(Optional.of(existing));
+        Equipment existing = new Equipment(ID_1, "Grinder", "Old");
+        when(equipmentRepository.findById(ID_1)).thenReturn(Optional.of(existing));
         when(equipmentRepository.save(any())).thenAnswer(invocation -> invocation.getArgument(0));
 
         EquipmentDTO body = new EquipmentDTO();
         body.setName("New Name");
 
-        Equipment updated = equipmentService.update(1L, body);
+        Equipment updated = equipmentService.update(ID_1, body);
 
         assertEquals("New Name", updated.getName());
         assertEquals("Old", updated.getDescription());
@@ -73,14 +76,14 @@ class EquipmentServiceTest {
 
     @Test
     void update_whenDescriptionOnly_updatesOnlyDescription() {
-        Equipment existing = new Equipment(1L, "Grinder", "Old");
-        when(equipmentRepository.findById(1L)).thenReturn(Optional.of(existing));
+        Equipment existing = new Equipment(ID_1, "Grinder", "Old");
+        when(equipmentRepository.findById(ID_1)).thenReturn(Optional.of(existing));
         when(equipmentRepository.save(any())).thenAnswer(invocation -> invocation.getArgument(0));
 
         EquipmentDTO body = new EquipmentDTO();
         body.setDescription("New Desc");
 
-        Equipment updated = equipmentService.update(1L, body);
+        Equipment updated = equipmentService.update(ID_1, body);
 
         assertEquals("Grinder", updated.getName());
         assertEquals("New Desc", updated.getDescription());
@@ -89,15 +92,15 @@ class EquipmentServiceTest {
 
     @Test
     void update_whenBothFieldsProvided_updatesBoth() {
-        Equipment existing = new Equipment(1L, "Grinder", "Old");
-        when(equipmentRepository.findById(1L)).thenReturn(Optional.of(existing));
+        Equipment existing = new Equipment(ID_1, "Grinder", "Old");
+        when(equipmentRepository.findById(ID_1)).thenReturn(Optional.of(existing));
         when(equipmentRepository.save(any())).thenAnswer(invocation -> invocation.getArgument(0));
 
         EquipmentDTO body = new EquipmentDTO();
         body.setName("New Name");
         body.setDescription("New Desc");
 
-        Equipment updated = equipmentService.update(1L, body);
+        Equipment updated = equipmentService.update(ID_1, body);
 
         assertEquals("New Name", updated.getName());
         assertEquals("New Desc", updated.getDescription());
@@ -106,15 +109,15 @@ class EquipmentServiceTest {
 
     @Test
     void update_whenBlankName_throws400() {
-        Equipment existing = new Equipment(1L, "Grinder", "Old");
-        when(equipmentRepository.findById(1L)).thenReturn(Optional.of(existing));
+        Equipment existing = new Equipment(ID_1, "Grinder", "Old");
+        when(equipmentRepository.findById(ID_1)).thenReturn(Optional.of(existing));
 
         EquipmentDTO body = new EquipmentDTO();
         body.setName("   ");
 
         ResponseStatusException ex = assertThrows(
                 ResponseStatusException.class,
-                () -> equipmentService.update(1L, body)
+                () -> equipmentService.update(ID_1, body)
         );
 
         assertEquals(HttpStatus.BAD_REQUEST, ex.getStatusCode());
@@ -122,15 +125,15 @@ class EquipmentServiceTest {
 
     @Test
     void update_whenBlankDescription_throws400() {
-        Equipment existing = new Equipment(1L, "Grinder", "Old");
-        when(equipmentRepository.findById(1L)).thenReturn(Optional.of(existing));
+        Equipment existing = new Equipment(ID_1, "Grinder", "Old");
+        when(equipmentRepository.findById(ID_1)).thenReturn(Optional.of(existing));
 
         EquipmentDTO body = new EquipmentDTO();
         body.setDescription("   ");
 
         ResponseStatusException ex = assertThrows(
                 ResponseStatusException.class,
-                () -> equipmentService.update(1L, body)
+                () -> equipmentService.update(ID_1, body)
         );
 
         assertEquals(HttpStatus.BAD_REQUEST, ex.getStatusCode());
@@ -139,12 +142,12 @@ class EquipmentServiceTest {
     @Test
     void add_savesEquipment() {
         Equipment input = new Equipment(null, "Kettle", "Stovetop");
-        Equipment saved = new Equipment(10L, "Kettle", "Stovetop");
+        Equipment saved = new Equipment(ID_10, "Kettle", "Stovetop");
         when(equipmentRepository.save(input)).thenReturn(saved);
 
         Equipment result = equipmentService.add(input);
 
-        assertEquals(10L, result.getId());
+        assertEquals(ID_10, result.getId());
         assertEquals("Kettle", result.getName());
         assertEquals("Stovetop", result.getDescription());
         verify(equipmentRepository).save(input);
@@ -152,23 +155,23 @@ class EquipmentServiceTest {
 
     @Test
     void delete_whenNotFound_throws404() {
-        when(equipmentRepository.existsById(1L)).thenReturn(false);
+        when(equipmentRepository.existsById(ID_1)).thenReturn(false);
 
         ResponseStatusException ex = assertThrows(
                 ResponseStatusException.class,
-                () -> equipmentService.delete(1L)
+                () -> equipmentService.delete(ID_1)
         );
 
         assertEquals(HttpStatus.NOT_FOUND, ex.getStatusCode());
-        verify(equipmentRepository, never()).deleteById(anyLong());
+        verify(equipmentRepository, never()).deleteById(any(UUID.class));
     }
 
     @Test
     void delete_whenFound_deletes() {
-        when(equipmentRepository.existsById(1L)).thenReturn(true);
+        when(equipmentRepository.existsById(ID_1)).thenReturn(true);
 
-        equipmentService.delete(1L);
+        equipmentService.delete(ID_1);
 
-        verify(equipmentRepository).deleteById(1L);
+        verify(equipmentRepository).deleteById(ID_1);
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -26,7 +27,7 @@ public class EquipmentService {
         return equipmentRepository.save(equipment);
     }
 
-    public void delete(Long id){
+    public void delete(UUID id){
         if(!equipmentRepository.existsById(id)){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Equipment not found");
         }
@@ -34,7 +35,7 @@ public class EquipmentService {
         equipmentRepository.deleteById(id);
     }
 
-    public Equipment update(Long id, EquipmentDTO body){
+    public Equipment update(UUID id, EquipmentDTO body){
         Equipment existing = equipmentRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Equipment not found"));
         if(body.getName()==null && body.getDescription()==null){
