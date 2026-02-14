@@ -208,4 +208,68 @@ class RecipeServiceTest {
         assertEquals(HttpStatus.BAD_REQUEST, ex.getStatusCode());
         verify(recipeRepository, never()).findById(any());
     }
+
+    @Test
+    void create_whenNegativeBrewTime_throws400() {
+        RecipeCreateDTO body = new RecipeCreateDTO();
+        body.setMethodId(METHOD_ID);
+        body.setTitle("Test");
+        body.setBrewTimeSeconds(-10);
+
+        User owner = new User(USER_ID, "p@example.com", "hash", "Patri", "USER", LocalDateTime.now(), LocalDateTime.now());
+        BrewMethods method = new BrewMethods(METHOD_ID, "V60", "Cone");
+
+        when(userRepository.findById(USER_ID)).thenReturn(Optional.of(owner));
+        when(brewMethodsRepository.findById(METHOD_ID)).thenReturn(Optional.of(method));
+
+        ResponseStatusException ex = assertThrows(
+                ResponseStatusException.class,
+                () -> recipeService.create(USER_ID, body)
+        );
+
+        assertEquals(HttpStatus.BAD_REQUEST, ex.getStatusCode());
+        assertEquals("Brew time should not be negative", ex.getReason());
+    }
+
+    @Test
+    void create_whenNegativeTemperature_throws400() {
+        RecipeCreateDTO body = new RecipeCreateDTO();
+        body.setMethodId(METHOD_ID);
+        body.setTitle("Test");
+        body.setWaterTemperatureCelsius(-5);
+
+        User owner = new User(USER_ID, "p@example.com", "hash", "Patri", "USER", LocalDateTime.now(), LocalDateTime.now());
+        BrewMethods method = new BrewMethods(METHOD_ID, "V60", "Cone");
+
+        when(userRepository.findById(USER_ID)).thenReturn(Optional.of(owner));
+        when(brewMethodsRepository.findById(METHOD_ID)).thenReturn(Optional.of(method));
+
+        ResponseStatusException ex = assertThrows(
+                ResponseStatusException.class,
+                () -> recipeService.create(USER_ID, body)
+        );
+
+        assertEquals(HttpStatus.BAD_REQUEST, ex.getStatusCode());
+        assertEquals("Temperature of the water should not be below 0", ex.getReason());
+    }
+
+    @Test
+    void updateRecipe_whenAllFieldsNull_throws400() {
+        User owner = new User(USER_ID, "p@example.com", "hash", "Patri", "USER", LocalDateTime.now(), LocalDateTime.now());
+        Recipe existing = new Recipe();
+        existing.setId(RECIPE_ID);
+        existing.setOwner(owner);
+        existing.setMethod(new BrewMethods(METHOD_ID, "V60", "Cone"));
+        existing.setTitle("Existing");
+
+        when(recipeRepository.findById(RECIPE_ID)).thenReturn(Optional.of(existing));
+
+        ResponseStatusException ex = assertThrows(
+                ResponseStatusException.class,
+                () -> recipeService.updateRecipe(RECIPE_ID, new RecipeUpdateDTO(), USER_ID)
+        );
+
+        assertEquals(HttpStatus.BAD_REQUEST, ex.getStatusCode());
+        assertEquals("At least one field is required for update", ex.getReason());
+    }
 }
