@@ -74,8 +74,7 @@ class RecipeControllerTest {
         when(recipeService.updateRecipe(eq(RECIPE_ID_1), any(), eq(USER_ID)))
                 .thenReturn(recipeResponse(RECIPE_ID_1, "Updated Recipe"));
 
-        mockMvc.perform(patch("/api/recipe/updateRecipe")
-                        .param("id", RECIPE_ID_1.toString())
+        mockMvc.perform(patch("/api/recipe/updateRecipe/" + RECIPE_ID_1)
                         .param("userId", USER_ID.toString())
                         .contentType("application/json")
                         .content("""

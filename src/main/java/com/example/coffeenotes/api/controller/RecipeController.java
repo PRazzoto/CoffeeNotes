@@ -31,8 +31,8 @@ public class RecipeController {
         return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 
-    @PatchMapping("/updateRecipe")
-    public ResponseEntity<RecipeResponseDTO> updateRecipe(@RequestParam UUID id, @RequestBody RecipeUpdateDTO body, @RequestParam UUID userId) {
+    @PatchMapping("/updateRecipe/{id}")
+    public ResponseEntity<RecipeResponseDTO> updateRecipe(@PathVariable UUID id, @RequestBody RecipeUpdateDTO body, @RequestParam UUID userId) {
         RecipeResponseDTO updated = recipeService.updateRecipe(id, body, userId);
         return new ResponseEntity<>(updated, HttpStatus.OK);
     }
