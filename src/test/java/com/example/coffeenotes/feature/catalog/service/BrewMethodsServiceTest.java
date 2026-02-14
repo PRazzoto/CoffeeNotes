@@ -171,7 +171,7 @@ class BrewMethodsServiceTest {
     }
 
     @Test
-    void add_whenBlankDescription_savesBrewMethods() {
+    void add_whenBlankDescription_savesBrewMethod() {
         BrewMethods input = new BrewMethods(null, "French Press", "   ");
         BrewMethods saved = new BrewMethods(ID_10, "French Press", "   ");
         when(brewMethodsRepository.save(input)).thenReturn(saved);
