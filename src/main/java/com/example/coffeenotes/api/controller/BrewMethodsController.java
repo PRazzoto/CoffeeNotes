@@ -24,10 +24,10 @@ public class BrewMethodsController {
     public List<BrewMethodsDTO> allBrewMethods() {
         List<BrewMethods> brewMethods = brewMethodsService.listAllBrewMethods();
         return brewMethods.stream()
-                .map(brewMethods -> {
+                .map(method -> {
                     BrewMethodsDTO dto = new BrewMethodsDTO();
-                    dto.setName(brewMethods.getName());
-                    dto.setDescription(brewMethods.getDescription());
+                    dto.setName(method.getName());
+                    dto.setDescription(method.getDescription());
                     return dto;
                 })
                 .toList();

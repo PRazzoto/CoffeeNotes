@@ -171,6 +171,20 @@ class BrewMethodsServiceTest {
     }
 
     @Test
+    void add_whenBlankDescription_savesBrewMethods() {
+        BrewMethods input = new BrewMethods(null, "French Press", "   ");
+        BrewMethods saved = new BrewMethods(ID_10, "French Press", "   ");
+        when(brewMethodsRepository.save(input)).thenReturn(saved);
+
+        BrewMethods result = brewMethodsService.add(input);
+
+        assertEquals(ID_10, result.getId());
+        assertEquals("French Press", result.getName());
+        assertEquals("   ", result.getDescription());
+        verify(brewMethodsRepository).save(input);
+    }
+
+    @Test
     void delete_whenNotFound_throws404() {
         when(brewMethodsRepository.existsById(ID_1)).thenReturn(false);
 
