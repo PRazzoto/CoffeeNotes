@@ -47,6 +47,14 @@ public class RecipeService {
             }
         }
 
+        if(body.getBrewTimeSeconds() != null && body.getBrewTimeSeconds() < 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Brew time should not be negative");
+        }
+
+        if(body.getWaterTemperatureCelsius() != null && body.getWaterTemperatureCelsius() < 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Temperature of the water should not be below 0");
+        }
+
         Recipe recipe = new Recipe();
         recipe.setOwner(owner);
         recipe.setMethod(method);
@@ -62,11 +70,11 @@ public class RecipeService {
         return toResponseDTO(recipeRepository.save(recipe));
     }
 
-    public List<RecipeResponseDTO> listByUserId(UUID id) {
-        if(id == null) {
+    public List<RecipeResponseDTO> listByUserId(UUID userId) {
+        if(userId == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User id is required.");
         }
-       return recipeRepository.findVisibleByUserId(id)
+       return recipeRepository.findVisibleByUserId(userId)
                .stream()
                .map(this::toResponseDTO)
                .toList();
@@ -74,7 +82,7 @@ public class RecipeService {
 
     public RecipeResponseDTO updateRecipe(UUID id, RecipeUpdateDTO body, UUID userId) {
         if(userId == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "UserId null");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User id is required");
         }
         Recipe existing = recipeRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Recipe not found."));
@@ -87,6 +95,13 @@ public class RecipeService {
 
         if(body == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Request body is required");
+        }
+
+        if(body.getMethodId() == null && body.getTitle() == null && body.getCoffeeAmount() == null 
+                && body.getWaterAmount() == null && body.getGrindSize() == null 
+                && body.getBrewTimeSeconds() == null && body.getWaterTemperatureCelsius() == null 
+                && body.getRating() == null && body.getIsGlobal() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "At least one field is required for update");
         }
 
         if(body.getMethodId() != null) {
@@ -108,7 +123,7 @@ public class RecipeService {
 
         if(body.getBrewTimeSeconds() != null) {
             if(body.getBrewTimeSeconds() < 0) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Brew time should be greater than 0");
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Brew time should not be negative");
             }
             existing.setBrewTimeSeconds(body.getBrewTimeSeconds());
         }
@@ -139,7 +154,7 @@ public class RecipeService {
 
     public void delete(UUID id, UUID userId){
         if(userId == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "UserId null");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User id is required");
         }
         Recipe recipe = recipeRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Recipe not found"));

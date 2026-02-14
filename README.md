@@ -65,7 +65,7 @@ Current endpoints:
 - `DELETE /api/equipment/deleteEquipment/{id}`
 - `GET /api/recipe/getRecipes?userId={userId}`
 - `POST /api/recipe/createRecipe?userId={userId}`
-- `PATCH /api/recipe/updateRecipe?id={id}&userId={userId}`
+- `PATCH /api/recipe/updateRecipe/{id}?userId={userId}`
 - `DELETE /api/recipe/deleteRecipe/{id}?userId={userId}`
 
 Notes:

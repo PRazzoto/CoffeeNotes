@@ -11,12 +11,12 @@ import java.util.UUID;
 
 
 public interface RecipeRepository extends JpaRepository<Recipe, UUID> {
-    @Query(value = """
-        select *
-        from coffeenotes.recipes r
-        where r.deleted_at is null
-          and (r.owner_id = :userId or r.is_global = true)
-        order by r.created_at desc
-        """, nativeQuery = true)
+    @Query("""
+        select r
+        from Recipe r
+        where r.deletedAt is null
+          and (r.owner.id = :userId or r.isGlobal = true)
+        order by r.createdAt desc
+        """)
     List<Recipe> findVisibleByUserId(@Param("userId") UUID userId);
 }
