@@ -21,9 +21,9 @@ public class BrewMethodsController {
     }
 
     @GetMapping("/listAll")
-    public List<BrewMethodsDTO> allBrewMethodss() {
-        List<BrewMethods> brewMethodss = brewMethodsService.listAllBrewMethods();
-        return brewMethodss.stream()
+    public List<BrewMethodsDTO> allBrewMethods() {
+        List<BrewMethods> brewMethods = brewMethodsService.listAllBrewMethods();
+        return brewMethods.stream()
                 .map(brewMethods -> {
                     BrewMethodsDTO dto = new BrewMethodsDTO();
                     dto.setName(brewMethods.getName());
