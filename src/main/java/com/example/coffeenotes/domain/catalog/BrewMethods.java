@@ -9,18 +9,16 @@ import lombok.Setter;
 import java.util.UUID;
 
 @Entity
-@Table(name = "equipment", schema = "coffeenotes")
+@Table(name = "brew_methods", schema = "coffeenotes")
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Equipment {
+public class BrewMethods {
     private @Id
     @GeneratedValue UUID id;
 
     @Column(nullable=false)
     private String name;
     private String description;
-
 }
-
