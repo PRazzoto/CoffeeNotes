@@ -172,6 +172,8 @@ class BrewMethodsServiceTest {
 
     @Test
     void add_whenBlankDescription_savesBrewMethod() {
+        // Note: The add method currently allows blank descriptions, unlike the update method
+        // which validates for blank descriptions. This test documents the current behavior.
         BrewMethods input = new BrewMethods(null, "French Press", "   ");
         BrewMethods saved = new BrewMethods(ID_10, "French Press", "   ");
         when(brewMethodsRepository.save(input)).thenReturn(saved);
