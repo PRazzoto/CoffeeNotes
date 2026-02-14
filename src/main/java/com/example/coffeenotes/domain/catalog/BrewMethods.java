@@ -20,7 +20,7 @@ public class BrewMethods {
     private @Id
     @GeneratedValue UUID id;
 
-    @Column(nullable = false)
+    @Column(nullable=false)
     private String name;
     private String description;
 }
