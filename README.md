@@ -7,6 +7,7 @@ CoffeeNotes is a Spring Boot backend for a notes/recipes app focused on coffee b
 - Runs locally with PostgreSQL via Docker Compose
 - Flyway migrations enabled (Spring Boot 4 + `spring-boot-flyway`)
 - Equipment CRUD endpoints implemented
+- Recipe CRUD endpoints implemented (with soft delete)
 - Equipment IDs migrated to UUID
 - Controller and service tests updated for UUID flow
 
@@ -62,10 +63,15 @@ Current endpoints:
 - `POST /api/equipment/createEquipment`
 - `PUT /api/equipment/editEquipment/{id}`
 - `DELETE /api/equipment/deleteEquipment/{id}`
+- `GET /api/recipe/getRecipes?userId={userId}`
+- `POST /api/recipe/createRecipe?userId={userId}`
+- `PATCH /api/recipe/updateRecipe/{id}?userId={userId}`
+- `DELETE /api/recipe/deleteRecipe/{id}?userId={userId}`
 
 Notes:
 - `{id}` is UUID for update/delete routes.
 - Equipment DTO responses currently expose `name` and `description`.
+- Recipe routes currently receive `userId` as request param (temporary until auth flow).
 
 For implementation details, check:
 
@@ -95,3 +101,9 @@ For implementation details, check:
 - Added `V4__core_domain_schema.sql` with full domain schema
 - Migrated Equipment entity/repository/service/controller IDs to UUID
 - Updated Equipment controller/service tests to UUID
+
+### 2026-02-14
+
+- Implemented Recipe CRUD controller/service flow with DTOs (`create`, `list`, `update`, soft `delete`)
+- Added ownership checks and soft-delete handling in `RecipeService`
+- Added Recipe tests: `RecipeServiceTest` and `RecipeControllerTest`

@@ -44,10 +44,10 @@ public class Recipe {
     @Column(name = "water_temperature_celsius")
     private Integer waterTemperatureCelsius;
 
-    private int rating;
+    private Integer rating;
 
-    @Column(nullable = false)
-    private boolean is_global;
+    @Column(name = "is_global", nullable = false)
+    private boolean isGlobal;
 
     @Column(name = "created_at", nullable = false)
     @CreationTimestamp
@@ -55,4 +55,6 @@ public class Recipe {
     @Column(name = "updated_at", nullable = false)
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+    @Column(name = "deleted_at")
+    private LocalDateTime deletedAt;
 }
