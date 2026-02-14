@@ -51,7 +51,7 @@ public class BrewMethodsService {
             if(body.getDescription().isBlank()){
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Description must not be blank");
             }
-           existing.setDescription(body.getDescription());
+            existing.setDescription(body.getDescription());
         }
         return brewMethodsRepository.save(existing);
     }
