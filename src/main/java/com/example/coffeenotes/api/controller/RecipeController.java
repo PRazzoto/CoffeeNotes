@@ -6,7 +6,10 @@ import com.example.coffeenotes.api.dto.recipe.RecipeUpdateDTO;
 import com.example.coffeenotes.feature.catalog.service.RecipeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.UUID;
@@ -21,26 +24,42 @@ public class RecipeController {
     }
 
     @GetMapping("/getRecipes")
-    public List<RecipeResponseDTO> getRecipes(@RequestParam UUID userId) {
+    public List<RecipeResponseDTO> getRecipes(@AuthenticationPrincipal Jwt jwt) {
+        UUID userId = getUserId(jwt);
         return recipeService.listByUserId(userId);
     }
 
     @PostMapping("/createRecipe")
-    public ResponseEntity<RecipeResponseDTO> createRecipe(@RequestParam UUID userId, @RequestBody RecipeCreateDTO body) {
+    public ResponseEntity<RecipeResponseDTO> createRecipe(@AuthenticationPrincipal Jwt jwt, @RequestBody RecipeCreateDTO body) {
+        UUID userId = getUserId(jwt);
         RecipeResponseDTO created = recipeService.create(userId, body);
         return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 
     @PatchMapping("/updateRecipe/{id}")
-    public ResponseEntity<RecipeResponseDTO> updateRecipe(@PathVariable UUID id, @RequestBody RecipeUpdateDTO body, @RequestParam UUID userId) {
+    public ResponseEntity<RecipeResponseDTO> updateRecipe(@PathVariable UUID id, @RequestBody RecipeUpdateDTO body, @AuthenticationPrincipal Jwt jwt) {
+        UUID userId = getUserId(jwt);
         RecipeResponseDTO updated = recipeService.updateRecipe(id, body, userId);
         return new ResponseEntity<>(updated, HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteRecipe/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable UUID id, @RequestParam UUID userId) {
+    public void delete(@PathVariable UUID id, @AuthenticationPrincipal Jwt jwt) {
+        UUID userId = getUserId(jwt);
         recipeService.delete(id, userId);
     }
+
+    private UUID getUserId(Jwt jwt) {
+        if (jwt == null || jwt.getSubject() == null || jwt.getSubject().isBlank()) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid Token.");
+        }
+        try {
+            return UUID.fromString(jwt.getSubject());
+        } catch (IllegalArgumentException ex) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid Token.");
+        }
+    }
+
 
 }

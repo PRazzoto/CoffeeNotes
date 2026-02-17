@@ -4,10 +4,12 @@ import com.example.coffeenotes.api.controller.EquipmentController;
 import com.example.coffeenotes.feature.auth.controller.AuthController;
 import com.example.coffeenotes.domain.catalog.Equipment;
 import com.example.coffeenotes.domain.catalog.Role;
+import com.example.coffeenotes.feature.auth.dto.AuthLoginResultDTO;
 import com.example.coffeenotes.feature.auth.dto.AuthResponseDTO;
 import com.example.coffeenotes.feature.auth.dto.RegisterReturnDTO;
 import com.example.coffeenotes.feature.auth.service.AuthService;
 import com.example.coffeenotes.feature.catalog.service.EquipmentService;
+import jakarta.servlet.http.Cookie;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
@@ -60,10 +62,11 @@ class SecurityRulesTest {
 
     @Test
     void authLoginEndpoint_withoutToken_isPublic() throws Exception {
-        AuthResponseDTO dto = new AuthResponseDTO();
-        dto.setAccessToken("token");
-        dto.setTokenType("Bearer");
-        dto.setExpiresIn(900L);
+        AuthResponseDTO authResponse = new AuthResponseDTO();
+        authResponse.setAccessToken("token");
+        authResponse.setTokenType("Bearer");
+        authResponse.setExpiresIn(900L);
+        AuthLoginResultDTO dto = new AuthLoginResultDTO(authResponse, "refresh-token");
 
         when(authService.login(any())).thenReturn(dto);
 
@@ -97,5 +100,34 @@ class SecurityRulesTest {
                                 }
                                 """))
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    void authRefreshEndpoint_withoutToken_isPublic() throws Exception {
+        AuthResponseDTO authResponse = new AuthResponseDTO();
+        authResponse.setAccessToken("new-token");
+        authResponse.setTokenType("Bearer");
+        authResponse.setExpiresIn(900L);
+        AuthLoginResultDTO dto = new AuthLoginResultDTO(authResponse, "new-refresh");
+
+        when(authService.refresh(any())).thenReturn(dto);
+
+        mockMvc.perform(post("/api/auth/refresh")
+                        .cookie(new Cookie("refresh_token", "old-refresh")))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void authLogoutEndpoint_withoutJwt_isPublic() throws Exception {
+        mockMvc.perform(post("/api/auth/logout"))
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    void authLogoutEndpoint_withJwt_returns204() throws Exception {
+        mockMvc.perform(post("/api/auth/logout")
+                        .cookie(new Cookie("refresh_token", "refresh-token"))
+                        .with(jwt()))
+                .andExpect(status().isNoContent());
     }
 }

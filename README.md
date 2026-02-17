@@ -8,7 +8,9 @@ CoffeeNotes is a Spring Boot backend for a notes/recipes app focused on coffee b
 - Flyway migrations enabled (Spring Boot 4 + `spring-boot-flyway`)
 - Equipment CRUD endpoints implemented
 - Recipe CRUD endpoints implemented (with soft delete)
+- Recipe endpoints now use authenticated JWT subject instead of `userId` query param
 - Auth register/login flow implemented with JWT access tokens
+- Auth refresh/logout flow implemented with HttpOnly refresh-token cookies
 - Equipment IDs migrated to UUID
 - Controller and service tests updated for UUID flow
 
@@ -66,17 +68,19 @@ Current endpoints:
 - `POST /api/equipment/createEquipment`
 - `PUT /api/equipment/editEquipment/{id}`
 - `DELETE /api/equipment/deleteEquipment/{id}`
-- `GET /api/recipe/getRecipes?userId={uuid}`
-- `POST /api/recipe/createRecipe?userId={uuid}`
-- `PATCH /api/recipe/updateRecipe/{id}?userId={uuid}`
-- `DELETE /api/recipe/deleteRecipe/{id}?userId={uuid}`
+- `GET /api/recipe/getRecipes`
+- `POST /api/recipe/createRecipe`
+- `PATCH /api/recipe/updateRecipe/{id}`
+- `DELETE /api/recipe/deleteRecipe/{id}`
 - `POST /api/auth/register`
 - `POST /api/auth/login`
+- `POST /api/auth/refresh`
+- `POST /api/auth/logout`
 
 Notes:
 - `{id}` is UUID for update/delete routes.
 - Equipment DTO responses currently expose `name` and `description`.
-- Recipe ownership currently uses `userId` query param on recipe endpoints.
+- Recipe endpoints resolve user ownership from JWT `sub` claim.
 - Access token claims include `sub`, `email`, `role`, `iss`, `aud`, `iat`, `exp`.
 
 ## Auth & Security (Current State)
@@ -85,10 +89,14 @@ Notes:
 
 - `POST /api/auth/register`
 - `POST /api/auth/login`
+- `POST /api/auth/refresh`
+- `POST /api/auth/logout`
 - Stateless security with JWT (`SessionCreationPolicy.STATELESS`)
 - Password hashing with `BCryptPasswordEncoder(12)`
 - JWT signing/validation with RSA keys (private/public PEM)
 - Access token TTL: `900` seconds (15 minutes)
+- Refresh token TTL: `14` days
+- Refresh token stored in HttpOnly cookie (`refresh_token`)
 
 ### Register Rules
 
@@ -109,7 +117,8 @@ Notes:
 - Public routes in security config:
   - `/api/auth/register`
   - `/api/auth/login`
-  - `/api/auth/refresh` (permitted; endpoint not implemented yet)
+  - `/api/auth/refresh`
+  - `/api/auth/logout`
 - All other routes require a valid JWT
 
 ### Testing
@@ -166,3 +175,10 @@ For implementation details, check:
 - Added JWT key configuration with issuer/audience validation in decoder
 - Added auth DTOs and service/controller for register and login flows
 - Added migration `V6__auth_refresh_sessions.sql` and refresh session persistence model
+
+### 2026-02-17
+
+- Added `POST /api/auth/refresh` to rotate refresh token and issue a new access token
+- Added `POST /api/auth/logout` to revoke active refresh token and clear the cookie
+- Added `RefreshTokenService` and auth flow tests for refresh/logout behavior
+- Updated Recipe controller and security tests to use authenticated JWT subject (`sub`) instead of passing `userId` query params
