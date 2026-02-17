@@ -18,3 +18,15 @@ spring:
 logging:
   level:
     org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: DEBUG
+
+
+app:
+  security:
+    cors:
+      allowed-origins:
+        - http://localhost:3000
+    jwt:
+      issuer: coffeenotes-api
+      audience: coffeenotes-web
+      private-key-location: file:../secrets/private_key.pem
+      public-key-location: file:../secrets/public_key.pem

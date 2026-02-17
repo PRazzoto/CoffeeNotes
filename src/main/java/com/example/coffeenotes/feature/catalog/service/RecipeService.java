@@ -1,9 +1,9 @@
 package com.example.coffeenotes.feature.catalog.service;
 
 
-import com.example.coffeenotes.api.dto.RecipeCreateDTO;
-import com.example.coffeenotes.api.dto.RecipeResponseDTO;
-import com.example.coffeenotes.api.dto.RecipeUpdateDTO;
+import com.example.coffeenotes.api.dto.recipe.RecipeCreateDTO;
+import com.example.coffeenotes.api.dto.recipe.RecipeResponseDTO;
+import com.example.coffeenotes.api.dto.recipe.RecipeUpdateDTO;
 import com.example.coffeenotes.domain.catalog.BrewMethods;
 import com.example.coffeenotes.domain.catalog.Recipe;
 import com.example.coffeenotes.domain.catalog.User;

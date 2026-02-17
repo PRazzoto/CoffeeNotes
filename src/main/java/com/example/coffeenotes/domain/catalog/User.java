@@ -30,8 +30,9 @@ public class User {
     @Column(name = "display_name", nullable = false)
     private String displayName;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String role;
+    private Role role;
 
 
     @Column(name = "created_at", nullable = false)
