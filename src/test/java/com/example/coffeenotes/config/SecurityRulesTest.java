@@ -118,9 +118,9 @@ class SecurityRulesTest {
     }
 
     @Test
-    void authLogoutEndpoint_withoutJwt_returns401() throws Exception {
+    void authLogoutEndpoint_withoutJwt_isPublic() throws Exception {
         mockMvc.perform(post("/api/auth/logout"))
-                .andExpect(status().isUnauthorized());
+                .andExpect(status().isNoContent());
     }
 
     @Test

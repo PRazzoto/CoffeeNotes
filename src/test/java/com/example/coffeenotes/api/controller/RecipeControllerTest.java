@@ -1,11 +1,15 @@
 package com.example.coffeenotes.api.controller;
 
 import com.example.coffeenotes.api.dto.recipe.RecipeResponseDTO;
+import com.example.coffeenotes.config.SecurityConfig;
 import com.example.coffeenotes.feature.catalog.service.RecipeService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.http.HttpStatus;
+import org.springframework.context.annotation.Import;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.server.ResponseStatusException;
@@ -20,6 +24,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
@@ -28,6 +33,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(RecipeController.class)
+@Import(SecurityConfig.class)
+@AutoConfigureMockMvc(addFilters = true)
 class RecipeControllerTest {
     private static final UUID USER_ID = UUID.fromString("11111111-1111-1111-1111-111111111111");
     private static final UUID RECIPE_ID_1 = UUID.fromString("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa");
@@ -39,6 +46,9 @@ class RecipeControllerTest {
     @MockitoBean
     private RecipeService recipeService;
 
+    @MockitoBean
+    private JwtDecoder jwtDecoder;
+
     @Test
     void getRecipes_returnsDtos() throws Exception {
         when(recipeService.listByUserId(USER_ID)).thenReturn(List.of(
@@ -47,7 +57,7 @@ class RecipeControllerTest {
         ));
 
         mockMvc.perform(get("/api/recipe/getRecipes")
-                        .param("userId", USER_ID.toString()))
+                        .with(jwt().jwt(token -> token.subject(USER_ID.toString()))))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[*].title", containsInAnyOrder("Morning V60", "Weekend AeroPress")));
     }
@@ -57,7 +67,7 @@ class RecipeControllerTest {
         when(recipeService.create(eq(USER_ID), any())).thenReturn(recipeResponse(RECIPE_ID_1, "New Recipe"));
 
         mockMvc.perform(post("/api/recipe/createRecipe")
-                        .param("userId", USER_ID.toString())
+                        .with(jwt().jwt(token -> token.subject(USER_ID.toString())))
                         .contentType("application/json")
                         .content("""
                                 {
@@ -76,7 +86,7 @@ class RecipeControllerTest {
                 .thenReturn(recipeResponse(RECIPE_ID_1, "Updated Recipe"));
 
         mockMvc.perform(patch("/api/recipe/updateRecipe/" + RECIPE_ID_1)
-                        .param("userId", USER_ID.toString())
+                        .with(jwt().jwt(token -> token.subject(USER_ID.toString())))
                         .contentType("application/json")
                         .content("""
                                 {
@@ -90,7 +100,7 @@ class RecipeControllerTest {
     @Test
     void deleteRecipe_returns204() throws Exception {
         mockMvc.perform(delete("/api/recipe/deleteRecipe/" + RECIPE_ID_1)
-                        .param("userId", USER_ID.toString()))
+                        .with(jwt().jwt(token -> token.subject(USER_ID.toString()))))
                 .andExpect(status().isNoContent());
 
         verify(recipeService).delete(RECIPE_ID_1, USER_ID);
@@ -102,7 +112,7 @@ class RecipeControllerTest {
                 .thenThrow(new ResponseStatusException(HttpStatus.BAD_REQUEST, "invalid"));
 
         mockMvc.perform(post("/api/recipe/createRecipe")
-                        .param("userId", USER_ID.toString())
+                        .with(jwt().jwt(token -> token.subject(USER_ID.toString())))
                         .contentType("application/json")
                         .content("""
                                 {
@@ -118,14 +128,21 @@ class RecipeControllerTest {
                 .when(recipeService).delete(RECIPE_ID_2, USER_ID);
 
         mockMvc.perform(delete("/api/recipe/deleteRecipe/" + RECIPE_ID_2)
-                        .param("userId", USER_ID.toString()))
+                        .with(jwt().jwt(token -> token.subject(USER_ID.toString()))))
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    void getRecipes_whenUserIdMissing_returns400() throws Exception {
+    void getRecipes_whenJwtMissing_returns401() throws Exception {
         mockMvc.perform(get("/api/recipe/getRecipes"))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void getRecipes_whenTokenSubjectInvalid_returns401() throws Exception {
+        mockMvc.perform(get("/api/recipe/getRecipes")
+                        .with(jwt().jwt(token -> token.subject("not-a-uuid"))))
+                .andExpect(status().isUnauthorized());
     }
 
     private RecipeResponseDTO recipeResponse(UUID id, String title) {
