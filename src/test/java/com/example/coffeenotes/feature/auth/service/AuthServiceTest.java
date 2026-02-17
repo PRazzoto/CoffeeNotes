@@ -1,7 +1,9 @@
 package com.example.coffeenotes.feature.auth.service;
 
+import com.example.coffeenotes.domain.auth.AuthRefreshSession;
 import com.example.coffeenotes.domain.catalog.Role;
 import com.example.coffeenotes.domain.catalog.User;
+import com.example.coffeenotes.feature.auth.dto.AuthLoginResultDTO;
 import com.example.coffeenotes.feature.auth.dto.AuthResponseDTO;
 import com.example.coffeenotes.feature.auth.dto.LoginRequestDTO;
 import com.example.coffeenotes.feature.auth.dto.RegisterRequestDTO;
@@ -23,14 +25,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -52,6 +58,9 @@ class AuthServiceTest {
 
     @Mock
     private JwtTokenService jwtTokenService;
+
+    @Mock
+    private RefreshTokenService refreshTokenService;
 
     @InjectMocks
     private AuthService authService;
@@ -223,6 +232,8 @@ class AuthServiceTest {
         when(userRepository.findByEmail("test@coffee.com")).thenReturn(Optional.of(user));
         when(jwtTokenService.generateAccessToken(user)).thenReturn("jwt-token");
         when(jwtTokenService.getAccessTtlSeconds()).thenReturn(900L);
+        when(refreshTokenService.generateRawToken()).thenReturn("refresh-token");
+        when(refreshTokenService.hashToken("refresh-token")).thenReturn("refresh-hash");
 
         authService.login(body);
 
@@ -251,12 +262,161 @@ class AuthServiceTest {
         when(userRepository.findByEmail("test@coffee.com")).thenReturn(Optional.of(user));
         when(jwtTokenService.generateAccessToken(user)).thenReturn("jwt-token");
         when(jwtTokenService.getAccessTtlSeconds()).thenReturn(900L);
+        when(refreshTokenService.generateRawToken()).thenReturn("refresh-token");
+        when(refreshTokenService.hashToken("refresh-token")).thenReturn("refresh-hash");
 
-        AuthResponseDTO result = authService.login(body);
+        AuthLoginResultDTO result = authService.login(body);
+        AuthResponseDTO response = result.getAuthResponse();
 
-        assertEquals("jwt-token", result.getAccessToken());
-        assertEquals("Bearer", result.getTokenType());
-        assertEquals(900L, result.getExpiresIn());
+        assertEquals("jwt-token", response.getAccessToken());
+        assertEquals("Bearer", response.getTokenType());
+        assertEquals(900L, response.getExpiresIn());
+        assertEquals("refresh-token", result.getRefreshToken());
+    }
+
+    @Test
+    void refresh_whenTokenMissing_throws401() {
+        ResponseStatusException ex = assertThrows(
+                ResponseStatusException.class,
+                () -> authService.refresh(null)
+        );
+        assertEquals(HttpStatus.UNAUTHORIZED, ex.getStatusCode());
+        verifyNoInteractions(authRefreshSessionRepository);
+    }
+
+    @Test
+    void refresh_whenTokenNotFound_throws401() {
+        when(refreshTokenService.hashToken("raw-token")).thenReturn("old-hash");
+        when(authRefreshSessionRepository.findByTokenHash("old-hash")).thenReturn(Optional.empty());
+
+        ResponseStatusException ex = assertThrows(
+                ResponseStatusException.class,
+                () -> authService.refresh("raw-token")
+        );
+        assertEquals(HttpStatus.UNAUTHORIZED, ex.getStatusCode());
+    }
+
+    @Test
+    void refresh_whenSessionRevoked_throws401() {
+        AuthRefreshSession session = new AuthRefreshSession();
+        session.setRevokedAt(LocalDateTime.now().minusMinutes(1));
+        session.setExpiresAt(LocalDateTime.now().plusDays(1));
+
+        when(refreshTokenService.hashToken("raw-token")).thenReturn("old-hash");
+        when(authRefreshSessionRepository.findByTokenHash("old-hash")).thenReturn(Optional.of(session));
+
+        ResponseStatusException ex = assertThrows(
+                ResponseStatusException.class,
+                () -> authService.refresh("raw-token")
+        );
+        assertEquals(HttpStatus.UNAUTHORIZED, ex.getStatusCode());
+    }
+
+    @Test
+    void refresh_whenSessionExpired_throws401() {
+        AuthRefreshSession session = new AuthRefreshSession();
+        session.setRevokedAt(null);
+        session.setExpiresAt(LocalDateTime.now().minusSeconds(1));
+
+        when(refreshTokenService.hashToken("raw-token")).thenReturn("old-hash");
+        when(authRefreshSessionRepository.findByTokenHash("old-hash")).thenReturn(Optional.of(session));
+
+        ResponseStatusException ex = assertThrows(
+                ResponseStatusException.class,
+                () -> authService.refresh("raw-token")
+        );
+        assertEquals(HttpStatus.UNAUTHORIZED, ex.getStatusCode());
+    }
+
+    @Test
+    void refresh_whenValid_rotatesSessionAndReturnsNewTokens() {
+        User user = new User(
+                USER_ID,
+                "test@coffee.com",
+                "hashed",
+                "Patri",
+                Role.USER,
+                LocalDateTime.now(),
+                LocalDateTime.now()
+        );
+
+        AuthRefreshSession oldSession = new AuthRefreshSession();
+        oldSession.setUser(user);
+        oldSession.setTokenHash("old-hash");
+        oldSession.setCreatedAt(LocalDateTime.now().minusDays(1));
+        oldSession.setExpiresAt(LocalDateTime.now().plusDays(1));
+        oldSession.setRevokedAt(null);
+
+        when(refreshTokenService.hashToken("old-raw")).thenReturn("old-hash");
+        when(authRefreshSessionRepository.findByTokenHash("old-hash")).thenReturn(Optional.of(oldSession));
+        when(refreshTokenService.generateRawToken()).thenReturn("new-raw");
+        when(refreshTokenService.hashToken("new-raw")).thenReturn("new-hash");
+        when(jwtTokenService.generateAccessToken(user)).thenReturn("jwt-token");
+        when(jwtTokenService.getAccessTtlSeconds()).thenReturn(900L);
+
+        AuthLoginResultDTO result = authService.refresh("old-raw");
+
+        assertEquals("new-raw", result.getRefreshToken());
+        assertEquals("jwt-token", result.getAuthResponse().getAccessToken());
+        assertEquals("Bearer", result.getAuthResponse().getTokenType());
+        assertEquals(900L, result.getAuthResponse().getExpiresIn());
+
+        ArgumentCaptor<AuthRefreshSession> sessionCaptor = ArgumentCaptor.forClass(AuthRefreshSession.class);
+        verify(authRefreshSessionRepository, times(2)).save(sessionCaptor.capture());
+
+        List<AuthRefreshSession> saved = sessionCaptor.getAllValues();
+        AuthRefreshSession revoked = saved.get(0);
+        AuthRefreshSession rotated = saved.get(1);
+
+        assertEquals("old-hash", revoked.getTokenHash());
+        assertEquals(user, revoked.getUser());
+        assertEquals("new-hash", rotated.getTokenHash());
+        assertEquals(user, rotated.getUser());
+        assertNull(rotated.getRevokedAt());
+        assertEquals(rotated.getCreatedAt().plusDays(14), rotated.getExpiresAt());
+    }
+
+    @Test
+    void logout_whenTokenMissing_doesNothing() {
+        authService.logout(" ");
+        verifyNoInteractions(authRefreshSessionRepository);
+    }
+
+    @Test
+    void logout_whenTokenNotFound_doesNothing() {
+        when(refreshTokenService.hashToken("raw-token")).thenReturn("hash");
+        when(authRefreshSessionRepository.findByTokenHash("hash")).thenReturn(Optional.empty());
+
+        authService.logout("raw-token");
+
+        verify(authRefreshSessionRepository).findByTokenHash("hash");
+        verify(authRefreshSessionRepository, never()).save(any(AuthRefreshSession.class));
+    }
+
+    @Test
+    void logout_whenSessionActive_revokesSession() {
+        AuthRefreshSession session = new AuthRefreshSession();
+        session.setRevokedAt(null);
+
+        when(refreshTokenService.hashToken("raw-token")).thenReturn("hash");
+        when(authRefreshSessionRepository.findByTokenHash("hash")).thenReturn(Optional.of(session));
+
+        authService.logout("raw-token");
+
+        verify(authRefreshSessionRepository).save(session);
+    }
+
+    @Test
+    void logout_whenSessionAlreadyRevoked_doesNotSave() {
+        AuthRefreshSession session = new AuthRefreshSession();
+        session.setRevokedAt(LocalDateTime.now().minusMinutes(1));
+
+        when(refreshTokenService.hashToken("raw-token")).thenReturn("hash");
+        when(authRefreshSessionRepository.findByTokenHash("hash")).thenReturn(Optional.of(session));
+
+        authService.logout("raw-token");
+
+        verify(authRefreshSessionRepository, never()).save(any(AuthRefreshSession.class));
     }
 
     private RegisterRequestDTO registerRequest(String email, String password, String displayName) {
