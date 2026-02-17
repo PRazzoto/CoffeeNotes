@@ -15,6 +15,8 @@ import java.time.Duration;
 @RequestMapping("/api/auth")
 public class AuthController {
 
+    private static final long REFRESH_COOKIE_MAX_AGE_DAYS = 14;
+
     @Value("${app.security.cookie.secure:false}")
     private boolean cookieSecure;
 
@@ -33,13 +35,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginRequestDTO login) {
         AuthLoginResultDTO dto = authService.login(login);
-        ResponseCookie refreshCookie = ResponseCookie.from("refresh_token", dto.getRefreshToken())
-                .httpOnly(true)
-                .secure(cookieSecure)
-                .path("/api/auth")
-                .sameSite("Lax")
-                .maxAge(Duration.ofDays(14))
-                .build();
+        ResponseCookie refreshCookie = buildRefreshCookie(dto.getRefreshToken());
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, refreshCookie.toString())
@@ -49,13 +45,7 @@ public class AuthController {
     @PostMapping("/refresh")
     public ResponseEntity<AuthResponseDTO> refresh(@CookieValue(name = "refresh_token", required = false) String refreshToken) {
         AuthLoginResultDTO request = authService.refresh(refreshToken);
-        ResponseCookie refreshCookie = ResponseCookie.from("refresh_token", request.getRefreshToken())
-                .httpOnly(true)
-                .secure(cookieSecure)
-                .path("/api/auth")
-                .sameSite("Lax")
-                .maxAge(Duration.ofDays(14))
-                .build();
+        ResponseCookie refreshCookie = buildRefreshCookie(request.getRefreshToken());
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, refreshCookie.toString())
@@ -63,19 +53,26 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<Void> logout(@CookieValue(name = "refresh_token", required = false) String refreshToken) {
         authService.logout(refreshToken);
-        ResponseCookie clearCookie = ResponseCookie.from("refresh_token","")
+        ResponseCookie clearCookie = buildRefreshCookie("", 0);
+
+        return ResponseEntity.noContent()
+                .header(HttpHeaders.SET_COOKIE, clearCookie.toString())
+                .build();
+    }
+
+    private ResponseCookie buildRefreshCookie(String value) {
+        return buildRefreshCookie(value, REFRESH_COOKIE_MAX_AGE_DAYS);
+    }
+
+    private ResponseCookie buildRefreshCookie(String value, long maxAgeDays) {
+        return ResponseCookie.from("refresh_token", value)
                 .httpOnly(true)
                 .secure(cookieSecure)
                 .path("/api/auth")
                 .sameSite("Lax")
-                .maxAge(0)
-                .build();
-
-        return ResponseEntity.noContent()
-                .header(HttpHeaders.SET_COOKIE, clearCookie.toString())
+                .maxAge(Duration.ofDays(maxAgeDays))
                 .build();
     }
 }

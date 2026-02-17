@@ -31,4 +31,4 @@ app:
       private-key-location: file:../secrets/private_key.pem
       public-key-location: file:../secrets/public_key.pem
     cookie:
-      secure: false
+      secure: true

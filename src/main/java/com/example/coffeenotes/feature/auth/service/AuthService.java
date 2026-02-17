@@ -136,7 +136,7 @@ public class AuthService {
         }
 
         String hashed = refreshTokenService.hashToken(refreshToken);
-        AuthRefreshSession session = authRefreshSessionRepository.findByTokenHash(hashed)
+        AuthRefreshSession session = authRefreshSessionRepository.findByTokenHashWithLock(hashed)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid Refresh Token."));
 
         if(session.getRevokedAt() != null) {

@@ -51,12 +51,12 @@ public class RecipeController {
     }
 
     private UUID getUserId(Jwt jwt) {
-        if(jwt == null || jwt.getSubject()== null ||jwt.getSubject().isBlank()) {
+        if (jwt == null || jwt.getSubject() == null || jwt.getSubject().isBlank()) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid Token.");
         }
         try {
             return UUID.fromString(jwt.getSubject());
-        } catch(IllegalArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid Token.");
         }
     }
