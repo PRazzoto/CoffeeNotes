@@ -6,8 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AuthLoginResultDTO {
-    AuthResponseDTO authResponse;
-    String refreshToken;
+    private AuthResponseDTO authResponse;
+    private String refreshToken;
 
     public AuthLoginResultDTO(AuthResponseDTO response, String refreshToken) {
         this.authResponse = response;

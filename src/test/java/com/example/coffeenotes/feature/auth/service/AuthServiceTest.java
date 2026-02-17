@@ -287,7 +287,7 @@ class AuthServiceTest {
     @Test
     void refresh_whenTokenNotFound_throws401() {
         when(refreshTokenService.hashToken("raw-token")).thenReturn("old-hash");
-        when(authRefreshSessionRepository.findByTokenHash("old-hash")).thenReturn(Optional.empty());
+        when(authRefreshSessionRepository.findByTokenHashWithLock("old-hash")).thenReturn(Optional.empty());
 
         ResponseStatusException ex = assertThrows(
                 ResponseStatusException.class,
@@ -303,7 +303,7 @@ class AuthServiceTest {
         session.setExpiresAt(LocalDateTime.now().plusDays(1));
 
         when(refreshTokenService.hashToken("raw-token")).thenReturn("old-hash");
-        when(authRefreshSessionRepository.findByTokenHash("old-hash")).thenReturn(Optional.of(session));
+        when(authRefreshSessionRepository.findByTokenHashWithLock("old-hash")).thenReturn(Optional.of(session));
 
         ResponseStatusException ex = assertThrows(
                 ResponseStatusException.class,
@@ -319,7 +319,7 @@ class AuthServiceTest {
         session.setExpiresAt(LocalDateTime.now().minusSeconds(1));
 
         when(refreshTokenService.hashToken("raw-token")).thenReturn("old-hash");
-        when(authRefreshSessionRepository.findByTokenHash("old-hash")).thenReturn(Optional.of(session));
+        when(authRefreshSessionRepository.findByTokenHashWithLock("old-hash")).thenReturn(Optional.of(session));
 
         ResponseStatusException ex = assertThrows(
                 ResponseStatusException.class,
@@ -348,7 +348,7 @@ class AuthServiceTest {
         oldSession.setRevokedAt(null);
 
         when(refreshTokenService.hashToken("old-raw")).thenReturn("old-hash");
-        when(authRefreshSessionRepository.findByTokenHash("old-hash")).thenReturn(Optional.of(oldSession));
+        when(authRefreshSessionRepository.findByTokenHashWithLock("old-hash")).thenReturn(Optional.of(oldSession));
         when(refreshTokenService.generateRawToken()).thenReturn("new-raw");
         when(refreshTokenService.hashToken("new-raw")).thenReturn("new-hash");
         when(jwtTokenService.generateAccessToken(user)).thenReturn("jwt-token");
