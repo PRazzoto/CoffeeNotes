@@ -1,6 +1,6 @@
 package com.example.coffeenotes.api.controller;
 
-import com.example.coffeenotes.api.dto.RecipeResponseDTO;
+import com.example.coffeenotes.api.dto.recipe.RecipeResponseDTO;
 import com.example.coffeenotes.feature.catalog.service.RecipeService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +46,8 @@ class RecipeControllerTest {
                 recipeResponse(RECIPE_ID_2, "Weekend AeroPress")
         ));
 
-        mockMvc.perform(get("/api/recipe/getRecipes").param("userId", USER_ID.toString()))
+        mockMvc.perform(get("/api/recipe/getRecipes")
+                        .param("userId", USER_ID.toString()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[*].title", containsInAnyOrder("Morning V60", "Weekend AeroPress")));
     }
@@ -119,6 +120,12 @@ class RecipeControllerTest {
         mockMvc.perform(delete("/api/recipe/deleteRecipe/" + RECIPE_ID_2)
                         .param("userId", USER_ID.toString()))
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void getRecipes_whenUserIdMissing_returns400() throws Exception {
+        mockMvc.perform(get("/api/recipe/getRecipes"))
+                .andExpect(status().isBadRequest());
     }
 
     private RecipeResponseDTO recipeResponse(UUID id, String title) {

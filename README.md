@@ -8,6 +8,7 @@ CoffeeNotes is a Spring Boot backend for a notes/recipes app focused on coffee b
 - Flyway migrations enabled (Spring Boot 4 + `spring-boot-flyway`)
 - Equipment CRUD endpoints implemented
 - Recipe CRUD endpoints implemented (with soft delete)
+- Auth register/login flow implemented with JWT access tokens
 - Equipment IDs migrated to UUID
 - Controller and service tests updated for UUID flow
 
@@ -54,6 +55,8 @@ The server runs on `http://localhost:8080` by default.
 - Current migration set:
   - `V1`..`V3`: initial equipment setup
   - `V4`: core domain schema (`users`, `brew_methods`, `recipes`, `recipe_water_pours`, `recipe_equipment`, `favorites`, `media_assets`) and UUID strategy alignment
+  - `V5`: description columns updated to `VARCHAR(255)`
+  - `V6`: auth refresh sessions table (`auth_refresh_sessions`)
 
 ## API (WIP)
 
@@ -63,15 +66,64 @@ Current endpoints:
 - `POST /api/equipment/createEquipment`
 - `PUT /api/equipment/editEquipment/{id}`
 - `DELETE /api/equipment/deleteEquipment/{id}`
-- `GET /api/recipe/getRecipes?userId={userId}`
-- `POST /api/recipe/createRecipe?userId={userId}`
-- `PATCH /api/recipe/updateRecipe/{id}?userId={userId}`
-- `DELETE /api/recipe/deleteRecipe/{id}?userId={userId}`
+- `GET /api/recipe/getRecipes?userId={uuid}`
+- `POST /api/recipe/createRecipe?userId={uuid}`
+- `PATCH /api/recipe/updateRecipe/{id}?userId={uuid}`
+- `DELETE /api/recipe/deleteRecipe/{id}?userId={uuid}`
+- `POST /api/auth/register`
+- `POST /api/auth/login`
 
 Notes:
 - `{id}` is UUID for update/delete routes.
 - Equipment DTO responses currently expose `name` and `description`.
-- Recipe routes currently receive `userId` as request param (temporary until auth flow).
+- Recipe ownership currently uses `userId` query param on recipe endpoints.
+- Access token claims include `sub`, `email`, `role`, `iss`, `aud`, `iat`, `exp`.
+
+## Auth & Security (Current State)
+
+### Implemented
+
+- `POST /api/auth/register`
+- `POST /api/auth/login`
+- Stateless security with JWT (`SessionCreationPolicy.STATELESS`)
+- Password hashing with `BCryptPasswordEncoder(12)`
+- JWT signing/validation with RSA keys (private/public PEM)
+- Access token TTL: `900` seconds (15 minutes)
+
+### Register Rules
+
+- Required fields: `email`, `password`, `displayName`
+- Duplicate email returns `409 CONFLICT`
+- Email is normalized (`trim + lowercase`) before persistence
+- Password is validated and then hashed
+
+### Login Rules
+
+- Required fields: `email`, `password`
+- Credentials validated through `AuthenticationManager`
+- Invalid credentials return `401 UNAUTHORIZED`
+- Success returns `accessToken`, `tokenType` (`Bearer`), and `expiresIn`
+
+### Route Protection
+
+- Public routes in security config:
+  - `/api/auth/register`
+  - `/api/auth/login`
+  - `/api/auth/refresh` (permitted; endpoint not implemented yet)
+- All other routes require a valid JWT
+
+### Testing
+
+- Windows: `.\mvnw.cmd test`
+- macOS/Linux: `./mvnw test`
+
+### Insomnia Tip
+
+If `POST /api/auth/register` unexpectedly returns `401`, check:
+
+- request-level auth is `No Auth`
+- workspace/collection-level auth is `No Auth`
+- there is no `Authorization` header inherited by the request
 
 For implementation details, check:
 
@@ -107,3 +159,10 @@ For implementation details, check:
 - Implemented Recipe CRUD controller/service flow with DTOs (`create`, `list`, `update`, soft `delete`)
 - Added ownership checks and soft-delete handling in `RecipeService`
 - Added Recipe tests: `RecipeServiceTest` and `RecipeControllerTest`
+
+### 2026-02-16
+
+- Added auth foundation: `Role` enum, `CustomUserDetailsService`, JWT token service, security configuration
+- Added JWT key configuration with issuer/audience validation in decoder
+- Added auth DTOs and service/controller for register and login flows
+- Added migration `V6__auth_refresh_sessions.sql` and refresh session persistence model

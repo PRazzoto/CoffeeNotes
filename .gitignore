@@ -32,6 +32,9 @@ credentials.*
 secret.*
 secrets.*
 *.secret
+/secrets/
+**/secrets/
+../secrets/
 
 *.pem
 *.key

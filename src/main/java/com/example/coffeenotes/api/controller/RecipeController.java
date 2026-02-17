@@ -1,8 +1,8 @@
 package com.example.coffeenotes.api.controller;
 
-import com.example.coffeenotes.api.dto.RecipeCreateDTO;
-import com.example.coffeenotes.api.dto.RecipeResponseDTO;
-import com.example.coffeenotes.api.dto.RecipeUpdateDTO;
+import com.example.coffeenotes.api.dto.recipe.RecipeCreateDTO;
+import com.example.coffeenotes.api.dto.recipe.RecipeResponseDTO;
+import com.example.coffeenotes.api.dto.recipe.RecipeUpdateDTO;
 import com.example.coffeenotes.feature.catalog.service.RecipeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
