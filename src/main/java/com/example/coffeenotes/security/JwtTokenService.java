@@ -1,6 +1,6 @@
 package com.example.coffeenotes.security;
 
-import com.example.coffeenotes.domain.catalog.User;
+import com.example.coffeenotes.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm;

@@ -1,6 +1,6 @@
 package com.example.coffeenotes.feature.catalog.service;
 
-import com.example.coffeenotes.api.dto.BrewMethodsDTO;
+import com.example.coffeenotes.api.dto.catalog.BrewMethodsDTO;
 import com.example.coffeenotes.domain.catalog.BrewMethods;
 import com.example.coffeenotes.feature.catalog.repository.BrewMethodsRepository;
 import lombok.AllArgsConstructor;

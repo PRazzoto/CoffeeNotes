@@ -1,7 +1,7 @@
 package com.example.coffeenotes.domain.auth;
 
 
-import com.example.coffeenotes.domain.catalog.User;
+import com.example.coffeenotes.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

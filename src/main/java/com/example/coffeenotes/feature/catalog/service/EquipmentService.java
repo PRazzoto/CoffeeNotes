@@ -1,6 +1,6 @@
 package com.example.coffeenotes.feature.catalog.service;
 
-import com.example.coffeenotes.api.dto.EquipmentDTO;
+import com.example.coffeenotes.api.dto.catalog.EquipmentDTO;
 import com.example.coffeenotes.domain.catalog.Equipment;
 import com.example.coffeenotes.feature.catalog.repository.EquipmentRepository;
 import lombok.AllArgsConstructor;

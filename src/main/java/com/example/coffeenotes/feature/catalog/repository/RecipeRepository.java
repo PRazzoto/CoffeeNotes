@@ -19,4 +19,5 @@ public interface RecipeRepository extends JpaRepository<Recipe, UUID> {
         order by r.createdAt desc
         """)
     List<Recipe> findVisibleByUserId(@Param("userId") UUID userId);
+     void deleteByOwner_Id(UUID ownerId);
 }

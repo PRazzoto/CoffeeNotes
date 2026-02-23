@@ -2,12 +2,13 @@ package com.example.coffeenotes.feature.auth.service;
 
 import com.example.coffeenotes.domain.auth.AuthRefreshSession;
 import com.example.coffeenotes.domain.catalog.Role;
-import com.example.coffeenotes.domain.catalog.User;
+import com.example.coffeenotes.domain.user.User;
 import com.example.coffeenotes.feature.auth.dto.*;
 import com.example.coffeenotes.feature.auth.repository.AuthRefreshSessionRepository;
-import com.example.coffeenotes.feature.catalog.repository.UserRepository;
+import com.example.coffeenotes.feature.user.repository.UserRepository;
 import com.example.coffeenotes.security.JwtTokenService;
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,6 +21,7 @@ import java.time.LocalDateTime;
 import java.util.regex.Pattern;
 
 @Service
+@AllArgsConstructor
 public class AuthService {
     private static final long REFRESH_TTL =14; // 14 days
     private final AuthRefreshSessionRepository authRefreshSessionRepository;
@@ -28,15 +30,6 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenService jwtTokenService;
     private final RefreshTokenService refreshTokenService;
-
-    public AuthService(AuthRefreshSessionRepository authRefreshSessionRepository, UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JwtTokenService jwtTokenService, RefreshTokenService refreshTokenService) {
-        this.authRefreshSessionRepository = authRefreshSessionRepository;
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.authenticationManager = authenticationManager;
-        this.jwtTokenService = jwtTokenService;
-        this.refreshTokenService = refreshTokenService;
-    }
 
     public RegisterReturnDTO register(RegisterRequestDTO registerRequest) {
         if(registerRequest == null) {

@@ -9,6 +9,7 @@ CoffeeNotes is a Spring Boot backend for a notes/recipes app focused on coffee b
 - Equipment CRUD endpoints implemented
 - Recipe CRUD endpoints implemented (with soft delete)
 - Recipe endpoints now use authenticated JWT subject instead of `userId` query param
+- User profile/account endpoints implemented (`get`, `update display name`, `change password`, `delete account`)
 - Auth register/login flow implemented with JWT access tokens
 - Auth refresh/logout flow implemented with HttpOnly refresh-token cookies
 - Equipment IDs migrated to UUID
@@ -76,11 +77,16 @@ Current endpoints:
 - `POST /api/auth/login`
 - `POST /api/auth/refresh`
 - `POST /api/auth/logout`
+- `GET /api/user/getUser`
+- `PATCH /api/user/updateUser`
+- `PATCH /api/user/updatePassword`
+- `DELETE /api/user/deleteUser`
 
 Notes:
 - `{id}` is UUID for update/delete routes.
 - Equipment DTO responses currently expose `name` and `description`.
 - Recipe endpoints resolve user ownership from JWT `sub` claim.
+- User endpoints resolve account identity from JWT `sub` claim.
 - Access token claims include `sub`, `email`, `role`, `iss`, `aud`, `iat`, `exp`.
 
 ## Auth & Security (Current State)
@@ -91,12 +97,18 @@ Notes:
 - `POST /api/auth/login`
 - `POST /api/auth/refresh`
 - `POST /api/auth/logout`
+- `GET /api/user/getUser`
+- `PATCH /api/user/updateUser`
+- `PATCH /api/user/updatePassword`
+- `DELETE /api/user/deleteUser`
 - Stateless security with JWT (`SessionCreationPolicy.STATELESS`)
 - Password hashing with `BCryptPasswordEncoder(12)`
 - JWT signing/validation with RSA keys (private/public PEM)
 - Access token TTL: `900` seconds (15 minutes)
 - Refresh token TTL: `14` days
 - Refresh token stored in HttpOnly cookie (`refresh_token`)
+- Password change revokes active refresh sessions for the current user
+- Password change and account deletion clear refresh-token cookie in response
 
 ### Register Rules
 
@@ -138,6 +150,7 @@ For implementation details, check:
 
 - `src/main/java/com/example/coffeenotes/api/controller`
 - `src/main/java/com/example/coffeenotes/feature/catalog/service`
+- `src/main/java/com/example/coffeenotes/feature/user/service`
 - `src/test/java/com/example/coffeenotes`
 
 ## Project Notes (Blog)
@@ -182,3 +195,9 @@ For implementation details, check:
 - Added `POST /api/auth/logout` to revoke active refresh token and clear the cookie
 - Added `RefreshTokenService` and auth flow tests for refresh/logout behavior
 - Updated Recipe controller and security tests to use authenticated JWT subject (`sub`) instead of passing `userId` query params
+
+### 2026-02-23
+
+- Added user account endpoints for current user profile retrieval, display-name update, password change, and account deletion
+- Added password-change revocation flow for active refresh sessions
+- Added `UserControllerTest` and `UserServiceTest` coverage for user endpoint/service behavior

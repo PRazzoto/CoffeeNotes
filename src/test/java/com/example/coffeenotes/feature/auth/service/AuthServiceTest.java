@@ -2,14 +2,14 @@ package com.example.coffeenotes.feature.auth.service;
 
 import com.example.coffeenotes.domain.auth.AuthRefreshSession;
 import com.example.coffeenotes.domain.catalog.Role;
-import com.example.coffeenotes.domain.catalog.User;
+import com.example.coffeenotes.domain.user.User;
 import com.example.coffeenotes.feature.auth.dto.AuthLoginResultDTO;
 import com.example.coffeenotes.feature.auth.dto.AuthResponseDTO;
 import com.example.coffeenotes.feature.auth.dto.LoginRequestDTO;
 import com.example.coffeenotes.feature.auth.dto.RegisterRequestDTO;
 import com.example.coffeenotes.feature.auth.dto.RegisterReturnDTO;
 import com.example.coffeenotes.feature.auth.repository.AuthRefreshSessionRepository;
-import com.example.coffeenotes.feature.catalog.repository.UserRepository;
+import com.example.coffeenotes.feature.user.repository.UserRepository;
 import com.example.coffeenotes.security.JwtTokenService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
