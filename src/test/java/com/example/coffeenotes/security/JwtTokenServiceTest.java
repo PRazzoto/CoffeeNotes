@@ -1,7 +1,7 @@
 package com.example.coffeenotes.security;
 
 import com.example.coffeenotes.domain.catalog.Role;
-import com.example.coffeenotes.domain.catalog.User;
+import com.example.coffeenotes.domain.user.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;

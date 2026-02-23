@@ -1,5 +1,6 @@
-package com.example.coffeenotes.domain.catalog;
+package com.example.coffeenotes.domain.user;
 
+import com.example.coffeenotes.domain.catalog.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

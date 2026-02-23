@@ -1,8 +1,8 @@
 package com.example.coffeenotes.security;
 
 
-import com.example.coffeenotes.domain.catalog.User;
-import com.example.coffeenotes.feature.catalog.repository.UserRepository;
+import com.example.coffeenotes.domain.user.User;
+import com.example.coffeenotes.feature.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

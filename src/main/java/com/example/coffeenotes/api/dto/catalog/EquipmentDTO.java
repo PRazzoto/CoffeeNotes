@@ -1,4 +1,4 @@
-package com.example.coffeenotes.api.dto;
+package com.example.coffeenotes.api.dto.catalog;
 
 import lombok.Getter;
 import lombok.Setter;

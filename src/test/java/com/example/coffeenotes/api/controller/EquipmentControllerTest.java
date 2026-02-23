@@ -1,6 +1,5 @@
 package com.example.coffeenotes.api.controller;
 
-import com.example.coffeenotes.api.dto.EquipmentDTO;
 import com.example.coffeenotes.domain.catalog.Equipment;
 import com.example.coffeenotes.feature.catalog.service.EquipmentService;
 import org.junit.jupiter.api.Test;

@@ -1,5 +1,6 @@
 package com.example.coffeenotes.domain.catalog;
 
+import com.example.coffeenotes.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
