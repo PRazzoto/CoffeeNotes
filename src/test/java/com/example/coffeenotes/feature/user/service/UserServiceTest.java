@@ -319,6 +319,7 @@ class UserServiceTest {
         userService.deleteUser(USER_ID);
 
         verify(recipeRepository).deleteByOwner_Id(USER_ID);
+        verify(authRefreshSessionRepository).deleteByUser_Id(USER_ID);
         verify(userRepository).deleteMediaAssetsByOwnerId(USER_ID);
         verify(userRepository).delete(user);
     }
