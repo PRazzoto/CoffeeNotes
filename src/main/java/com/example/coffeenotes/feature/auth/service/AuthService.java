@@ -7,6 +7,7 @@ import com.example.coffeenotes.feature.auth.dto.*;
 import com.example.coffeenotes.feature.auth.repository.AuthRefreshSessionRepository;
 import com.example.coffeenotes.feature.user.repository.UserRepository;
 import com.example.coffeenotes.security.JwtTokenService;
+import com.example.coffeenotes.util.PasswordValidator;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -52,7 +53,7 @@ public class AuthService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email not valid.");
         }
 
-        if(!patternMatchesPassword(registerRequest.getPassword())) {
+        if(!PasswordValidator.isValid(registerRequest.getPassword())) {
             // The real time validation needs to happen in the FE
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password does not meet the requirements.");
         }
@@ -184,12 +185,6 @@ public class AuthService {
     private static boolean patternMatchesEmail(String emailAddress) {
         return Pattern.compile("^(.+)@(\\S+)$")
                 .matcher(emailAddress)
-                .matches();
-    }
-
-    private static boolean patternMatchesPassword(String pass) {
-        return Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,20}$")
-                .matcher(pass)
                 .matches();
     }
 

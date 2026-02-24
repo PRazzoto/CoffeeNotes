@@ -8,6 +8,7 @@ import com.example.coffeenotes.domain.user.User;
 import com.example.coffeenotes.feature.auth.repository.AuthRefreshSessionRepository;
 import com.example.coffeenotes.feature.catalog.repository.RecipeRepository;
 import com.example.coffeenotes.feature.user.repository.UserRepository;
+import com.example.coffeenotes.util.PasswordValidator;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
-import java.util.regex.Pattern;
 
 @Service
 @AllArgsConstructor
@@ -98,7 +98,7 @@ public class UserService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password should be different.");
         }
 
-        if(!patternMatchesPassword(newPassword)){
+        if(!PasswordValidator.isValid(newPassword)){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password does not meet the requirements.");
         }
 
@@ -111,8 +111,8 @@ public class UserService {
         List<AuthRefreshSession> activeSessions = authRefreshSessionRepository.findByUser_IdAndRevokedAtIsNull(userId);
         LocalDateTime now = LocalDateTime.now();
 
-        for(AuthRefreshSession sessions : activeSessions) {
-           sessions.setRevokedAt(now);
+        for(AuthRefreshSession session : activeSessions) {
+           session.setRevokedAt(now);
         }
         authRefreshSessionRepository.saveAll(activeSessions);
     }
@@ -126,13 +126,9 @@ public class UserService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found."));
 
         recipeRepository.deleteByOwner_Id(userId);
+        authRefreshSessionRepository.deleteByUser_Id(userId);
         userRepository.deleteMediaAssetsByOwnerId(userId);
         userRepository.delete(user);
      }
-
-    private static boolean patternMatchesPassword(String pass) {
-        return Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,20}$")
-                .matcher(pass)
-                .matches();
-    }
 }
+
