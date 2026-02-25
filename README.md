@@ -10,6 +10,7 @@ CoffeeNotes is a Spring Boot backend for a notes/recipes app focused on coffee b
 - Recipe CRUD endpoints implemented (with soft delete)
 - Recipe endpoints now use authenticated JWT subject instead of `userId` query param
 - User profile/account endpoints implemented (`get`, `update display name`, `change password`, `delete account`)
+- Versioned recipe data-model foundation added (`coffee_beans`, `recipe_tracks`, `recipe_versions`)
 - Auth register/login flow implemented with JWT access tokens
 - Auth refresh/logout flow implemented with HttpOnly refresh-token cookies
 - Equipment IDs migrated to UUID
@@ -60,6 +61,7 @@ The server runs on `http://localhost:8080` by default.
   - `V4`: core domain schema (`users`, `brew_methods`, `recipes`, `recipe_water_pours`, `recipe_equipment`, `favorites`, `media_assets`) and UUID strategy alignment
   - `V5`: description columns updated to `VARCHAR(255)`
   - `V6`: auth refresh sessions table (`auth_refresh_sessions`)
+  - `V7`: versioned recipe foundation and transition columns (`coffee_beans`, `recipe_tracks`, `recipe_versions`, relation backfill to version/track IDs)
 
 ## API (WIP)
 
@@ -201,3 +203,10 @@ For implementation details, check:
 - Added user account endpoints for current user profile retrieval, display-name update, password change, and account deletion
 - Added password-change revocation flow for active refresh sessions
 - Added `UserControllerTest` and `UserServiceTest` coverage for user endpoint/service behavior
+
+### 2026-02-24
+
+- Added migration `V7__refactor_of_database.sql` with versioned recipe foundation (`coffee_beans`, `recipe_tracks`, `recipe_versions`)
+- Backfilled legacy `recipes` data into track/version records and added transition FK columns for relation tables
+- Added new domain entities: `CoffeeBean`, `RecipeTrack`, `RecipeVersion`
+- Added repositories for versioned model groundwork: `CoffeeBeanRepository`, `RecipeTrackRepository`, `RecipeVersionRepository`
