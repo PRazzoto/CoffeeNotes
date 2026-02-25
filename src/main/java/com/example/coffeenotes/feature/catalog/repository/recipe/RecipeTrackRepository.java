@@ -1,7 +1,6 @@
-package com.example.coffeenotes.feature.catalog.repository;
+package com.example.coffeenotes.feature.catalog.repository.recipe;
 
-import com.example.coffeenotes.domain.catalog.CoffeeBean;
-import com.example.coffeenotes.domain.catalog.RecipeTrack;
+import com.example.coffeenotes.domain.catalog.recipe.RecipeTrack;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

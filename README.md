@@ -11,6 +11,7 @@ CoffeeNotes is a Spring Boot backend for a notes/recipes app focused on coffee b
 - Recipe endpoints now use authenticated JWT subject instead of `userId` query param
 - User profile/account endpoints implemented (`get`, `update display name`, `change password`, `delete account`)
 - Versioned recipe data-model foundation added (`coffee_beans`, `recipe_tracks`, `recipe_versions`)
+- Versioned relation/media persistence layer added (`RecipeWaterPour`, `RecipeEquipment`, `Favorite`, `MediaAsset`)
 - Auth register/login flow implemented with JWT access tokens
 - Auth refresh/logout flow implemented with HttpOnly refresh-token cookies
 - Equipment IDs migrated to UUID
@@ -210,3 +211,10 @@ For implementation details, check:
 - Backfilled legacy `recipes` data into track/version records and added transition FK columns for relation tables
 - Added new domain entities: `CoffeeBean`, `RecipeTrack`, `RecipeVersion`
 - Added repositories for versioned model groundwork: `CoffeeBeanRepository`, `RecipeTrackRepository`, `RecipeVersionRepository`
+
+### 2026-02-25
+
+- Added relation entities for versioned recipe data: `RecipeWaterPour`, `RecipeEquipment` (`@EmbeddedId`), and `Favorite` (`@EmbeddedId`)
+- Added media metadata persistence entity: `MediaAsset`
+- Added repositories for new persistence layer: `RecipeWaterPourRepository`, `RecipeEquipmentRepository`, `FavoriteRepository`, `MediaAssetRepository`
+- Aligned repository package structure for new domain slices (`feature/catalog/repository/recipe` and `feature/catalog/repository/media`)
