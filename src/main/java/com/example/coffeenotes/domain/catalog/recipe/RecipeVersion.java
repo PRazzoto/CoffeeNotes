@@ -1,4 +1,4 @@
-package com.example.coffeenotes.domain.catalog;
+package com.example.coffeenotes.domain.catalog.recipe;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

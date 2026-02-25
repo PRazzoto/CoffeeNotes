@@ -1,5 +1,7 @@
-package com.example.coffeenotes.domain.catalog;
+package com.example.coffeenotes.domain.catalog.recipe;
 
+import com.example.coffeenotes.domain.catalog.BrewMethods;
+import com.example.coffeenotes.domain.catalog.CoffeeBean;
 import com.example.coffeenotes.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
