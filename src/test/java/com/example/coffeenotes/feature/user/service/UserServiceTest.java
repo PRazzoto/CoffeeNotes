@@ -33,6 +33,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -314,7 +315,7 @@ class UserServiceTest {
         );
 
         assertEquals(HttpStatus.BAD_REQUEST, ex.getStatusCode());
-        verify(recipeTrackRepository, never()).findAll();
+        verify(recipeTrackRepository, never()).findAllByOwner_Id(any());
     }
 
     @Test
@@ -327,7 +328,7 @@ class UserServiceTest {
         );
 
         assertEquals(HttpStatus.NOT_FOUND, ex.getStatusCode());
-        verify(recipeTrackRepository, never()).findAll();
+        verify(recipeTrackRepository, never()).findAllByOwner_Id(any());
     }
 
     @Test
@@ -338,11 +339,6 @@ class UserServiceTest {
         ownedTrack.setId(TRACK_ID);
         ownedTrack.setOwner(user);
 
-        User otherUser = user(UUID.randomUUID(), "other@test.com", "Other", "hash");
-        RecipeTrack otherTrack = new RecipeTrack();
-        otherTrack.setId(UUID.randomUUID());
-        otherTrack.setOwner(otherUser);
-
         RecipeVersion v1 = new RecipeVersion();
         v1.setId(VERSION_1);
         RecipeVersion v2 = new RecipeVersion();
@@ -352,21 +348,17 @@ class UserServiceTest {
         ownedBean.setId(UUID.randomUUID());
         ownedBean.setOwner(user);
 
-        CoffeeBean otherBean = new CoffeeBean();
-        otherBean.setId(UUID.randomUUID());
-        otherBean.setOwner(otherUser);
-
         when(userRepository.findById(USER_ID)).thenReturn(Optional.of(user));
-        when(recipeTrackRepository.findAll()).thenReturn(List.of(ownedTrack, otherTrack));
-        when(recipeVersionRepository.findByTrack_IdOrderByVersionNumberDesc(TRACK_ID)).thenReturn(List.of(v1, v2));
-        when(coffeeBeanRepository.findAll()).thenReturn(List.of(ownedBean, otherBean));
+        when(recipeTrackRepository.findAllByOwner_Id(USER_ID)).thenReturn(List.of(ownedTrack));
+        when(recipeVersionRepository.findByTrack_IdIn(List.of(TRACK_ID))).thenReturn(List.of(v1, v2));
+        when(coffeeBeanRepository.findAllByOwner_Id(USER_ID)).thenReturn(List.of(ownedBean));
 
         userService.deleteUser(USER_ID);
 
-        verify(recipeWaterPourRepository).deleteByRecipeVersion_Id(VERSION_1);
-        verify(recipeWaterPourRepository).deleteByRecipeVersion_Id(VERSION_2);
-        verify(recipeEquipmentRepository).deleteByRecipeVersion_Id(VERSION_1);
-        verify(recipeEquipmentRepository).deleteByRecipeVersion_Id(VERSION_2);
+        verify(recipeWaterPourRepository).deleteByRecipeVersion_IdIn(argThat(ids ->
+                ids.containsAll(List.of(VERSION_1, VERSION_2)) && ids.size() == 2));
+        verify(recipeEquipmentRepository).deleteByRecipeVersion_IdIn(argThat(ids ->
+                ids.containsAll(List.of(VERSION_1, VERSION_2)) && ids.size() == 2));
 
         ArgumentCaptor<List<RecipeVersion>> versionsCaptor = ArgumentCaptor.forClass(List.class);
         verify(recipeVersionRepository).deleteAll(versionsCaptor.capture());

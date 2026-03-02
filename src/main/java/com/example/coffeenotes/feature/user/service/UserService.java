@@ -136,24 +136,21 @@ public class UserService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found."));
 
-        List<RecipeTrack> ownedTracks = recipeTrackRepository.findAll().stream()
-                        .filter(t -> t.getOwner().getId().equals(userId))
-                                .toList();
+        List<RecipeTrack> ownedTracks = recipeTrackRepository.findAllByOwner_Id(userId);
+        List<UUID> trackIds = ownedTracks.stream().map(RecipeTrack::getId).toList();
 
-        for(RecipeTrack track : ownedTracks) {
-            List<RecipeVersion> versions = recipeVersionRepository.findByTrack_IdOrderByVersionNumberDesc(track.getId());
-            for(RecipeVersion version : versions) {
-                recipeWaterPourRepository.deleteByRecipeVersion_Id(version.getId());
-                recipeEquipmentRepository.deleteByRecipeVersion_Id(version.getId());
+        if (!trackIds.isEmpty()) {
+            List<RecipeVersion> allVersions = recipeVersionRepository.findByTrack_IdIn(trackIds);
+            List<UUID> versionIds = allVersions.stream().map(RecipeVersion::getId).toList();
+            if (!versionIds.isEmpty()) {
+                recipeWaterPourRepository.deleteByRecipeVersion_IdIn(versionIds);
+                recipeEquipmentRepository.deleteByRecipeVersion_IdIn(versionIds);
             }
-            recipeVersionRepository.deleteAll(versions);
+            recipeVersionRepository.deleteAll(allVersions);
         }
 
         recipeTrackRepository.deleteAll(ownedTracks);
-        List<CoffeeBean> ownedBeans = coffeeBeanRepository.findAll().stream()
-                        .filter(t -> t.getOwner().getId().equals(userId))
-                        .toList();
-
+        List<CoffeeBean> ownedBeans = coffeeBeanRepository.findAllByOwner_Id(userId);
         coffeeBeanRepository.deleteAll(ownedBeans);
 
         authRefreshSessionRepository.deleteByUser_Id(userId);
