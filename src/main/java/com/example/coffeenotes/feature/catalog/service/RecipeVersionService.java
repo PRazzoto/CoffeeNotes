@@ -57,13 +57,13 @@ public class RecipeVersionService {
         User owner = userRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
         CoffeeBean bean = coffeeBeanRepository.findById(dto.getBeanId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Coffee Bean not found;"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Coffee bean not found"));
 
         if(bean.getDeletedAt() != null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Coffee Bean not found.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Coffee bean not found");
         }
         if(!bean.getOwner().getId().equals(userId) && !bean.isGlobal()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Coffee bean not found.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Coffee bean not found");
         }
 
         BrewMethods method =  brewMethodsRepository.findById(dto.getMethodId())
@@ -110,7 +110,7 @@ public class RecipeVersionService {
 
     public Page<TrackSummaryResponseDTO> listRecipes(UUID userId, RecipeFilterDTO filter, Pageable pageable) {
         if(userId == null || pageable == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Body is required.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "userId and pageable parameters must not be null.");
         }
 
         UUID methodId = filter != null ? filter.getMethodId() : null;
@@ -121,16 +121,15 @@ public class RecipeVersionService {
                 .map(f -> f.getRecipeTrack().getId())
                 .collect(Collectors.toSet());
 
-        List<RecipeTrack> visibleTracks = recipeTrackRepository.findAll().stream()
-                .filter(t -> t.getDeletedAt() == null)
-                .filter(t -> t.getOwner().getId().equals(userId) || t.isGlobal())
-                .filter(t -> methodId == null || t.getMethod().getId().equals(methodId))
-                .filter(t -> isGlobal == null || t.isGlobal() == isGlobal)
-                .filter(t -> !favoriteOnly || favoriteTracks.contains(t.getId()))
-                .sorted(Comparator.comparing(RecipeTrack::getUpdatedAt).reversed())
-                .toList();
+        Page<RecipeTrack> trackPage = recipeTrackRepository.findVisibleTracks(userId, methodId, isGlobal, favoriteOnly, pageable);
 
-        List<TrackSummaryResponseDTO> summaries = visibleTracks.stream().map(track -> {
+        List<UUID> trackIds = trackPage.getContent().stream().map(RecipeTrack::getId).toList();
+        Map<UUID, RecipeVersion> currentVersionsByTrackId = trackIds.isEmpty()
+                ? Map.of()
+                : recipeVersionRepository.findByTrack_IdInAndIsCurrentTrue(trackIds).stream()
+                        .collect(Collectors.toMap(v -> v.getTrack().getId(), v -> v));
+
+        List<TrackSummaryResponseDTO> summaries = trackPage.getContent().stream().map(track -> {
             TrackSummaryResponseDTO dto = new TrackSummaryResponseDTO();
             dto.setTrackId(track.getId());
             dto.setBeanId(track.getBean().getId());
@@ -141,22 +140,17 @@ public class RecipeVersionService {
             dto.setGlobal(track.isGlobal());
             dto.setFavorite(favoriteTracks.contains(track.getId()));
 
-            recipeVersionRepository.findByTrack_IdAndIsCurrentTrue(track.getId()).ifPresent(v -> {
+            RecipeVersion v = currentVersionsByTrackId.get(track.getId());
+            if (v != null) {
                 dto.setCurrentVersionNumber(v.getVersionNumber());
                 dto.setRating(v.getRating());
                 dto.setUpdatedAt(v.getUpdatedAt());
-            });
+            }
 
             return dto;
         }).toList();
 
-        int start = (int) pageable.getOffset();
-        int end = Math.min(start + pageable.getPageSize(), summaries.size());
-
-        List<TrackSummaryResponseDTO> pageContent =
-                start >= summaries.size() ? List.of() : summaries.subList(start, end);
-
-        return new PageImpl<>(pageContent, pageable, summaries.size());
+        return new PageImpl<>(summaries, pageable, trackPage.getTotalElements());
     }
 
     public TrackDetailsResponseDTO getRecipe(UUID userId, UUID trackId) {
@@ -319,7 +313,8 @@ public class RecipeVersionService {
             newVersion.setTrack(recipe);
             newVersion.setVersionNumber(version.getVersionNumber() + 1);
             newVersion.setCurrent(true);
-            newVersion.setTitle(dto.getTitle() != null ? dto.getTitle() : version.getTitle());
+            String updatedTitle = dto.getTitle() != null ? dto.getTitle().trim() : null;
+            newVersion.setTitle(updatedTitle != null && !updatedTitle.isBlank() ? updatedTitle : version.getTitle());
             recipe.setTitle(newVersion.getTitle());
             newVersion.setCoffeeAmount(dto.getCoffeeAmount() != null ? dto.getCoffeeAmount() : version.getCoffeeAmount());
             newVersion.setWaterAmount(dto.getWaterAmount() != null ? dto.getWaterAmount() : version.getWaterAmount());

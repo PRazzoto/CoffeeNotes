@@ -20,7 +20,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -129,14 +131,10 @@ class RecipeVersionServiceTest {
     void listRecipes_whenFilteredByMethodAndFavorites_returnsExpectedPage() {
         User owner = user(USER_ID, "owner@test.com");
         User other = user(OTHER_USER_ID, "other@test.com");
-        CoffeeBean bean1 = bean(BEAN_ID, owner, false);
         CoffeeBean bean2 = bean(UUID.randomUUID(), other, true);
-        BrewMethods method1 = method(METHOD_ID, "V60");
         BrewMethods method2 = method(UUID.randomUUID(), "AeroPress");
 
-        RecipeTrack t1 = track(TRACK_ID, owner, bean1, method1, "Mine", false, null);
         RecipeTrack t2 = track(UUID.randomUUID(), other, bean2, method2, "Global", true, null);
-        RecipeTrack deleted = track(UUID.randomUUID(), owner, bean1, method1, "Deleted", false, LocalDateTime.now());
 
         Favorite favorite = new Favorite();
         favorite.setUser(owner);
@@ -150,11 +148,16 @@ class RecipeVersionServiceTest {
         filter.setMethodId(method2.getId());
         filter.setFavoritesOnly(true);
 
-        when(favoriteRepository.findByUser_Id(USER_ID)).thenReturn(List.of(favorite));
-        when(recipeTrackRepository.findAll()).thenReturn(List.of(t1, t2, deleted));
-        when(recipeVersionRepository.findByTrack_IdAndIsCurrentTrue(t2.getId())).thenReturn(Optional.of(v2));
+        Pageable pageable = PageRequest.of(0, 10);
+        Page<RecipeTrack> trackPage = new PageImpl<>(List.of(t2), pageable, 1);
 
-        Page<TrackSummaryResponseDTO> page = recipeVersionService.listRecipes(USER_ID, filter, PageRequest.of(0, 10));
+        when(favoriteRepository.findByUser_Id(USER_ID)).thenReturn(List.of(favorite));
+        when(recipeTrackRepository.findVisibleTracks(USER_ID, method2.getId(), null, true, pageable))
+                .thenReturn(trackPage);
+        when(recipeVersionRepository.findByTrack_IdInAndIsCurrentTrue(List.of(t2.getId())))
+                .thenReturn(List.of(v2));
+
+        Page<TrackSummaryResponseDTO> page = recipeVersionService.listRecipes(USER_ID, filter, pageable);
 
         assertEquals(1, page.getContent().size());
         TrackSummaryResponseDTO dto = page.getContent().get(0);

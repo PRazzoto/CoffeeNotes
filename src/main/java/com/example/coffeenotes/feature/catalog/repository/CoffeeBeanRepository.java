@@ -16,4 +16,7 @@ public interface CoffeeBeanRepository extends JpaRepository<CoffeeBean, UUID> {
 
     List<CoffeeBean>
     findAllByOwner_IdAndNameContainingIgnoreCaseAndDeletedAtIsNullOrderByCreatedAtDesc(UUID ownerId, String name);
+
+    List<CoffeeBean>
+    findAllByOwner_Id(UUID ownerId);
 }
