@@ -10,7 +10,6 @@ import com.example.coffeenotes.domain.catalog.recipe.RecipeVersion;
 import com.example.coffeenotes.domain.user.User;
 import com.example.coffeenotes.feature.auth.repository.AuthRefreshSessionRepository;
 import com.example.coffeenotes.feature.catalog.repository.CoffeeBeanRepository;
-import com.example.coffeenotes.feature.catalog.repository.RecipeRepository;
 import com.example.coffeenotes.feature.catalog.repository.recipe.RecipeEquipmentRepository;
 import com.example.coffeenotes.feature.catalog.repository.recipe.RecipeTrackRepository;
 import com.example.coffeenotes.feature.catalog.repository.recipe.RecipeVersionRepository;
