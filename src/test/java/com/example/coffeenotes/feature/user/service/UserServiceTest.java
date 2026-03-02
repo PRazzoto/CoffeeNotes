@@ -4,13 +4,21 @@ import com.example.coffeenotes.api.dto.user.UpdatePasswordDTO;
 import com.example.coffeenotes.api.dto.user.UpdateRequestDTO;
 import com.example.coffeenotes.api.dto.user.UserReturnDTO;
 import com.example.coffeenotes.domain.auth.AuthRefreshSession;
+import com.example.coffeenotes.domain.catalog.CoffeeBean;
 import com.example.coffeenotes.domain.catalog.Role;
+import com.example.coffeenotes.domain.catalog.recipe.RecipeTrack;
+import com.example.coffeenotes.domain.catalog.recipe.RecipeVersion;
 import com.example.coffeenotes.domain.user.User;
 import com.example.coffeenotes.feature.auth.repository.AuthRefreshSessionRepository;
-import com.example.coffeenotes.feature.catalog.repository.RecipeRepository;
+import com.example.coffeenotes.feature.catalog.repository.CoffeeBeanRepository;
+import com.example.coffeenotes.feature.catalog.repository.recipe.RecipeEquipmentRepository;
+import com.example.coffeenotes.feature.catalog.repository.recipe.RecipeTrackRepository;
+import com.example.coffeenotes.feature.catalog.repository.recipe.RecipeVersionRepository;
+import com.example.coffeenotes.feature.catalog.repository.recipe.RecipeWaterPourRepository;
 import com.example.coffeenotes.feature.user.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -23,18 +31,18 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
 
     private static final UUID USER_ID = UUID.fromString("11111111-1111-1111-1111-111111111111");
+    private static final UUID TRACK_ID = UUID.fromString("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa");
+    private static final UUID VERSION_1 = UUID.fromString("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb");
+    private static final UUID VERSION_2 = UUID.fromString("cccccccc-cccc-cccc-cccc-cccccccccccc");
 
     @Mock
     private UserRepository userRepository;
@@ -46,7 +54,19 @@ class UserServiceTest {
     private AuthRefreshSessionRepository authRefreshSessionRepository;
 
     @Mock
-    private RecipeRepository recipeRepository;
+    private RecipeTrackRepository recipeTrackRepository;
+
+    @Mock
+    private RecipeVersionRepository recipeVersionRepository;
+
+    @Mock
+    private RecipeWaterPourRepository recipeWaterPourRepository;
+
+    @Mock
+    private RecipeEquipmentRepository recipeEquipmentRepository;
+
+    @Mock
+    private CoffeeBeanRepository coffeeBeanRepository;
 
     @InjectMocks
     private UserService userService;
@@ -295,7 +315,7 @@ class UserServiceTest {
         );
 
         assertEquals(HttpStatus.BAD_REQUEST, ex.getStatusCode());
-        verify(recipeRepository, never()).deleteByOwner_Id(any());
+        verify(recipeTrackRepository, never()).findAllByOwner_Id(any());
     }
 
     @Test
@@ -308,25 +328,64 @@ class UserServiceTest {
         );
 
         assertEquals(HttpStatus.NOT_FOUND, ex.getStatusCode());
-        verify(recipeRepository, never()).deleteByOwner_Id(any());
+        verify(recipeTrackRepository, never()).findAllByOwner_Id(any());
     }
 
     @Test
-    void deleteUser_whenValid_deletesDependenciesThenUser() {
+    void deleteUser_whenValid_deletesVersionedGraphAndUser() {
         User user = user("patri@coffee.com", "Patri", "hash");
+
+        RecipeTrack ownedTrack = new RecipeTrack();
+        ownedTrack.setId(TRACK_ID);
+        ownedTrack.setOwner(user);
+
+        RecipeVersion v1 = new RecipeVersion();
+        v1.setId(VERSION_1);
+        RecipeVersion v2 = new RecipeVersion();
+        v2.setId(VERSION_2);
+
+        CoffeeBean ownedBean = new CoffeeBean();
+        ownedBean.setId(UUID.randomUUID());
+        ownedBean.setOwner(user);
+
         when(userRepository.findById(USER_ID)).thenReturn(Optional.of(user));
+        when(recipeTrackRepository.findAllByOwner_Id(USER_ID)).thenReturn(List.of(ownedTrack));
+        when(recipeVersionRepository.findByTrack_IdIn(List.of(TRACK_ID))).thenReturn(List.of(v1, v2));
+        when(coffeeBeanRepository.findAllByOwner_Id(USER_ID)).thenReturn(List.of(ownedBean));
 
         userService.deleteUser(USER_ID);
 
-        verify(recipeRepository).deleteByOwner_Id(USER_ID);
+        verify(recipeWaterPourRepository).deleteByRecipeVersion_IdIn(argThat(ids ->
+                ids.containsAll(List.of(VERSION_1, VERSION_2)) && ids.size() == 2));
+        verify(recipeEquipmentRepository).deleteByRecipeVersion_IdIn(argThat(ids ->
+                ids.containsAll(List.of(VERSION_1, VERSION_2)) && ids.size() == 2));
+
+        ArgumentCaptor<List<RecipeVersion>> versionsCaptor = ArgumentCaptor.forClass(List.class);
+        verify(recipeVersionRepository).deleteAll(versionsCaptor.capture());
+        assertEquals(2, versionsCaptor.getValue().size());
+
+        ArgumentCaptor<List<RecipeTrack>> trackCaptor = ArgumentCaptor.forClass(List.class);
+        verify(recipeTrackRepository).deleteAll(trackCaptor.capture());
+        assertEquals(1, trackCaptor.getValue().size());
+        assertEquals(TRACK_ID, trackCaptor.getValue().get(0).getId());
+
+        ArgumentCaptor<List<CoffeeBean>> beanCaptor = ArgumentCaptor.forClass(List.class);
+        verify(coffeeBeanRepository).deleteAll(beanCaptor.capture());
+        assertEquals(1, beanCaptor.getValue().size());
+        assertEquals(ownedBean.getId(), beanCaptor.getValue().get(0).getId());
+
         verify(authRefreshSessionRepository).deleteByUser_Id(USER_ID);
         verify(userRepository).deleteMediaAssetsByOwnerId(USER_ID);
         verify(userRepository).delete(user);
     }
 
     private User user(String email, String displayName, String passwordHash) {
+        return user(USER_ID, email, displayName, passwordHash);
+    }
+
+    private User user(UUID id, String email, String displayName, String passwordHash) {
         return new User(
-                USER_ID,
+                id,
                 email,
                 passwordHash,
                 displayName,

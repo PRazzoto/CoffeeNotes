@@ -7,7 +7,7 @@ CoffeeNotes is a Spring Boot backend for a notes/recipes app focused on coffee b
 - Runs locally with PostgreSQL via Docker Compose
 - Flyway migrations enabled (Spring Boot 4 + `spring-boot-flyway`)
 - Equipment CRUD endpoints implemented
-- Recipe CRUD endpoints implemented (with soft delete)
+- Versioned recipe flow implemented via `RecipeVersionService` (`track + current version + history`)
 - Recipe endpoints now use authenticated JWT subject instead of `userId` query param
 - User profile/account endpoints implemented (`get`, `update display name`, `change password`, `delete account`)
 - Versioned recipe data-model foundation added (`coffee_beans`, `recipe_tracks`, `recipe_versions`)
@@ -73,9 +73,11 @@ Current endpoints:
 - `PUT /api/equipment/editEquipment/{id}`
 - `DELETE /api/equipment/deleteEquipment/{id}`
 - `GET /api/recipe/getRecipes`
+- `GET /api/recipe/getRecipe/{trackId}`
+- `GET /api/recipe/getRecipeVersions/{trackId}`
 - `POST /api/recipe/createRecipe`
-- `PATCH /api/recipe/updateRecipe/{id}`
-- `DELETE /api/recipe/deleteRecipe/{id}`
+- `PATCH /api/recipe/updateRecipe/{trackId}`
+- `DELETE /api/recipe/deleteRecipe/{trackId}`
 - `POST /api/auth/register`
 - `POST /api/auth/login`
 - `POST /api/auth/refresh`
@@ -86,9 +88,9 @@ Current endpoints:
 - `DELETE /api/user/deleteUser`
 
 Notes:
-- `{id}` is UUID for update/delete routes.
+- Equipment routes use `{id}` as UUID. Recipe routes use `{trackId}` as UUID.
 - Equipment DTO responses currently expose `name` and `description`.
-- Recipe endpoints resolve user ownership from JWT `sub` claim.
+- Recipe endpoints resolve user ownership from JWT `sub` claim and now operate on `trackId`.
 - User endpoints resolve account identity from JWT `sub` claim.
 - Access token claims include `sub`, `email`, `role`, `iss`, `aud`, `iat`, `exp`.
 
@@ -218,3 +220,12 @@ For implementation details, check:
 - Added media metadata persistence entity: `MediaAsset`
 - Added repositories for new persistence layer: `RecipeWaterPourRepository`, `RecipeEquipmentRepository`, `FavoriteRepository`, `MediaAssetRepository`
 - Aligned repository package structure for new domain slices (`feature/catalog/repository/recipe` and `feature/catalog/repository/media`)
+
+### 2026-03-02
+
+- Switched `RecipeController` from old `RecipeService` contract to `RecipeVersionService` contract
+- Implemented versioned recipe service methods for create/list/get/update/delete/history flows
+- Added new recipe DTOs for versioned responses and filters (`CreateTrackRequestDTO`, `UpdateRecipeRequestDTO`, `TrackSummaryResponseDTO`, `TrackDetailsResponseDTO`, `VersionHistoryItemDTO`, `WaterPourDTO`, `RecipeFilterDTO`, `RecipeVersionResponseDTO`)
+- Updated recipe controller tests to the versioned endpoints/contracts
+- Replaced legacy recipe service tests with new `RecipeVersionServiceTest`
+- Updated `UserServiceTest` to validate versioned user-deletion cleanup behavior

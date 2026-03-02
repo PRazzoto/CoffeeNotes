@@ -4,9 +4,16 @@ import com.example.coffeenotes.api.dto.user.UpdatePasswordDTO;
 import com.example.coffeenotes.api.dto.user.UpdateRequestDTO;
 import com.example.coffeenotes.api.dto.user.UserReturnDTO;
 import com.example.coffeenotes.domain.auth.AuthRefreshSession;
+import com.example.coffeenotes.domain.catalog.CoffeeBean;
+import com.example.coffeenotes.domain.catalog.recipe.RecipeTrack;
+import com.example.coffeenotes.domain.catalog.recipe.RecipeVersion;
 import com.example.coffeenotes.domain.user.User;
 import com.example.coffeenotes.feature.auth.repository.AuthRefreshSessionRepository;
-import com.example.coffeenotes.feature.catalog.repository.RecipeRepository;
+import com.example.coffeenotes.feature.catalog.repository.CoffeeBeanRepository;
+import com.example.coffeenotes.feature.catalog.repository.recipe.RecipeEquipmentRepository;
+import com.example.coffeenotes.feature.catalog.repository.recipe.RecipeTrackRepository;
+import com.example.coffeenotes.feature.catalog.repository.recipe.RecipeVersionRepository;
+import com.example.coffeenotes.feature.catalog.repository.recipe.RecipeWaterPourRepository;
 import com.example.coffeenotes.feature.user.repository.UserRepository;
 import com.example.coffeenotes.util.PasswordValidator;
 import jakarta.transaction.Transactional;
@@ -26,7 +33,11 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthRefreshSessionRepository authRefreshSessionRepository;
-    private final RecipeRepository recipeRepository;
+    private final RecipeTrackRepository recipeTrackRepository;
+    private final RecipeVersionRepository recipeVersionRepository;
+    private final RecipeWaterPourRepository recipeWaterPourRepository;
+    private final RecipeEquipmentRepository recipeEquipmentRepository;
+    private final CoffeeBeanRepository coffeeBeanRepository;
 
     public UserReturnDTO getUser(UUID userId) {
         if(userId == null) {
@@ -125,7 +136,23 @@ public class UserService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found."));
 
-        recipeRepository.deleteByOwner_Id(userId);
+        List<RecipeTrack> ownedTracks = recipeTrackRepository.findAllByOwner_Id(userId);
+        List<UUID> trackIds = ownedTracks.stream().map(RecipeTrack::getId).toList();
+
+        if (!trackIds.isEmpty()) {
+            List<RecipeVersion> allVersions = recipeVersionRepository.findByTrack_IdIn(trackIds);
+            List<UUID> versionIds = allVersions.stream().map(RecipeVersion::getId).toList();
+            if (!versionIds.isEmpty()) {
+                recipeWaterPourRepository.deleteByRecipeVersion_IdIn(versionIds);
+                recipeEquipmentRepository.deleteByRecipeVersion_IdIn(versionIds);
+            }
+            recipeVersionRepository.deleteAll(allVersions);
+        }
+
+        recipeTrackRepository.deleteAll(ownedTracks);
+        List<CoffeeBean> ownedBeans = coffeeBeanRepository.findAllByOwner_Id(userId);
+        coffeeBeanRepository.deleteAll(ownedBeans);
+
         authRefreshSessionRepository.deleteByUser_Id(userId);
         userRepository.deleteMediaAssetsByOwnerId(userId);
         userRepository.delete(user);
