@@ -3,15 +3,12 @@ package com.example.coffeenotes.api.dto.recipe;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
 @Setter
-public class RecipeResponseDTO {
-    private UUID id;
-    private UUID ownerId;
-    private UUID methodId;
+public class UpdateRecipeRequestDTO {
     private String title;
     private String coffeeAmount;
     private String waterAmount;
@@ -19,7 +16,7 @@ public class RecipeResponseDTO {
     private Integer brewTimeSeconds;
     private Integer waterTemperatureCelsius;
     private Integer rating;
-    private Boolean isGlobal;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private String methodPayload;
+    private List<WaterPourDTO> waterPours;
+    private List<UUID> equipmentIds;
 }
