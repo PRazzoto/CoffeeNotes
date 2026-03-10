@@ -61,6 +61,18 @@ class MokaPotMethodPayloadStrategyTest {
     }
 
     @Test
+    void validateAndNormalize_whenYieldIsFloat_throws400() throws Exception {
+        JsonNode payload = objectMapper.readTree("""
+                {"heatLevel":"low","yieldMl":120.5}
+                """);
+
+        ResponseStatusException ex = assertThrows(ResponseStatusException.class,
+                () -> strategy.validateAndNormalize(payload));
+
+        assertEquals(HttpStatus.BAD_REQUEST, ex.getStatusCode());
+    }
+
+    @Test
     void metadata_returnsExpectedFields() {
         MethodPayloadMetadataDTO metadata = strategy.metadata("Moka Pot");
         assertEquals("moka_pot", metadata.getMethodKey());
