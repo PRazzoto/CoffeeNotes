@@ -26,17 +26,26 @@ public class MethodPayloadStrategyRegistry{
     }
 
     public MethodPayloadStrategy getRequired(String methodKey) {
+        if (methodKey == null || methodKey.trim().isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Brew method name is required");
+        }
+
         String normalized = normalize(methodKey);
 
         String resolvedKey;
-        if(normalized.equals("v60") || normalized.equals("chemex") || normalized.equals("melitta_pour_over") || normalized.equals("kalita_wave") || normalized.equals("origami_dripper")) {
+        if (normalized.equals("v60") || normalized.equals("chemex") || normalized.equals("melitta_pour_over") || normalized.equals("kalita_wave") || normalized.equals("origami_dripper")) {
             resolvedKey = "pour_over";
         } else {
             resolvedKey = normalized;
         }
+
         MethodPayloadStrategy strategy = strategiesByKey.get(resolvedKey);
-        if(strategy == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Unsupported brew method: " + methodKey);
+        if (strategy == null) {
+            MethodPayloadStrategy defaultStrategy = strategiesByKey.get("default");
+            if (defaultStrategy == null) {
+                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "No default method payload strategy configured.");
+            }
+            strategy = defaultStrategy;
         }
         return strategy;
     }

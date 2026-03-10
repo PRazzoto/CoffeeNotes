@@ -257,7 +257,6 @@ class RecipeVersionServiceTest {
         when(recipeVersionRepository.findByTrack_IdAndIsCurrentTrue(TRACK_ID)).thenReturn(Optional.of(current));
         when(recipeWaterPourRepository.findByRecipeVersion_IdOrderByOrderIndexAsc(current.getId())).thenReturn(List.of(oldPour));
         when(recipeEquipmentRepository.findByRecipeVersion_Id(current.getId())).thenReturn(List.of(oldEquipment));
-        stubMethodPayloadFlow("{}");
         when(recipeTrackRepository.save(any())).thenAnswer(i -> i.getArgument(0));
         when(equipmentRepository.findById(EQUIPMENT_ID)).thenReturn(Optional.of(equipment));
         when(recipeVersionRepository.save(any())).thenAnswer(invocation -> {
