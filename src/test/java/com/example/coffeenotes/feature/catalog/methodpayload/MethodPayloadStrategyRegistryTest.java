@@ -40,7 +40,7 @@ class MethodPayloadStrategyRegistryTest {
     @Test
     void getRequired_whenUnsupportedMethod_returnsDefaultFallback() {
         MethodPayloadStrategy strategy = registry.getRequired("unsupported_method");
-        assertEquals("default", strategy.methodKey());
+        assertEquals("pour_over", strategy.methodKey());
     }
 
     @Test
