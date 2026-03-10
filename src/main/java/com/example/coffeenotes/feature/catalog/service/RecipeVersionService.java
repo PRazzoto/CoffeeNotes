@@ -6,6 +6,9 @@ import com.example.coffeenotes.domain.catalog.CoffeeBean;
 import com.example.coffeenotes.domain.catalog.Equipment;
 import com.example.coffeenotes.domain.catalog.recipe.*;
 import com.example.coffeenotes.domain.user.User;
+import com.example.coffeenotes.feature.catalog.methodpayload.MethodPayloadStrategy;
+import com.example.coffeenotes.feature.catalog.methodpayload.MethodPayloadStrategyRegistry;
+import com.example.coffeenotes.feature.catalog.methodpayload.dto.MethodPayloadMetadataDTO;
 import com.example.coffeenotes.feature.catalog.repository.BrewMethodsRepository;
 import com.example.coffeenotes.feature.catalog.repository.CoffeeBeanRepository;
 import com.example.coffeenotes.feature.catalog.repository.EquipmentRepository;
@@ -15,6 +18,7 @@ import com.example.coffeenotes.feature.catalog.repository.recipe.RecipeTrackRepo
 import com.example.coffeenotes.feature.catalog.repository.recipe.RecipeVersionRepository;
 import com.example.coffeenotes.feature.catalog.repository.recipe.RecipeWaterPourRepository;
 import com.example.coffeenotes.feature.user.repository.UserRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -23,6 +27,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -41,6 +47,8 @@ public class RecipeVersionService {
     private final RecipeWaterPourRepository recipeWaterPourRepository;
     private final RecipeEquipmentRepository recipeEquipmentRepository;
     private final EquipmentRepository equipmentRepository;
+    private final MethodPayloadStrategyRegistry methodPayloadStrategyRegistry;
+    private final ObjectMapper objectMapper;
 
     @Transactional
     public RecipeVersionResponseDTO createRecipe(UUID userId, CreateTrackRequestDTO dto) {
@@ -69,6 +77,25 @@ public class RecipeVersionService {
         BrewMethods method =  brewMethodsRepository.findById(dto.getMethodId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Method not found"));
 
+        MethodPayloadStrategy strategy = methodPayloadStrategyRegistry.getRequired(method.getName());
+        String rawMethodPayload = dto.getMethodPayload();
+        if(rawMethodPayload == null || rawMethodPayload.isBlank()) {
+            rawMethodPayload = "{}";
+        }
+
+        JsonNode payloadJson;
+        try {
+            payloadJson = objectMapper.readTree(rawMethodPayload);
+        } catch (JsonProcessingException e){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid methodPayload JSON.");
+        }
+        JsonNode normalizedPayload = strategy.validateAndNormalize(payloadJson);
+        String normalizedPayloadString;
+        try {
+            normalizedPayloadString = objectMapper.writeValueAsString(normalizedPayload);
+        } catch (JsonProcessingException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid methodPayload JSON");
+        }
         boolean trackAlreadyExists = recipeTrackRepository
                 .findByOwner_IdAndBean_IdAndMethod_IdAndDeletedAtIsNull(userId, bean.getId(), method.getId())
                 .isPresent();
@@ -91,7 +118,7 @@ public class RecipeVersionService {
         version.setVersionNumber(1);
         version.setCurrent(true);
         version.setTitle(title);
-        version.setMethodPayload("{}");
+        version.setMethodPayload(normalizedPayloadString);
 
         RecipeVersion savedVersion = recipeVersionRepository.save(version);
 
@@ -306,6 +333,25 @@ public class RecipeVersionService {
             if(version.getDeletedAt() != null) {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Version not found.");
             }
+            MethodPayloadStrategy strategy = methodPayloadStrategyRegistry.getRequired(recipe.getMethod().getName());
+            String rawMethodPayload = dto.getMethodPayload();
+            if(rawMethodPayload == null || rawMethodPayload.isBlank()) {
+                rawMethodPayload = "{}";
+            }
+
+            JsonNode payloadJson;
+            try {
+                payloadJson = objectMapper.readTree(rawMethodPayload);
+            } catch (JsonProcessingException e){
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid methodPayload JSON.");
+            }
+            JsonNode normalizedPayload = strategy.validateAndNormalize(payloadJson);
+            String normalizedPayloadString;
+            try {
+                normalizedPayloadString = objectMapper.writeValueAsString(normalizedPayload);
+            } catch (JsonProcessingException e) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid methodPayload JSON");
+            }
             List<RecipeWaterPour> waterPours = recipeWaterPourRepository.findByRecipeVersion_IdOrderByOrderIndexAsc(version.getId());
             List<RecipeEquipment> recipeEquipments = recipeEquipmentRepository.findByRecipeVersion_Id(version.getId());
 
@@ -322,7 +368,7 @@ public class RecipeVersionService {
             newVersion.setBrewTimeSeconds(dto.getBrewTimeSeconds() != null ? dto.getBrewTimeSeconds() : version.getBrewTimeSeconds());
             newVersion.setWaterTemperatureCelsius(dto.getWaterTemperatureCelsius() != null ? dto.getWaterTemperatureCelsius() : version.getWaterTemperatureCelsius());
             newVersion.setRating(dto.getRating() != null ? dto.getRating() : version.getRating());
-            newVersion.setMethodPayload(dto.getMethodPayload() != null && !dto.getMethodPayload().isBlank() ? dto.getMethodPayload() : version.getMethodPayload());
+            newVersion.setMethodPayload(dto.getMethodPayload() != null && !dto.getMethodPayload().isBlank() ? normalizedPayloadString : version.getMethodPayload());
             version.setCurrent(false);
 
             recipeVersionRepository.save(version);
@@ -448,4 +494,14 @@ public class RecipeVersionService {
         }
         return ans;
     }
+
+    public MethodPayloadMetadataDTO getMetadata(UUID methodId) {
+        if(methodId== null){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "There are missing fields");
+        }
+        BrewMethods method = brewMethodsRepository.findById(methodId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Method not found"));
+        return methodPayloadStrategyRegistry.metadata(method.getName(), method.getName());
+    }
+
 }

@@ -8,6 +8,8 @@ CoffeeNotes is a Spring Boot backend for a notes/recipes app focused on coffee b
 - Flyway migrations enabled (Spring Boot 4 + `spring-boot-flyway`)
 - Equipment CRUD endpoints implemented
 - Versioned recipe flow implemented via `RecipeVersionService` (`track + current version + history`)
+- Method-payload strategy baseline implemented (`MethodPayloadStrategy` + registry + initial `pour_over` strategy)
+- Method payload metadata endpoint implemented for FE (`GET /api/recipe/methods/{methodId}/metadata`)
 - Recipe endpoints now use authenticated JWT subject instead of `userId` query param
 - User profile/account endpoints implemented (`get`, `update display name`, `change password`, `delete account`)
 - Versioned recipe data-model foundation added (`coffee_beans`, `recipe_tracks`, `recipe_versions`)
@@ -75,6 +77,7 @@ Current endpoints:
 - `GET /api/recipe/getRecipes`
 - `GET /api/recipe/getRecipe/{trackId}`
 - `GET /api/recipe/getRecipeVersions/{trackId}`
+- `GET /api/recipe/methods/{methodId}/metadata`
 - `POST /api/recipe/createRecipe`
 - `PATCH /api/recipe/updateRecipe/{trackId}`
 - `DELETE /api/recipe/deleteRecipe/{trackId}`
@@ -91,6 +94,8 @@ Notes:
 - Equipment routes use `{id}` as UUID. Recipe routes use `{trackId}` as UUID.
 - Equipment DTO responses currently expose `name` and `description`.
 - Recipe endpoints resolve user ownership from JWT `sub` claim and now operate on `trackId`.
+- Recipe `create`/`update` supports `methodPayload` JSON text and validates/normalizes it via method strategy.
+- Method metadata endpoint currently returns the strategy-driven FE field contract for supported methods.
 - User endpoints resolve account identity from JWT `sub` claim.
 - Access token claims include `sub`, `email`, `role`, `iss`, `aud`, `iat`, `exp`.
 
@@ -229,3 +234,10 @@ For implementation details, check:
 - Updated recipe controller tests to the versioned endpoints/contracts
 - Replaced legacy recipe service tests with new `RecipeVersionServiceTest`
 - Updated `UserServiceTest` to validate versioned user-deletion cleanup behavior
+
+### 2026-03-10
+
+- Added method payload strategy layer (`MethodPayloadStrategy`, registry, `default` and initial `pour_over` strategy)
+- Added method payload validation/normalization in `createRecipe` and `updateRecipe`
+- Added metadata endpoint `GET /api/recipe/methods/{methodId}/metadata` for FE form contract resolution
+- Added method payload test coverage (strategy, registry, service, and controller)

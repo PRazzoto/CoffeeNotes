@@ -1,6 +1,7 @@
 package com.example.coffeenotes.api.controller;
 
 import com.example.coffeenotes.api.dto.recipe.*;
+import com.example.coffeenotes.feature.catalog.methodpayload.dto.MethodPayloadMetadataDTO;
 import com.example.coffeenotes.feature.catalog.service.RecipeVersionService;
 import com.example.coffeenotes.util.JwtUtils;
 import org.springframework.data.domain.Page;
@@ -60,5 +61,10 @@ public class RecipeController {
     public List<VersionHistoryItemDTO> getRecipeVersions(@AuthenticationPrincipal Jwt jwt, @PathVariable UUID trackId) {
         UUID userId = JwtUtils.extractUserId(jwt);
         return recipeService.listRecipeVersions(userId, trackId);
+    }
+
+    @GetMapping("/methods/{methodId}/metadata")
+    public MethodPayloadMetadataDTO getMetadata(@PathVariable UUID methodId) {
+        return recipeService.getMetadata(methodId);
     }
 }

@@ -12,4 +12,5 @@ public class CreateTrackRequestDTO {
     private UUID methodId;
     private String title;
     private boolean isGlobal;
+    private String methodPayload;
 }
