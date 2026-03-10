@@ -41,11 +41,11 @@ public class MethodPayloadStrategyRegistry{
 
         MethodPayloadStrategy strategy = strategiesByKey.get(resolvedKey);
         if (strategy == null) {
-            MethodPayloadStrategy defaultStrategy = strategiesByKey.get("default");
-            if (defaultStrategy == null) {
-                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "No default method payload strategy configured.");
+            MethodPayloadStrategy fallbackStrategy = strategiesByKey.get("pour_over");
+            if (fallbackStrategy == null) {
+                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "No fallback method payload strategy configured.");
             }
-            strategy = defaultStrategy;
+            strategy = fallbackStrategy;
         }
         return strategy;
     }
@@ -58,7 +58,7 @@ public class MethodPayloadStrategyRegistry{
         if (key == null) {
             return "";
         }
-        return key.trim().toLowerCase(Locale.ROOT);
+        return key.trim().toLowerCase(Locale.ROOT).replace(" ", "_").replace("-", "_");
     }
 
 }

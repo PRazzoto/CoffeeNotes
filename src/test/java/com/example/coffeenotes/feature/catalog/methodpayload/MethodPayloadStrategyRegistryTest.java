@@ -1,6 +1,10 @@
 package com.example.coffeenotes.feature.catalog.methodpayload;
 
 import com.example.coffeenotes.feature.catalog.methodpayload.dto.MethodPayloadMetadataDTO;
+import com.example.coffeenotes.feature.catalog.methodpayload.methods.AeroPressMethodPayloadStrategy;
+import com.example.coffeenotes.feature.catalog.methodpayload.methods.CleverDripperMethodPayloadStrategy;
+import com.example.coffeenotes.feature.catalog.methodpayload.methods.FrenchPressMethodPayloadStrategy;
+import com.example.coffeenotes.feature.catalog.methodpayload.methods.MokaPotMethodPayloadStrategy;
 import com.example.coffeenotes.feature.catalog.methodpayload.methods.PourOverMethodPayloadStrategy;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +15,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class MethodPayloadStrategyRegistryTest {
 
     private final MethodPayloadStrategyRegistry registry = new MethodPayloadStrategyRegistry(
-            List.of(new DefaultMethodPayloadStrategy(), new PourOverMethodPayloadStrategy())
+            List.of(
+                    new DefaultMethodPayloadStrategy(),
+                    new PourOverMethodPayloadStrategy(),
+                    new FrenchPressMethodPayloadStrategy(),
+                    new AeroPressMethodPayloadStrategy(),
+                    new MokaPotMethodPayloadStrategy(),
+                    new CleverDripperMethodPayloadStrategy()
+            )
     );
 
     @Test
@@ -27,9 +38,21 @@ class MethodPayloadStrategyRegistryTest {
     }
 
     @Test
-    void getRequired_whenUnsupportedMethod_returnsDefaultStrategy() {
+    void getRequired_whenUnsupportedMethod_returnsPourOverFallback() {
         MethodPayloadStrategy strategy = registry.getRequired("unsupported_method");
-        assertEquals("default", strategy.methodKey());
+        assertEquals("pour_over", strategy.methodKey());
+    }
+
+    @Test
+    void getRequired_whenMethodHasSpaces_resolvesToUnderscoreKey() {
+        MethodPayloadStrategy strategy = registry.getRequired("French Press");
+        assertEquals("french_press", strategy.methodKey());
+    }
+
+    @Test
+    void getRequired_whenMethodHasHyphen_resolvesToUnderscoreKey() {
+        MethodPayloadStrategy strategy = registry.getRequired("moka-pot");
+        assertEquals("moka_pot", strategy.methodKey());
     }
 
     @Test
