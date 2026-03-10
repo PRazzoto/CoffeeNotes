@@ -94,7 +94,7 @@ public class RecipeVersionService {
         try {
             normalizedPayloadString = objectMapper.writeValueAsString(normalizedPayload);
         } catch (JsonProcessingException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid methodPayload JSON");
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to serialize methodPayload JSON.", e);
         }
         boolean trackAlreadyExists = recipeTrackRepository
                 .findByOwner_IdAndBean_IdAndMethod_IdAndDeletedAtIsNull(userId, bean.getId(), method.getId())
@@ -333,24 +333,25 @@ public class RecipeVersionService {
             if(version.getDeletedAt() != null) {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Version not found.");
             }
-            MethodPayloadStrategy strategy = methodPayloadStrategyRegistry.getRequired(recipe.getMethod().getName());
             String rawMethodPayload = dto.getMethodPayload();
-            if(rawMethodPayload == null || rawMethodPayload.isBlank()) {
-                rawMethodPayload = "{}";
-            }
-
-            JsonNode payloadJson;
-            try {
-                payloadJson = objectMapper.readTree(rawMethodPayload);
-            } catch (JsonProcessingException e){
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid methodPayload JSON.");
-            }
-            JsonNode normalizedPayload = strategy.validateAndNormalize(payloadJson);
             String normalizedPayloadString;
-            try {
-                normalizedPayloadString = objectMapper.writeValueAsString(normalizedPayload);
-            } catch (JsonProcessingException e) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid methodPayload JSON");
+            if (rawMethodPayload != null && !rawMethodPayload.isBlank()) {
+                MethodPayloadStrategy strategy = methodPayloadStrategyRegistry.getRequired(recipe.getMethod().getName());
+
+                JsonNode payloadJson;
+                try {
+                    payloadJson = objectMapper.readTree(rawMethodPayload);
+                } catch (JsonProcessingException e){
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid methodPayload JSON.");
+                }
+                JsonNode normalizedPayload = strategy.validateAndNormalize(payloadJson);
+                try {
+                    normalizedPayloadString = objectMapper.writeValueAsString(normalizedPayload);
+                } catch (JsonProcessingException e) {
+                    throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to serialize methodPayload JSON.", e);
+                }
+            } else {
+                normalizedPayloadString = version.getMethodPayload();
             }
             List<RecipeWaterPour> waterPours = recipeWaterPourRepository.findByRecipeVersion_IdOrderByOrderIndexAsc(version.getId());
             List<RecipeEquipment> recipeEquipments = recipeEquipmentRepository.findByRecipeVersion_Id(version.getId());
@@ -368,7 +369,7 @@ public class RecipeVersionService {
             newVersion.setBrewTimeSeconds(dto.getBrewTimeSeconds() != null ? dto.getBrewTimeSeconds() : version.getBrewTimeSeconds());
             newVersion.setWaterTemperatureCelsius(dto.getWaterTemperatureCelsius() != null ? dto.getWaterTemperatureCelsius() : version.getWaterTemperatureCelsius());
             newVersion.setRating(dto.getRating() != null ? dto.getRating() : version.getRating());
-            newVersion.setMethodPayload(dto.getMethodPayload() != null && !dto.getMethodPayload().isBlank() ? normalizedPayloadString : version.getMethodPayload());
+            newVersion.setMethodPayload(normalizedPayloadString);
             version.setCurrent(false);
 
             recipeVersionRepository.save(version);
@@ -497,7 +498,7 @@ public class RecipeVersionService {
 
     public MethodPayloadMetadataDTO getMetadata(UUID methodId) {
         if(methodId== null){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "There are missing fields");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "methodId is required");
         }
         BrewMethods method = brewMethodsRepository.findById(methodId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Method not found"));
