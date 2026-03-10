@@ -41,9 +41,9 @@ public class MethodPayloadStrategyRegistry{
 
         MethodPayloadStrategy strategy = strategiesByKey.get(resolvedKey);
         if (strategy == null) {
-            MethodPayloadStrategy fallbackStrategy = strategiesByKey.get("pour_over");
+            MethodPayloadStrategy fallbackStrategy = strategiesByKey.get("default");
             if (fallbackStrategy == null) {
-                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "No fallback method payload strategy configured.");
+                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "No 'default' fallback method payload strategy configured.");
             }
             strategy = fallbackStrategy;
         }

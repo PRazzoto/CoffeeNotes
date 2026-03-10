@@ -46,7 +46,7 @@ public class MokaPotMethodPayloadStrategy implements MethodPayloadStrategy {
         dto.setFields(List.of(
                 field("heatLevel", "Heat Level", "string", true),
                 field("removeOnGurgle", "Remove On Gurgle", "boolean", false),
-                field("preheatedWater", "PreHeated Water", "boolean", false),
+                field("preheatedWater", "Preheated Water", "boolean", false),
                 field("yieldMl", "Yield Ml", "integer", false)
 
         ));
@@ -85,10 +85,13 @@ public class MokaPotMethodPayloadStrategy implements MethodPayloadStrategy {
         if(node == null || node.isNull()) {
             return;
         }
-        if(!node.isNumber()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, fieldName + " must be a number.");
+        if(!node.isIntegralNumber()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, fieldName + " must be an integer.");
         }
-        int value = node.asInt();
+        if(!node.canConvertToInt()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, fieldName + " is out of range for integer type.");
+        }
+        int value = node.intValue();
         if(value <= 0) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, fieldName + " must be positive.");
         }
