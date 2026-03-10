@@ -2,6 +2,8 @@ package com.example.coffeenotes.api.controller;
 
 import com.example.coffeenotes.api.dto.recipe.*;
 import com.example.coffeenotes.config.SecurityConfig;
+import com.example.coffeenotes.feature.catalog.methodpayload.dto.MethodFieldMetadataDTO;
+import com.example.coffeenotes.feature.catalog.methodpayload.dto.MethodPayloadMetadataDTO;
 import com.example.coffeenotes.feature.catalog.service.RecipeVersionService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -145,6 +147,29 @@ class RecipeControllerTest {
     }
 
     @Test
+    void getMetadata_returns200() throws Exception {
+        MethodFieldMetadataDTO field = new MethodFieldMetadataDTO();
+        field.setName("filterShape");
+        field.setLabel("Filter Shape");
+        field.setType("string");
+        field.setRequired(false);
+
+        MethodPayloadMetadataDTO metadata = new MethodPayloadMetadataDTO();
+        metadata.setMethodKey("pour_over");
+        metadata.setMethodName("V60");
+        metadata.setFields(List.of(field));
+
+        when(recipeService.getMetadata(METHOD_ID)).thenReturn(metadata);
+
+        mockMvc.perform(get("/api/recipe/methods/" + METHOD_ID + "/metadata")
+                        .with(jwt().jwt(token -> token.subject(USER_ID.toString()))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.methodKey").value("pour_over"))
+                .andExpect(jsonPath("$.methodName").value("V60"))
+                .andExpect(jsonPath("$.fields[0].name").value("filterShape"));
+    }
+
+    @Test
     void createRecipe_whenServiceThrows400_returns400() throws Exception {
         when(recipeService.createRecipe(eq(USER_ID), any()))
                 .thenThrow(new ResponseStatusException(HttpStatus.BAD_REQUEST, "invalid"));
@@ -170,6 +195,12 @@ class RecipeControllerTest {
     void getRecipes_whenTokenSubjectInvalid_returns401() throws Exception {
         mockMvc.perform(get("/api/recipe/getRecipes")
                         .with(jwt().jwt(token -> token.subject("not-a-uuid"))))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void getMetadata_whenJwtMissing_returns401() throws Exception {
+        mockMvc.perform(get("/api/recipe/methods/" + METHOD_ID + "/metadata"))
                 .andExpect(status().isUnauthorized());
     }
 

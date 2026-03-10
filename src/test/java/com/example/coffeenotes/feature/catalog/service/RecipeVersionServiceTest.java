@@ -4,6 +4,9 @@ import com.example.coffeenotes.api.dto.recipe.*;
 import com.example.coffeenotes.domain.catalog.*;
 import com.example.coffeenotes.domain.catalog.recipe.*;
 import com.example.coffeenotes.domain.user.User;
+import com.example.coffeenotes.feature.catalog.methodpayload.MethodPayloadStrategy;
+import com.example.coffeenotes.feature.catalog.methodpayload.MethodPayloadStrategyRegistry;
+import com.example.coffeenotes.feature.catalog.methodpayload.dto.MethodPayloadMetadataDTO;
 import com.example.coffeenotes.feature.catalog.repository.BrewMethodsRepository;
 import com.example.coffeenotes.feature.catalog.repository.CoffeeBeanRepository;
 import com.example.coffeenotes.feature.catalog.repository.EquipmentRepository;
@@ -13,9 +16,12 @@ import com.example.coffeenotes.feature.catalog.repository.recipe.RecipeTrackRepo
 import com.example.coffeenotes.feature.catalog.repository.recipe.RecipeVersionRepository;
 import com.example.coffeenotes.feature.catalog.repository.recipe.RecipeWaterPourRepository;
 import com.example.coffeenotes.feature.user.repository.UserRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -65,6 +71,12 @@ class RecipeVersionServiceTest {
     private RecipeEquipmentRepository recipeEquipmentRepository;
     @Mock
     private EquipmentRepository equipmentRepository;
+    @Mock
+    private MethodPayloadStrategyRegistry methodPayloadStrategyRegistry;
+    @Mock
+    private MethodPayloadStrategy methodPayloadStrategy;
+    @Mock
+    private ObjectMapper objectMapper;
 
     @InjectMocks
     private RecipeVersionService recipeVersionService;
@@ -90,6 +102,7 @@ class RecipeVersionServiceTest {
         when(brewMethodsRepository.findById(METHOD_ID)).thenReturn(Optional.of(method));
         when(recipeTrackRepository.findByOwner_IdAndBean_IdAndMethod_IdAndDeletedAtIsNull(USER_ID, BEAN_ID, METHOD_ID))
                 .thenReturn(Optional.empty());
+        stubMethodPayloadFlow("{}");
         when(recipeTrackRepository.save(any())).thenReturn(savedTrack);
         when(recipeVersionRepository.save(any())).thenReturn(savedVersion);
 
@@ -120,6 +133,7 @@ class RecipeVersionServiceTest {
         when(brewMethodsRepository.findById(METHOD_ID)).thenReturn(Optional.of(method));
         when(recipeTrackRepository.findByOwner_IdAndBean_IdAndMethod_IdAndDeletedAtIsNull(USER_ID, BEAN_ID, METHOD_ID))
                 .thenReturn(Optional.of(track(TRACK_ID, owner, bean, method, "Morning", false, null)));
+        stubMethodPayloadFlow("{}");
 
         ResponseStatusException ex = assertThrows(ResponseStatusException.class,
                 () -> recipeVersionService.createRecipe(USER_ID, dto));
@@ -268,6 +282,117 @@ class RecipeVersionServiceTest {
     }
 
     @Test
+    void createRecipe_whenMethodPayloadInvalidJson_throws400() throws Exception {
+        User owner = user(USER_ID, "owner@test.com");
+        CoffeeBean bean = bean(BEAN_ID, owner, false);
+        BrewMethods method = method(METHOD_ID, "V60");
+
+        CreateTrackRequestDTO dto = new CreateTrackRequestDTO();
+        dto.setBeanId(BEAN_ID);
+        dto.setMethodId(METHOD_ID);
+        dto.setTitle("Morning");
+        dto.setMethodPayload("{bad json");
+
+        when(userRepository.findById(USER_ID)).thenReturn(Optional.of(owner));
+        when(coffeeBeanRepository.findById(BEAN_ID)).thenReturn(Optional.of(bean));
+        when(brewMethodsRepository.findById(METHOD_ID)).thenReturn(Optional.of(method));
+        when(methodPayloadStrategyRegistry.getRequired("V60")).thenReturn(methodPayloadStrategy);
+        when(objectMapper.readTree("{bad json")).thenThrow(new JsonProcessingException("invalid json") { });
+
+        ResponseStatusException ex = assertThrows(ResponseStatusException.class,
+                () -> recipeVersionService.createRecipe(USER_ID, dto));
+
+        assertEquals(HttpStatus.BAD_REQUEST, ex.getStatusCode());
+        verify(recipeTrackRepository, never()).save(any());
+    }
+
+    @Test
+    void createRecipe_whenStrategyRejectsPayload_throws400() throws Exception {
+        User owner = user(USER_ID, "owner@test.com");
+        CoffeeBean bean = bean(BEAN_ID, owner, false);
+        BrewMethods method = method(METHOD_ID, "V60");
+
+        CreateTrackRequestDTO dto = new CreateTrackRequestDTO();
+        dto.setBeanId(BEAN_ID);
+        dto.setMethodId(METHOD_ID);
+        dto.setTitle("Morning");
+        dto.setMethodPayload("{\"filterShape\":\"invalid\"}");
+
+        JsonNode node = new ObjectMapper().readTree(dto.getMethodPayload());
+        when(userRepository.findById(USER_ID)).thenReturn(Optional.of(owner));
+        when(coffeeBeanRepository.findById(BEAN_ID)).thenReturn(Optional.of(bean));
+        when(brewMethodsRepository.findById(METHOD_ID)).thenReturn(Optional.of(method));
+        when(methodPayloadStrategyRegistry.getRequired("V60")).thenReturn(methodPayloadStrategy);
+        when(objectMapper.readTree(dto.getMethodPayload())).thenReturn(node);
+        when(methodPayloadStrategy.validateAndNormalize(node))
+                .thenThrow(new ResponseStatusException(HttpStatus.BAD_REQUEST, "invalid payload"));
+
+        ResponseStatusException ex = assertThrows(ResponseStatusException.class,
+                () -> recipeVersionService.createRecipe(USER_ID, dto));
+
+        assertEquals(HttpStatus.BAD_REQUEST, ex.getStatusCode());
+        verify(recipeTrackRepository, never()).save(any());
+    }
+
+    @Test
+    void updateRecipe_whenMethodPayloadProvidedAndInvalid_throws400() throws Exception {
+        User owner = user(USER_ID, "owner@test.com");
+        CoffeeBean bean = bean(BEAN_ID, owner, false);
+        BrewMethods method = method(METHOD_ID, "V60");
+        RecipeTrack track = track(TRACK_ID, owner, bean, method, "Old title", false, null);
+        RecipeVersion current = version(UUID.randomUUID(), track, 1, true, "Old title", null);
+        current.setMethodPayload("{}");
+
+        UpdateRecipeRequestDTO dto = new UpdateRecipeRequestDTO();
+        dto.setMethodPayload("{bad json");
+
+        when(recipeTrackRepository.findById(TRACK_ID)).thenReturn(Optional.of(track));
+        when(recipeVersionRepository.findByTrack_IdAndIsCurrentTrue(TRACK_ID)).thenReturn(Optional.of(current));
+        when(methodPayloadStrategyRegistry.getRequired("V60")).thenReturn(methodPayloadStrategy);
+        when(objectMapper.readTree("{bad json")).thenThrow(new JsonProcessingException("invalid json") { });
+
+        ResponseStatusException ex = assertThrows(ResponseStatusException.class,
+                () -> recipeVersionService.updateRecipe(USER_ID, TRACK_ID, dto));
+
+        assertEquals(HttpStatus.BAD_REQUEST, ex.getStatusCode());
+        verify(recipeVersionRepository, never()).save(any());
+    }
+
+    @Test
+    void getMetadata_whenValidMethod_returnsStrategyMetadata() {
+        BrewMethods method = method(METHOD_ID, "V60");
+        MethodPayloadMetadataDTO metadata = new MethodPayloadMetadataDTO();
+        metadata.setMethodKey("pour_over");
+        metadata.setMethodName("V60");
+
+        when(brewMethodsRepository.findById(METHOD_ID)).thenReturn(Optional.of(method));
+        when(methodPayloadStrategyRegistry.metadata("V60", "V60")).thenReturn(metadata);
+
+        MethodPayloadMetadataDTO out = recipeVersionService.getMetadata(METHOD_ID);
+
+        assertEquals("pour_over", out.getMethodKey());
+        assertEquals("V60", out.getMethodName());
+    }
+
+    @Test
+    void getMetadata_whenMethodIdNull_throws400() {
+        ResponseStatusException ex = assertThrows(ResponseStatusException.class,
+                () -> recipeVersionService.getMetadata(null));
+
+        assertEquals(HttpStatus.BAD_REQUEST, ex.getStatusCode());
+    }
+
+    @Test
+    void getMetadata_whenMethodMissing_throws404() {
+        when(brewMethodsRepository.findById(METHOD_ID)).thenReturn(Optional.empty());
+
+        ResponseStatusException ex = assertThrows(ResponseStatusException.class,
+                () -> recipeVersionService.getMetadata(METHOD_ID));
+
+        assertEquals(HttpStatus.NOT_FOUND, ex.getStatusCode());
+    }
+
+    @Test
     void deleteRecipe_whenValid_softDeletesTrackAndVersions() {
         User owner = user(USER_ID, "owner@test.com");
         CoffeeBean bean = bean(BEAN_ID, owner, false);
@@ -361,5 +486,17 @@ class RecipeVersionServiceTest {
         v.setCreatedAt(LocalDateTime.now());
         v.setUpdatedAt(LocalDateTime.now());
         return v;
+    }
+
+    private void stubMethodPayloadFlow(String rawPayload) {
+        ObjectNode node = new ObjectMapper().createObjectNode();
+        when(methodPayloadStrategyRegistry.getRequired("V60")).thenReturn(methodPayloadStrategy);
+        try {
+            when(objectMapper.readTree(rawPayload)).thenReturn(node);
+            when(methodPayloadStrategy.validateAndNormalize(node)).thenReturn(node);
+            when(objectMapper.writeValueAsString(node)).thenReturn("{}");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
