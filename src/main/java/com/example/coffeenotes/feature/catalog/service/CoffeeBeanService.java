@@ -62,7 +62,7 @@ public class CoffeeBeanService {
     }
 
 
-    public List<BeanResponseDTO> listBean(UUID userId) {
+    public List<BeanResponseDTO> listBeans(UUID userId) {
         if(userId == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "UserId is missing.");
         }
