@@ -1,5 +1,6 @@
 package com.example.coffeenotes.api.controller;
 
+import com.example.coffeenotes.api.dto.common.PagedResponseDTO;
 import com.example.coffeenotes.api.dto.recipe.*;
 import com.example.coffeenotes.feature.catalog.methodpayload.dto.MethodPayloadMetadataDTO;
 import com.example.coffeenotes.feature.catalog.service.RecipeVersionService;
@@ -25,9 +26,10 @@ public class RecipeController {
     }
 
     @GetMapping("/getRecipes")
-    public Page<TrackSummaryResponseDTO> getRecipes(@AuthenticationPrincipal Jwt jwt, RecipeFilterDTO filter, Pageable pageable) {
+    public PagedResponseDTO<TrackSummaryResponseDTO> getRecipes(@AuthenticationPrincipal Jwt jwt, RecipeFilterDTO filter, Pageable pageable) {
         UUID userId = JwtUtils.extractUserId(jwt);
-        return recipeService.listRecipes(userId, filter, pageable);
+        Page<TrackSummaryResponseDTO> page = recipeService.listRecipes(userId, filter, pageable);
+        return PagedResponseDTO.from(page);
     }
 
     @PostMapping("/createRecipe")

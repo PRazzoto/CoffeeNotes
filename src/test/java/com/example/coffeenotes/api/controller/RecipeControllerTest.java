@@ -11,6 +11,7 @@ import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
@@ -60,14 +61,22 @@ class RecipeControllerTest {
         TrackSummaryResponseDTO item = new TrackSummaryResponseDTO();
         item.setTrackId(TRACK_ID_1);
         item.setTitle("Morning V60");
+        item.setFavorite(true);
         when(recipeService.listRecipes(eq(USER_ID), any(), any(Pageable.class)))
-                .thenReturn(new PageImpl<>(List.of(item)));
+                .thenReturn(new PageImpl<>(List.of(item), PageRequest.of(1, 1), 3));
 
         mockMvc.perform(get("/api/recipe/getRecipes")
                         .with(jwt().jwt(token -> token.subject(USER_ID.toString()))))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.content[0].trackId").value(TRACK_ID_1.toString()))
-                .andExpect(jsonPath("$.content[0].title").value("Morning V60"));
+                .andExpect(jsonPath("$.items[0].trackId").value(TRACK_ID_1.toString()))
+                .andExpect(jsonPath("$.items[0].title").value("Morning V60"))
+                .andExpect(jsonPath("$.items[0].favorite").value(true))
+                .andExpect(jsonPath("$.page").value(1))
+                .andExpect(jsonPath("$.size").value(1))
+                .andExpect(jsonPath("$.totalElements").value(3))
+                .andExpect(jsonPath("$.totalPages").value(3))
+                .andExpect(jsonPath("$.hasNext").value(true))
+                .andExpect(jsonPath("$.hasPrevious").value(true));
     }
 
     @Test
