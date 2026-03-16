@@ -2,7 +2,6 @@ package com.example.coffeenotes.api.controller;
 
 import com.example.coffeenotes.api.dto.bean.BeanResponseDTO;
 import com.example.coffeenotes.api.dto.bean.CreateBeanRequestDTO;
-import com.example.coffeenotes.domain.catalog.CoffeeBean;
 import com.example.coffeenotes.feature.catalog.service.CoffeeBeanService;
 import com.example.coffeenotes.util.JwtUtils;
 import org.springframework.http.HttpStatus;
@@ -34,6 +33,6 @@ public class CoffeeBeanController {
     @GetMapping("/listCoffeeBean")
     public List<BeanResponseDTO> listBeans(@AuthenticationPrincipal Jwt jwt) {
         UUID userId = JwtUtils.extractUserId(jwt);
-        return coffeeBeanService.listBean(userId);
+        return coffeeBeanService.listBeans(userId);
     }
 }

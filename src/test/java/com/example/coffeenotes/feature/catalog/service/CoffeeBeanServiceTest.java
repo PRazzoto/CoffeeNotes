@@ -156,10 +156,10 @@ class CoffeeBeanServiceTest {
     }
 
     @Test
-    void listBean_whenUserIdNull_throws400() {
+    void listBeans_whenUserIdNull_throws400() {
         ResponseStatusException ex = assertThrows(
                 ResponseStatusException.class,
-                () -> coffeeBeanService.listBean(null)
+                () -> coffeeBeanService.listBeans(null)
         );
 
         assertEquals(HttpStatus.BAD_REQUEST, ex.getStatusCode());
@@ -167,16 +167,16 @@ class CoffeeBeanServiceTest {
     }
 
     @Test
-    void listBean_whenNoBeans_returnsEmptyList() {
+    void listBeans_whenNoBeans_returnsEmptyList() {
         when(coffeeBeanRepository.findVisibleBeans(USER_ID)).thenReturn(List.of());
 
-        List<BeanResponseDTO> out = coffeeBeanService.listBean(USER_ID);
+        List<BeanResponseDTO> out = coffeeBeanService.listBeans(USER_ID);
 
         assertTrue(out.isEmpty());
     }
 
     @Test
-    void listBean_whenVisibleBeansExist_mapsAllFields() {
+    void listBeans_whenVisibleBeansExist_mapsAllFields() {
         CoffeeBean ownBean = bean(BEAN_ID, "Kenya", false);
         ownBean.setRoaster("Dak");
         ownBean.setOrigin("Nyeri");
@@ -191,7 +191,7 @@ class CoffeeBeanServiceTest {
 
         when(coffeeBeanRepository.findVisibleBeans(USER_ID)).thenReturn(List.of(ownBean, globalBean));
 
-        List<BeanResponseDTO> out = coffeeBeanService.listBean(USER_ID);
+        List<BeanResponseDTO> out = coffeeBeanService.listBeans(USER_ID);
 
         assertEquals(2, out.size());
 

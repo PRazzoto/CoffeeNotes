@@ -75,7 +75,7 @@ class CoffeeBeanControllerTest {
 
     @Test
     void listBeans_returnsDtos() throws Exception {
-        when(coffeeBeanService.listBean(USER_ID)).thenReturn(List.of(
+        when(coffeeBeanService.listBeans(USER_ID)).thenReturn(List.of(
                 beanResponse(BEAN_ID_1, "Kenya", false, "Nyeri"),
                 beanResponse(BEAN_ID_2, "Colombia", true, "Huila")
         ));
