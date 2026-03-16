@@ -7,11 +7,13 @@ CoffeeNotes is a Spring Boot backend for a notes/recipes app focused on coffee b
 - Runs locally with PostgreSQL via Docker Compose
 - Flyway migrations enabled (Spring Boot 4 + `spring-boot-flyway`)
 - Equipment CRUD endpoints implemented
+- Coffee bean create/list flow implemented with authenticated ownership + visibility filtering
 - Versioned recipe flow implemented via `RecipeVersionService` (`track + current version + history`)
 - Method-payload strategy baseline implemented (`MethodPayloadStrategy` + registry + initial `pour_over` strategy)
 - Additional method payload strategies implemented (`french_press`, `aeropress`, `moka_pot`, `clever_dripper`)
 - Method payload metadata endpoint implemented for FE (`GET /api/recipe/methods/{methodId}/metadata`)
 - Recipe endpoints now use authenticated JWT subject instead of `userId` query param
+- Coffee bean endpoints now use authenticated JWT subject instead of request-level user identifiers
 - User profile/account endpoints implemented (`get`, `update display name`, `change password`, `delete account`)
 - Versioned recipe data-model foundation added (`coffee_beans`, `recipe_tracks`, `recipe_versions`)
 - Versioned relation/media persistence layer added (`RecipeWaterPour`, `RecipeEquipment`, `Favorite`, `MediaAsset`)
@@ -19,6 +21,7 @@ CoffeeNotes is a Spring Boot backend for a notes/recipes app focused on coffee b
 - Auth refresh/logout flow implemented with HttpOnly refresh-token cookies
 - Equipment IDs migrated to UUID
 - Controller and service tests updated for UUID flow
+- Coffee bean controller/service tests added for create/list edge cases
 
 ## Tech Stack
 
@@ -67,14 +70,29 @@ The server runs on `http://localhost:8080` by default.
   - `V6`: auth refresh sessions table (`auth_refresh_sessions`)
   - `V7`: versioned recipe foundation and transition columns (`coffee_beans`, `recipe_tracks`, `recipe_versions`, relation backfill to version/track IDs)
 
+## Docs
+
+- Root backend overview: `README.md`
+- Frontend integration docs index: `docs/README.md`
+- API contract: `docs/API_CONTRACT.md`
+- Auth/session behavior: `docs/AUTH_FLOW.md`
+- Domain/data model notes: `docs/DOMAIN_MODELS.md`
+- Error and validation guide: `docs/ERRORS.md`
+
 ## API (WIP)
 
 Current endpoints:
 
+- `GET /api/brewMethods/listAll`
+- `POST /api/brewMethods/createBrewMethods`
+- `PUT /api/brewMethods/editBrewMethods/{id}`
+- `DELETE /api/brewMethods/deleteBrewMethods/{id}`
 - `GET /api/equipment/listAll`
 - `POST /api/equipment/createEquipment`
 - `PUT /api/equipment/editEquipment/{id}`
 - `DELETE /api/equipment/deleteEquipment/{id}`
+- `POST /api/coffeeBean/createCoffeeBean`
+- `GET /api/coffeeBean/listCoffeeBean`
 - `GET /api/recipe/getRecipes`
 - `GET /api/recipe/getRecipe/{trackId}`
 - `GET /api/recipe/getRecipeVersions/{trackId}`
@@ -92,7 +110,9 @@ Current endpoints:
 - `DELETE /api/user/deleteUser`
 
 Notes:
+- Current bean routes are still exposed under legacy-style controller paths (`/api/coffeeBean/...`).
 - Equipment routes use `{id}` as UUID. Recipe routes use `{trackId}` as UUID.
+- Coffee bean create/list routes resolve ownership from JWT `sub` and return own + global non-deleted beans.
 - Equipment DTO responses currently expose `name` and `description`.
 - Recipe endpoints resolve user ownership from JWT `sub` claim and now operate on `trackId`.
 - Recipe `create`/`update` supports `methodPayload` JSON text and validates/normalizes it via method strategy.
@@ -244,3 +264,9 @@ For implementation details, check:
 - Added metadata endpoint `GET /api/recipe/methods/{methodId}/metadata` for FE form contract resolution
 - Added method payload test coverage (strategy, registry, service, and controller)
 - Added concrete strategies for `french_press`, `aeropress`, `moka_pot`, and `clever_dripper`
+
+### 2026-03-16
+
+- Added coffee bean DTOs, service, controller, and repository visibility query for authenticated bean create/list flow
+- Implemented bean create validation, JWT-sub ownership resolution, and own-or-global bean listing behavior
+- Added `CoffeeBeanControllerTest` and `CoffeeBeanServiceTest` coverage for success paths and edge cases
