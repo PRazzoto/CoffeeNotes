@@ -499,4 +499,5 @@ class RecipeVersionServiceTest {
             throw new RuntimeException(e);
         }
     }
+
 }

@@ -4,6 +4,7 @@ import com.example.coffeenotes.api.dto.recipe.*;
 import com.example.coffeenotes.config.SecurityConfig;
 import com.example.coffeenotes.feature.catalog.methodpayload.dto.MethodFieldMetadataDTO;
 import com.example.coffeenotes.feature.catalog.methodpayload.dto.MethodPayloadMetadataDTO;
+import com.example.coffeenotes.feature.catalog.service.FavoriteService;
 import com.example.coffeenotes.feature.catalog.service.RecipeVersionService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,6 @@ import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
@@ -52,6 +52,9 @@ class RecipeControllerTest {
 
     @MockitoBean
     private RecipeVersionService recipeService;
+
+    @MockitoBean
+    private FavoriteService favoriteService;
 
     @MockitoBean
     private JwtDecoder jwtDecoder;
@@ -153,6 +156,75 @@ class RecipeControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].versionId").value(VERSION_ID.toString()))
                 .andExpect(jsonPath("$[0].versionNumber").value(2));
+    }
+
+    @Test
+    void addFavorite_returns200AndBody() throws Exception {
+        FavoriteResponseDTO response = new FavoriteResponseDTO();
+        response.setTrackId(TRACK_ID_1);
+        response.setFavorite(true);
+        when(favoriteService.addFavorite(USER_ID, TRACK_ID_1)).thenReturn(response);
+
+        mockMvc.perform(post("/api/recipe/" + TRACK_ID_1 + "/favorite")
+                        .with(jwt().jwt(token -> token.subject(USER_ID.toString()))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.trackId").value(TRACK_ID_1.toString()))
+                .andExpect(jsonPath("$.favorite").value(true));
+    }
+
+    @Test
+    void removeFavorite_returns200AndBody() throws Exception {
+        FavoriteResponseDTO response = new FavoriteResponseDTO();
+        response.setTrackId(TRACK_ID_1);
+        response.setFavorite(false);
+        when(favoriteService.removeFavorite(USER_ID, TRACK_ID_1)).thenReturn(response);
+
+        mockMvc.perform(delete("/api/recipe/" + TRACK_ID_1 + "/favorite")
+                        .with(jwt().jwt(token -> token.subject(USER_ID.toString()))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.trackId").value(TRACK_ID_1.toString()))
+                .andExpect(jsonPath("$.favorite").value(false));
+    }
+
+    @Test
+    void listFavorites_returnsDtos() throws Exception {
+        TrackSummaryResponseDTO item = new TrackSummaryResponseDTO();
+        item.setTrackId(TRACK_ID_2);
+        item.setTitle("Favorite AeroPress");
+        item.setFavorite(true);
+        item.setCurrentVersionNumber(3);
+
+        when(favoriteService.listFavoriteRecipes(USER_ID)).thenReturn(List.of(item));
+
+        mockMvc.perform(get("/api/recipe/favorites")
+                        .with(jwt().jwt(token -> token.subject(USER_ID.toString()))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].trackId").value(TRACK_ID_2.toString()))
+                .andExpect(jsonPath("$[0].title").value("Favorite AeroPress"))
+                .andExpect(jsonPath("$[0].favorite").value(true))
+                .andExpect(jsonPath("$[0].currentVersionNumber").value(3));
+    }
+
+    @Test
+    void addFavorite_whenTrackNotVisible_returns404() throws Exception {
+        when(favoriteService.addFavorite(USER_ID, TRACK_ID_1))
+                .thenThrow(new ResponseStatusException(HttpStatus.NOT_FOUND, "Track not found."));
+
+        mockMvc.perform(post("/api/recipe/" + TRACK_ID_1 + "/favorite")
+                        .with(jwt().jwt(token -> token.subject(USER_ID.toString()))))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void addFavorite_whenJwtMissing_returns401() throws Exception {
+        mockMvc.perform(post("/api/recipe/" + TRACK_ID_1 + "/favorite"))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void listFavorites_whenJwtMissing_returns401() throws Exception {
+        mockMvc.perform(get("/api/recipe/favorites"))
+                .andExpect(status().isUnauthorized());
     }
 
     @Test
