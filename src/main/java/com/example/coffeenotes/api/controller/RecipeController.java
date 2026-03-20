@@ -3,6 +3,7 @@ package com.example.coffeenotes.api.controller;
 import com.example.coffeenotes.api.dto.common.PagedResponseDTO;
 import com.example.coffeenotes.api.dto.recipe.*;
 import com.example.coffeenotes.feature.catalog.methodpayload.dto.MethodPayloadMetadataDTO;
+import com.example.coffeenotes.feature.catalog.service.FavoriteService;
 import com.example.coffeenotes.feature.catalog.service.RecipeVersionService;
 import com.example.coffeenotes.util.JwtUtils;
 import org.springframework.data.domain.Page;
@@ -20,9 +21,11 @@ import java.util.UUID;
 @RequestMapping("/api/recipe")
 public class RecipeController {
     private final RecipeVersionService recipeService;
+    private final FavoriteService favoriteService;
 
-    public RecipeController(RecipeVersionService recipeService) {
+    public RecipeController(RecipeVersionService recipeService, FavoriteService favoriteService) {
         this.recipeService = recipeService;
+        this.favoriteService = favoriteService;
     }
 
     @GetMapping("/getRecipes")
@@ -68,5 +71,25 @@ public class RecipeController {
     @GetMapping("/methods/{methodId}/metadata")
     public MethodPayloadMetadataDTO getMetadata(@PathVariable UUID methodId) {
         return recipeService.getMetadata(methodId);
+    }
+
+    @PostMapping("/{trackId}/favorite")
+    public ResponseEntity<FavoriteResponseDTO> addFavorite(@AuthenticationPrincipal Jwt jwt, @PathVariable UUID trackId) {
+        UUID userId = JwtUtils.extractUserId(jwt);
+        FavoriteResponseDTO dto = favoriteService.addFavorite(userId, trackId);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{trackId}/favorite")
+    public ResponseEntity<FavoriteResponseDTO> deleteFavorite(@AuthenticationPrincipal Jwt jwt, @PathVariable UUID trackId) {
+        UUID userId = JwtUtils.extractUserId(jwt);
+        FavoriteResponseDTO dto = favoriteService.removeFavorite(userId, trackId);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
+    }
+
+    @GetMapping("/favorites")
+    public List<TrackSummaryResponseDTO> listFavorites(@AuthenticationPrincipal Jwt jwt) {
+        UUID userId = JwtUtils.extractUserId(jwt);
+        return favoriteService.listFavoriteRecipes(userId);
     }
 }

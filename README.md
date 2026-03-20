@@ -9,6 +9,8 @@ CoffeeNotes is a Spring Boot backend for a notes/recipes app focused on coffee b
 - Equipment CRUD endpoints implemented
 - Coffee bean create/list flow implemented with authenticated ownership + visibility filtering
 - Versioned recipe flow implemented via `RecipeVersionService` (`track + current version + history`)
+- Recipe list now returns a stable custom paged response contract (`items`, `page`, `size`, `totalElements`, `totalPages`, `hasNext`, `hasPrevious`)
+- Favorite add/remove/list flow implemented under authenticated recipe routes with idempotent add/remove behavior
 - Method-payload strategy baseline implemented (`MethodPayloadStrategy` + registry + initial `pour_over` strategy)
 - Additional method payload strategies implemented (`french_press`, `aeropress`, `moka_pot`, `clever_dripper`)
 - Method payload metadata endpoint implemented for FE (`GET /api/recipe/methods/{methodId}/metadata`)
@@ -22,6 +24,7 @@ CoffeeNotes is a Spring Boot backend for a notes/recipes app focused on coffee b
 - Equipment IDs migrated to UUID
 - Controller and service tests updated for UUID flow
 - Coffee bean controller/service tests added for create/list edge cases
+- Favorite controller/service tests added for toggle/list behavior and edge cases
 
 ## Tech Stack
 
@@ -97,9 +100,12 @@ Current endpoints:
 - `GET /api/recipe/getRecipe/{trackId}`
 - `GET /api/recipe/getRecipeVersions/{trackId}`
 - `GET /api/recipe/methods/{methodId}/metadata`
+- `GET /api/recipe/favorites`
 - `POST /api/recipe/createRecipe`
+- `POST /api/recipe/{trackId}/favorite`
 - `PATCH /api/recipe/updateRecipe/{trackId}`
 - `DELETE /api/recipe/deleteRecipe/{trackId}`
+- `DELETE /api/recipe/{trackId}/favorite`
 - `POST /api/auth/register`
 - `POST /api/auth/login`
 - `POST /api/auth/refresh`
@@ -115,11 +121,15 @@ Notes:
 - Coffee bean create/list routes resolve ownership from JWT `sub` and return own + global non-deleted beans.
 - Equipment DTO responses currently expose `name` and `description`.
 - Recipe endpoints resolve user ownership from JWT `sub` claim and now operate on `trackId`.
+- Favorite endpoints are currently exposed under legacy recipe controller paths (`/api/recipe/{trackId}/favorite`, `/api/recipe/favorites`).
+- Favorite toggle responses return `{ trackId, favorite }` with idempotent add/remove behavior.
+- Favorites list currently reuses `TrackSummaryResponseDTO`, but only `trackId`, `title`, `global`, `favorite`, and `updatedAt` are populated by the current implementation.
 - Recipe `create`/`update` supports `methodPayload` JSON text and validates/normalizes it via method strategy.
 - Method strategy registry currently routes unknown methods to `pour_over` fallback strategy.
 - Method metadata endpoint currently returns the strategy-driven FE field contract for supported methods.
 - User endpoints resolve account identity from JWT `sub` claim.
 - Access token claims include `sub`, `email`, `role`, `iss`, `aud`, `iat`, `exp`.
+- Media metadata persistence exists, but public media metadata routes are still not implemented.
 
 ## Auth & Security (Current State)
 
@@ -270,3 +280,9 @@ For implementation details, check:
 - Added coffee bean DTOs, service, controller, and repository visibility query for authenticated bean create/list flow
 - Implemented bean create validation, JWT-sub ownership resolution, and own-or-global bean listing behavior
 - Added `CoffeeBeanControllerTest` and `CoffeeBeanServiceTest` coverage for success paths and edge cases
+
+### 2026-03-20
+
+- Switched recipe list responses to the custom `PagedResponseDTO` contract for FE stability
+- Added favorite DTO/service/controller flow for `add`, `remove`, and `list favorites` under current legacy recipe paths
+- Added targeted favorite coverage in `RecipeControllerTest` and new `FavoriteServiceTest`

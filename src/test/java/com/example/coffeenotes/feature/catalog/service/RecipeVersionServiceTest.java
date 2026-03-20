@@ -499,4 +499,12 @@ class RecipeVersionServiceTest {
             throw new RuntimeException(e);
         }
     }
+
+    private Favorite favorite(User user, RecipeTrack track) {
+        Favorite favorite = new Favorite();
+        favorite.setId(new FavoriteId(user.getId(), track.getId()));
+        favorite.setUser(user);
+        favorite.setRecipeTrack(track);
+        return favorite;
+    }
 }
