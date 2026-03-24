@@ -1,0 +1,8 @@
+.git
+.github
+.idea
+target
+docs
+docker-compose.yml
+README.md
+IMPLEMENTATION_PLAN.md

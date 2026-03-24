@@ -38,9 +38,16 @@ jobs:
       - name: Make Maven wrapper executable
         run: chmod +x mvnw
 
+      - name: Generate temporary JWT keys for tests
+        run: |
+          openssl genpkey -algorithm RSA -out private_key.pem -pkeyopt rsa_keygen_bits:2048
+          openssl rsa -pubout -in private_key.pem -out public_key.pem
+
       - name: Run tests
         env:
           SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/coffeenotes
           SPRING_DATASOURCE_USERNAME: admin
           SPRING_DATASOURCE_PASSWORD: admin
+          APP_SECURITY_JWT_PRIVATE_KEY_LOCATION: file:${{ github.workspace }}/private_key.pem
+          APP_SECURITY_JWT_PUBLIC_KEY_LOCATION: file:${{ github.workspace }}/public_key.pem
         run: ./mvnw -B test

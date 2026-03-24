@@ -1,13 +1,19 @@
 package com.example.coffeenotes.api.controller;
 
+import com.example.coffeenotes.config.SecurityConfig;
 import com.example.coffeenotes.domain.catalog.BrewMethods;
 import com.example.coffeenotes.feature.catalog.service.BrewMethodsService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -19,6 +25,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -27,7 +34,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(BrewMethodsController.class)
+@Import(SecurityConfig.class)
+@AutoConfigureMockMvc(addFilters = true)
 class BrewMethodsControllerTest {
+    private static final UUID USER_ID = UUID.fromString("aaaaaaaa-1111-1111-1111-111111111111");
     private static final UUID ID_1 = UUID.fromString("11111111-1111-1111-1111-111111111111");
     private static final UUID ID_2 = UUID.fromString("22222222-2222-2222-2222-222222222222");
     private static final UUID ID_10 = UUID.fromString("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa");
@@ -39,6 +49,9 @@ class BrewMethodsControllerTest {
     @MockitoBean
     private BrewMethodsService brewMethodsService;
 
+    @MockitoBean
+    private JwtDecoder jwtDecoder;
+
     @Test
     void listAll_returnsDtos() throws Exception {
         when(brewMethodsService.listAllBrewMethods()).thenReturn(List.of(
@@ -46,7 +59,7 @@ class BrewMethodsControllerTest {
                 new BrewMethods(ID_2, "French Press", "Immersion")
         ));
 
-        mockMvc.perform(get("/api/brewMethods/listAll"))
+        mockMvc.perform(get("/api/brewMethods/listAll").with(userJwt()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[*].name", containsInAnyOrder("V60", "French Press")))
                 .andExpect(jsonPath("$[*].description", containsInAnyOrder("Cone dripper", "Immersion")))
@@ -59,6 +72,7 @@ class BrewMethodsControllerTest {
         when(brewMethodsService.add(any())).thenReturn(saved);
 
         mockMvc.perform(post("/api/brewMethods/createBrewMethods")
+                        .with(adminJwt())
                         .contentType("application/json")
                         .content("{\"name\":\"AeroPress\",\"description\":\"Immersion\"}"))
                 .andExpect(status().isCreated())
@@ -73,6 +87,7 @@ class BrewMethodsControllerTest {
         when(brewMethodsService.update(eq(ID_1), any())).thenReturn(updated);
 
         mockMvc.perform(put("/api/brewMethods/editBrewMethods/" + ID_1)
+                        .with(adminJwt())
                         .contentType("application/json")
                         .content("{\"name\":\"Kalita Wave\"}"))
                 .andExpect(status().isOk())
@@ -87,6 +102,7 @@ class BrewMethodsControllerTest {
                 .thenThrow(new ResponseStatusException(HttpStatus.NOT_FOUND, "BrewMethods not found"));
 
         mockMvc.perform(put("/api/brewMethods/editBrewMethods/" + ID_99)
+                        .with(adminJwt())
                         .contentType("application/json")
                         .content("{}"))
                 .andExpect(status().isNotFound());
@@ -98,6 +114,7 @@ class BrewMethodsControllerTest {
                 .thenThrow(new ResponseStatusException(HttpStatus.BAD_REQUEST, "name is required"));
 
         mockMvc.perform(post("/api/brewMethods/createBrewMethods")
+                        .with(adminJwt())
                         .contentType("application/json")
                         .content("{\"description\":\"x\"}"))
                 .andExpect(status().isBadRequest());
@@ -109,6 +126,7 @@ class BrewMethodsControllerTest {
                 .thenThrow(new ResponseStatusException(HttpStatus.BAD_REQUEST, "name or description is required"));
 
         mockMvc.perform(put("/api/brewMethods/editBrewMethods/" + ID_1)
+                        .with(adminJwt())
                         .contentType("application/json")
                         .content("{}"))
                 .andExpect(status().isBadRequest());
@@ -119,14 +137,64 @@ class BrewMethodsControllerTest {
         doThrow(new ResponseStatusException(HttpStatus.NOT_FOUND, "BrewMethods not found"))
                 .when(brewMethodsService).delete(ID_99);
 
-        mockMvc.perform(delete("/api/brewMethods/deleteBrewMethods/" + ID_99))
+        mockMvc.perform(delete("/api/brewMethods/deleteBrewMethods/" + ID_99).with(adminJwt()))
                 .andExpect(status().isNotFound());
     }
 
     @Test
     void delete_returns204() throws Exception {
-        mockMvc.perform(delete("/api/brewMethods/deleteBrewMethods/" + ID_1))
+        mockMvc.perform(delete("/api/brewMethods/deleteBrewMethods/" + ID_1).with(adminJwt()))
                 .andExpect(status().isNoContent());
         verify(brewMethodsService).delete(ID_1);
+    }
+
+    @Test
+    void listAll_whenJwtMissing_returns401() throws Exception {
+        mockMvc.perform(get("/api/brewMethods/listAll"))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void create_whenJwtMissing_returns401() throws Exception {
+        mockMvc.perform(post("/api/brewMethods/createBrewMethods")
+                        .contentType("application/json")
+                        .content("{\"name\":\"AeroPress\"}"))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void create_whenUserRole_returns403() throws Exception {
+        mockMvc.perform(post("/api/brewMethods/createBrewMethods")
+                        .with(userJwt())
+                        .contentType("application/json")
+                        .content("{\"name\":\"AeroPress\"}"))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    void edit_whenUserRole_returns403() throws Exception {
+        mockMvc.perform(put("/api/brewMethods/editBrewMethods/" + ID_1)
+                        .with(userJwt())
+                        .contentType("application/json")
+                        .content("{\"name\":\"New Name\"}"))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    void delete_whenUserRole_returns403() throws Exception {
+        mockMvc.perform(delete("/api/brewMethods/deleteBrewMethods/" + ID_1).with(userJwt()))
+                .andExpect(status().isForbidden());
+    }
+
+    private RequestPostProcessor adminJwt() {
+        return jwt()
+                .jwt(token -> token.subject(USER_ID.toString()).claim("role", "ADMIN"))
+                .authorities(new SimpleGrantedAuthority("ROLE_ADMIN"));
+    }
+
+    private RequestPostProcessor userJwt() {
+        return jwt()
+                .jwt(token -> token.subject(USER_ID.toString()).claim("role", "USER"))
+                .authorities(new SimpleGrantedAuthority("ROLE_USER"));
     }
 }

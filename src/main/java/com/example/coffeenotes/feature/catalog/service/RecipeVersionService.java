@@ -372,7 +372,7 @@ public class RecipeVersionService {
             newVersion.setMethodPayload(normalizedPayloadString);
             version.setCurrent(false);
 
-            recipeVersionRepository.save(version);
+            recipeVersionRepository.saveAndFlush(version);
             recipeTrackRepository.save(recipe);
             RecipeVersion saved = recipeVersionRepository.save(newVersion);
 

@@ -1,8 +1,11 @@
+server:
+  port: ${PORT:8080}
+
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/coffeenotes
-    username: admin
-    password: admin
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/coffeenotes}
+    username: ${SPRING_DATASOURCE_USERNAME:admin}
+    password: ${SPRING_DATASOURCE_PASSWORD:admin}
   jpa:
     hibernate:
       ddl-auto: validate
@@ -23,12 +26,12 @@ logging:
 app:
   security:
     cors:
-      allowed-origins:
-        - http://localhost:3000
+      allowed-origins: ${APP_SECURITY_CORS_ALLOWED_ORIGINS:http://localhost:3000}
     jwt:
-      issuer: coffeenotes-api
-      audience: coffeenotes-web
-      private-key-location: file:../secrets/private_key.pem
-      public-key-location: file:../secrets/public_key.pem
+      issuer: ${APP_SECURITY_JWT_ISSUER:coffeenotes-api}
+      audience: ${APP_SECURITY_JWT_AUDIENCE:coffeenotes-web}
+      private-key-location: ${APP_SECURITY_JWT_PRIVATE_KEY_LOCATION:file:../secrets/private_key.pem}
+      public-key-location: ${APP_SECURITY_JWT_PUBLIC_KEY_LOCATION:file:../secrets/public_key.pem}
     cookie:
-      secure: true
+      secure: ${APP_SECURITY_COOKIE_SECURE:true}
+      same-site: ${APP_SECURITY_COOKIE_SAME_SITE:Lax}

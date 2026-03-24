@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: coffeenotes-api
+    runtime: docker
+    plan: free
+    autoDeployTrigger: commit
+    healthCheckPath: /api/health
+    envVars:
+      - key: APP_SECURITY_CORS_ALLOWED_ORIGINS
+        sync: false
+      - key: APP_SECURITY_COOKIE_SECURE
+        value: "true"
+      - key: APP_SECURITY_COOKIE_SAME_SITE
+        value: Lax
+      - key: APP_SECURITY_JWT_ISSUER
+        value: coffeenotes-api
+      - key: APP_SECURITY_JWT_AUDIENCE
+        value: coffeenotes-web
+      - key: APP_SECURITY_JWT_PRIVATE_KEY_LOCATION
+        value: file:/etc/secrets/private_key.pem
+      - key: APP_SECURITY_JWT_PUBLIC_KEY_LOCATION
+        value: file:/etc/secrets/public_key.pem
+      - key: SPRING_DATASOURCE_URL
+        sync: false
+      - key: SPRING_DATASOURCE_USERNAME
+        sync: false
+      - key: SPRING_DATASOURCE_PASSWORD
+        sync: false

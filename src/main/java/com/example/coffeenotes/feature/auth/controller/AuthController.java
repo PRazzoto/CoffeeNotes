@@ -16,6 +16,8 @@ public class AuthController {
 
     @Value("${app.security.cookie.secure:false}")
     private boolean cookieSecure;
+    @Value("${app.security.cookie.same-site:Lax}")
+    private String cookieSameSite;
 
     private final AuthService authService;
 
@@ -32,7 +34,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginRequestDTO login) {
         AuthLoginResultDTO dto = authService.login(login);
-        ResponseCookie refreshCookie = CookieUtils.buildRefreshCookie(dto.getRefreshToken(), cookieSecure);
+        ResponseCookie refreshCookie = CookieUtils.buildRefreshCookie(dto.getRefreshToken(), cookieSecure, cookieSameSite);
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, refreshCookie.toString())
@@ -42,7 +44,7 @@ public class AuthController {
     @PostMapping("/refresh")
     public ResponseEntity<AuthResponseDTO> refresh(@CookieValue(name = "refresh_token", required = false) String refreshToken) {
         AuthLoginResultDTO request = authService.refresh(refreshToken);
-        ResponseCookie refreshCookie = CookieUtils.buildRefreshCookie(request.getRefreshToken(), cookieSecure);
+        ResponseCookie refreshCookie = CookieUtils.buildRefreshCookie(request.getRefreshToken(), cookieSecure, cookieSameSite);
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, refreshCookie.toString())
@@ -52,7 +54,7 @@ public class AuthController {
     @PostMapping("/logout")
     public ResponseEntity<Void> logout(@CookieValue(name = "refresh_token", required = false) String refreshToken) {
         authService.logout(refreshToken);
-        ResponseCookie clearCookie = CookieUtils.buildRefreshCookie("", 0, cookieSecure);
+        ResponseCookie clearCookie = CookieUtils.buildRefreshCookie("", 0, cookieSecure, cookieSameSite);
 
         return ResponseEntity.noContent()
                 .header(HttpHeaders.SET_COOKIE, clearCookie.toString())
