@@ -23,6 +23,8 @@ public class UserController {
     private final UserService userService;
     @Value("${app.security.cookie.secure:false}")
     private boolean cookieSecure;
+    @Value("${app.security.cookie.same-site:Lax}")
+    private String cookieSameSite;
 
     public UserController(UserService userService) {this.userService = userService;}
 
@@ -43,7 +45,7 @@ public class UserController {
     public ResponseEntity<Void> updatePassword(@RequestBody UpdatePasswordDTO dto, @AuthenticationPrincipal Jwt jwt) {
         UUID userId = JwtUtils.extractUserId(jwt);
         userService.updatePassword(dto, userId);
-        ResponseCookie clearCookie = CookieUtils.buildRefreshCookie("", 0, cookieSecure);
+        ResponseCookie clearCookie = CookieUtils.buildRefreshCookie("", 0, cookieSecure, cookieSameSite);
 
         return ResponseEntity.noContent()
                 .header(HttpHeaders.SET_COOKIE, clearCookie.toString())
@@ -55,7 +57,7 @@ public class UserController {
     public ResponseEntity<Void> deleteUser(@AuthenticationPrincipal Jwt jwt) {
         UUID userId = JwtUtils.extractUserId(jwt);
         userService.deleteUser(userId);
-        ResponseCookie clearCookie = CookieUtils.buildRefreshCookie("", 0, cookieSecure);
+        ResponseCookie clearCookie = CookieUtils.buildRefreshCookie("", 0, cookieSecure, cookieSameSite);
 
         return ResponseEntity.noContent()
                 .header(HttpHeaders.SET_COOKIE, clearCookie.toString())

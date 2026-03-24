@@ -85,6 +85,7 @@ The server runs on `http://localhost:8080` by default.
 - Frontend integration docs index: `docs/README.md`
 - API contract: `docs/API_CONTRACT.md`
 - Auth/session behavior: `docs/AUTH_FLOW.md`
+- Render deployment guide: `docs/DEPLOY_RENDER.md`
 - Domain/data model notes: `docs/DOMAIN_MODELS.md`
 - Error and validation guide: `docs/ERRORS.md`
 

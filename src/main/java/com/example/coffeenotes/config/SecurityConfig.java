@@ -1,6 +1,7 @@
 package com.example.coffeenotes.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -32,7 +33,7 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/api/auth/register", "/api/auth/refresh", "/api/auth/login", "/api/auth/logout").permitAll();
+                    auth.requestMatchers("/api/auth/register", "/api/auth/refresh", "/api/auth/login", "/api/auth/logout", "/api/health").permitAll();
                     auth.requestMatchers(HttpMethod.POST, "/api/brewMethods/createBrewMethods").hasRole("ADMIN");
                     auth.requestMatchers(HttpMethod.PUT, "/api/brewMethods/editBrewMethods/{id}").hasRole("ADMIN");
                     auth.requestMatchers(HttpMethod.DELETE, "/api/brewMethods/deleteBrewMethods/{id}").hasRole("ADMIN");
@@ -54,9 +55,14 @@ public class SecurityConfig {
     }
 
     @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
+    public CorsConfigurationSource corsConfigurationSource(
+            @Value("${app.security.cors.allowed-origins}") List<String> allowedOrigins
+    ) {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:3000"));
+        config.setAllowedOrigins(allowedOrigins.stream()
+                .map(String::trim)
+                .filter(origin -> !origin.isBlank())
+                .toList());
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         config.setAllowCredentials(true);
