@@ -2,6 +2,8 @@ package com.example.coffeenotes.config;
 
 import com.example.coffeenotes.api.dto.error.ErrorFormatDTO;
 import jakarta.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -14,18 +16,22 @@ import java.time.LocalDateTime;
 
 @RestControllerAdvice
 public class ExceptionHandlerJava {
+
+    private static final Logger log = LoggerFactory.getLogger(ExceptionHandlerJava.class);
+
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<ErrorFormatDTO> handleResponseStatusException(ResponseStatusException ex, HttpServletRequest request) {
-        HttpStatus status = HttpStatus.valueOf(ex.getStatusCode().value());
+        int statusCode = ex.getStatusCode().value();
+        HttpStatus httpStatus = HttpStatus.resolve(statusCode);
 
         ErrorFormatDTO dto = new ErrorFormatDTO();
         dto.setTimestamp(LocalDateTime.now());
-        dto.setStatus(status.value());
-        dto.setError(status.getReasonPhrase());
+        dto.setStatus(statusCode);
+        dto.setError(httpStatus != null ? httpStatus.getReasonPhrase() : "Unknown Status");
         dto.setMessage(ex.getReason());
         dto.setPath(request.getRequestURI());
 
-        return new ResponseEntity<>(dto, status);
+        return ResponseEntity.status(ex.getStatusCode()).body(dto);
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
@@ -59,6 +65,8 @@ public class ExceptionHandlerJava {
             Exception ex,
             HttpServletRequest request
     ) {
+        log.error("Unhandled exception at {}: {}", request.getRequestURI(), ex.getMessage(), ex);
+
         ErrorFormatDTO dto = new ErrorFormatDTO();
         dto.setTimestamp(LocalDateTime.now());
         dto.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
