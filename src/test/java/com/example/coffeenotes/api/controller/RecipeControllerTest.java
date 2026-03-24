@@ -206,13 +206,44 @@ class RecipeControllerTest {
     }
 
     @Test
-    void addFavorite_whenTrackNotVisible_returns404() throws Exception {
+    void addFavorite_whenTrackNotVisible_returnsStandardErrorBody() throws Exception {
         when(favoriteService.addFavorite(USER_ID, TRACK_ID_1))
                 .thenThrow(new ResponseStatusException(HttpStatus.NOT_FOUND, "Track not found."));
 
         mockMvc.perform(post("/api/recipe/" + TRACK_ID_1 + "/favorite")
                         .with(jwt().jwt(token -> token.subject(USER_ID.toString()))))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.timestamp").exists())
+                .andExpect(jsonPath("$.status").value(HttpStatus.NOT_FOUND.value()))
+                .andExpect(jsonPath("$.error").value(HttpStatus.NOT_FOUND.getReasonPhrase()))
+                .andExpect(jsonPath("$.message").value("Track not found."))
+                .andExpect(jsonPath("$.path").value("/api/recipe/" + TRACK_ID_1 + "/favorite"));
+    }
+
+    @Test
+    void getRecipe_whenTrackIdInvalid_returnsStandardErrorBody() throws Exception {
+        mockMvc.perform(get("/api/recipe/getRecipe/not-a-uuid")
+                        .with(jwt().jwt(token -> token.subject(USER_ID.toString()))))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.timestamp").exists())
+                .andExpect(jsonPath("$.status").value(HttpStatus.BAD_REQUEST.value()))
+                .andExpect(jsonPath("$.error").value(HttpStatus.BAD_REQUEST.getReasonPhrase()))
+                .andExpect(jsonPath("$.message").value("Invalid request parameter."))
+                .andExpect(jsonPath("$.path").value("/api/recipe/getRecipe/not-a-uuid"));
+    }
+
+    @Test
+    void listFavorites_whenServiceThrowsUnexpectedException_returnsStandardErrorBody() throws Exception {
+        when(favoriteService.listFavoriteRecipes(USER_ID)).thenThrow(new RuntimeException("boom"));
+
+        mockMvc.perform(get("/api/recipe/favorites")
+                        .with(jwt().jwt(token -> token.subject(USER_ID.toString()))))
+                .andExpect(status().isInternalServerError())
+                .andExpect(jsonPath("$.timestamp").exists())
+                .andExpect(jsonPath("$.status").value(HttpStatus.INTERNAL_SERVER_ERROR.value()))
+                .andExpect(jsonPath("$.error").value(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase()))
+                .andExpect(jsonPath("$.message").value("Internal server error."))
+                .andExpect(jsonPath("$.path").value("/api/recipe/favorites"));
     }
 
     @Test

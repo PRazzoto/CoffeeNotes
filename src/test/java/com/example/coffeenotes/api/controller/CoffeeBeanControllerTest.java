@@ -88,7 +88,7 @@ class CoffeeBeanControllerTest {
     }
 
     @Test
-    void createBean_whenServiceThrows400_returns400() throws Exception {
+    void createBean_whenServiceThrows400_returnsStandardErrorBody() throws Exception {
         when(coffeeBeanService.createBean(eq(USER_ID), any()))
                 .thenThrow(new ResponseStatusException(HttpStatus.BAD_REQUEST, "Name is required."));
 
@@ -97,10 +97,34 @@ class CoffeeBeanControllerTest {
                         .contentType("application/json")
                         .content("""
                                 {
+                                  "global": false,
                                   "roaster": "April"
                                 }
                                 """))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.timestamp").exists())
+                .andExpect(jsonPath("$.status").value(HttpStatus.BAD_REQUEST.value()))
+                .andExpect(jsonPath("$.error").value(HttpStatus.BAD_REQUEST.getReasonPhrase()))
+                .andExpect(jsonPath("$.message").value("Name is required."))
+                .andExpect(jsonPath("$.path").value("/api/coffeeBean/createCoffeeBean"));
+    }
+
+    @Test
+    void createBean_whenJsonMalformed_returnsStandardErrorBody() throws Exception {
+        mockMvc.perform(post("/api/coffeeBean/createCoffeeBean")
+                        .with(jwt().jwt(token -> token.subject(USER_ID.toString())))
+                        .contentType("application/json")
+                        .content("""
+                                {
+                                  "name": "Ethiopia",
+                                  "global": false
+                                """))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.timestamp").exists())
+                .andExpect(jsonPath("$.status").value(HttpStatus.BAD_REQUEST.value()))
+                .andExpect(jsonPath("$.error").value(HttpStatus.BAD_REQUEST.getReasonPhrase()))
+                .andExpect(jsonPath("$.message").value("Malformed JSON request."))
+                .andExpect(jsonPath("$.path").value("/api/coffeeBean/createCoffeeBean"));
     }
 
     @Test

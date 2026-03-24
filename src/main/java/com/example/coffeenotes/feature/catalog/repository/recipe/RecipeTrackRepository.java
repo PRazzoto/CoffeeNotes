@@ -21,9 +21,9 @@ public interface RecipeTrackRepository extends JpaRepository<RecipeTrack, UUID> 
     List<RecipeTrack> findAllByOwner_Id(UUID ownerId);
 
     @Query("SELECT t FROM RecipeTrack t WHERE t.deletedAt IS NULL " +
-           "AND (t.owner.id = :ownerId OR t.global = true) " +
+           "AND (t.owner.id = :ownerId OR t.isGlobal = true) " +
            "AND (:methodId IS NULL OR t.method.id = :methodId) " +
-           "AND (:isGlobal IS NULL OR t.global = :isGlobal) " +
+           "AND (:isGlobal IS NULL OR t.isGlobal = :isGlobal) " +
            "AND (:favoriteOnly = FALSE OR " +
            "     EXISTS (SELECT f FROM Favorite f WHERE f.recipeTrack = t AND f.user.id = :ownerId)) " +
            "ORDER BY t.updatedAt DESC")

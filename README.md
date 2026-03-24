@@ -11,6 +11,9 @@ CoffeeNotes is a Spring Boot backend for a notes/recipes app focused on coffee b
 - Versioned recipe flow implemented via `RecipeVersionService` (`track + current version + history`)
 - Recipe list now returns a stable custom paged response contract (`items`, `page`, `size`, `totalElements`, `totalPages`, `hasNext`, `hasPrevious`)
 - Favorite add/remove/list flow implemented under authenticated recipe routes with idempotent add/remove behavior
+- JWT `role` claim now maps to Spring Security authorities for API authorization
+- Catalog RBAC hardening implemented for catalog mutations: brew-method and equipment `POST`/`PUT`/`DELETE` routes are admin-only
+- Centralized error formatting implemented for common API failures: `ResponseStatusException`, malformed JSON, invalid request parameter types, and generic uncaught exceptions now use a shared JSON error body
 - Method-payload strategy baseline implemented (`MethodPayloadStrategy` + registry + initial `pour_over` strategy)
 - Additional method payload strategies implemented (`french_press`, `aeropress`, `moka_pot`, `clever_dripper`)
 - Method payload metadata endpoint implemented for FE (`GET /api/recipe/methods/{methodId}/metadata`)
@@ -21,10 +24,12 @@ CoffeeNotes is a Spring Boot backend for a notes/recipes app focused on coffee b
 - Versioned relation/media persistence layer added (`RecipeWaterPour`, `RecipeEquipment`, `Favorite`, `MediaAsset`)
 - Auth register/login flow implemented with JWT access tokens
 - Auth refresh/logout flow implemented with HttpOnly refresh-token cookies
+- Auth integration coverage now validates register, login, refresh rotation, logout, password change, duplicate-email handling, and account deletion flows end-to-end
 - Equipment IDs migrated to UUID
 - Controller and service tests updated for UUID flow
 - Coffee bean controller/service tests added for create/list edge cases
 - Favorite controller/service tests added for toggle/list behavior and edge cases
+- Versioned recipe integration tests added for track/version persistence invariants and soft-delete behavior
 
 ## Tech Stack
 
@@ -72,6 +77,7 @@ The server runs on `http://localhost:8080` by default.
   - `V5`: description columns updated to `VARCHAR(255)`
   - `V6`: auth refresh sessions table (`auth_refresh_sessions`)
   - `V7`: versioned recipe foundation and transition columns (`coffee_beans`, `recipe_tracks`, `recipe_versions`, relation backfill to version/track IDs)
+  - `V8`: completes relation cutover from legacy recipe ids to version/track ids for favorites and version children
 
 ## Docs
 
@@ -120,6 +126,8 @@ Notes:
 - Equipment routes use `{id}` as UUID. Recipe routes use `{trackId}` as UUID.
 - Coffee bean create/list routes resolve ownership from JWT `sub` and return own + global non-deleted beans.
 - Equipment DTO responses currently expose `name` and `description`.
+- Brew-method `POST`/`PUT`/`DELETE` routes currently require `ADMIN`.
+- Equipment `POST`/`PUT`/`DELETE` routes currently require `ADMIN`.
 - Recipe endpoints resolve user ownership from JWT `sub` claim and now operate on `trackId`.
 - Favorite endpoints are currently exposed under legacy recipe controller paths (`/api/recipe/{trackId}/favorite`, `/api/recipe/favorites`).
 - Favorite toggle responses return `{ trackId, favorite }` with idempotent add/remove behavior.
@@ -129,6 +137,8 @@ Notes:
 - Method metadata endpoint currently returns the strategy-driven FE field contract for supported methods.
 - User endpoints resolve account identity from JWT `sub` claim.
 - Access token claims include `sub`, `email`, `role`, `iss`, `aud`, `iat`, `exp`.
+- Resource-server auth maps JWT `role` into Spring `ROLE_*` authorities.
+- standardized API errors now serialize as `{ timestamp, status, error, message, path }` for the handler-covered exception set.
 - Media metadata persistence exists, but public media metadata routes are still not implemented.
 
 ## Auth & Security (Current State)
@@ -151,12 +161,15 @@ Notes:
 - Refresh token stored in HttpOnly cookie (`refresh_token`)
 - Password change revokes active refresh sessions for the current user
 - Password change and account deletion clear refresh-token cookie in response
+- Current logout/password-change/delete-account behavior revokes refresh sessions only; already-issued access tokens remain usable until normal JWT expiry
+- Auth flow integration tests now cover register/login/refresh/logout, duplicate registration conflict, password change, and account deletion against the real stack
 
 ### Register Rules
 
 - Required fields: `email`, `password`, `displayName`
 - Duplicate email returns `409 CONFLICT`
 - Email is normalized (`trim + lowercase`) before persistence
+- Current backend behavior validates email format before trimming, so leading/trailing-space emails are rejected instead of normalized
 - Password is validated and then hashed
 
 ### Login Rules
@@ -174,6 +187,9 @@ Notes:
   - `/api/auth/refresh`
   - `/api/auth/logout`
 - All other routes require a valid JWT
+- Current role-aware authorization:
+  - brew-method `POST`/`PUT`/`DELETE` routes require `ROLE_ADMIN`
+  - equipment `POST`/`PUT`/`DELETE` routes require `ROLE_ADMIN`
 
 ### Testing
 
@@ -286,3 +302,14 @@ For implementation details, check:
 - Switched recipe list responses to the custom `PagedResponseDTO` contract for FE stability
 - Added favorite DTO/service/controller flow for `add`, `remove`, and `list favorites` under current legacy recipe paths
 - Added targeted favorite coverage in `RecipeControllerTest` and new `FavoriteServiceTest`
+
+### 2026-03-24
+
+- Mapped JWT `role` claims into Spring `ROLE_*` authorities for resource-server authorization
+- Restricted brew-method and equipment mutation routes to `ADMIN`
+- Added targeted RBAC coverage for brew methods, equipment, and JWT role mapping
+- Added centralized exception handling for `ResponseStatusException`, malformed JSON, invalid request parameter type, and generic uncaught exceptions
+- Added controller coverage for standardized `400`, `404`, and `500` error payloads
+- Added integration coverage for versioned recipe create/update/delete persistence invariants
+- Added `V8__complete_relation_cutover.sql` to finish version/track relation migration for favorites and child tables
+- Added auth flow integration coverage for duplicate registration conflict, refresh rotation, password change revocation, and account deletion teardown
