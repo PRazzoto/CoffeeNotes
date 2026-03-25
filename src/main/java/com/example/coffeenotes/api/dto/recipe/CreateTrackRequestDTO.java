@@ -3,6 +3,7 @@ package com.example.coffeenotes.api.dto.recipe;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -13,4 +14,5 @@ public class CreateTrackRequestDTO {
     private String title;
     private boolean isGlobal;
     private String methodPayload;
+    private List<UUID> equipmentIds;
 }

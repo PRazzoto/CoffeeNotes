@@ -7,9 +7,12 @@ CoffeeNotes is a Spring Boot backend for a notes/recipes app focused on coffee b
 - Runs locally with PostgreSQL via Docker Compose
 - Flyway migrations enabled (Spring Boot 4 + `spring-boot-flyway`)
 - Equipment CRUD endpoints implemented
+- User equipment preference flow implemented (`GET/PUT /api/equipment/mine`)
 - Coffee bean create/list flow implemented with authenticated ownership + visibility filtering
 - Versioned recipe flow implemented via `RecipeVersionService` (`track + current version + history`)
 - Recipe list now returns a stable custom paged response contract (`items`, `page`, `size`, `totalElements`, `totalPages`, `hasNext`, `hasPrevious`)
+- Recipe list filter surface expanded (`beanId`, `equipmentId`, `hasBean`, rating/time/date ranges, `q`)
+- Recipe list query hardened for PostgreSQL (`DISTINCT + ORDER BY` and null-typed parameter handling)
 - Favorite add/remove/list flow implemented under authenticated recipe routes with idempotent add/remove behavior
 - JWT `role` claim now maps to Spring Security authorities for API authorization
 - Catalog RBAC hardening implemented for catalog mutations: brew-method and equipment `POST`/`PUT`/`DELETE` routes are admin-only
@@ -30,6 +33,8 @@ CoffeeNotes is a Spring Boot backend for a notes/recipes app focused on coffee b
 - Coffee bean controller/service tests added for create/list edge cases
 - Favorite controller/service tests added for toggle/list behavior and edge cases
 - Versioned recipe integration tests added for track/version persistence invariants and soft-delete behavior
+- Recipe create now supports optional `beanId` and optional initial `equipmentIds`
+- User-created beans are now always private (`isGlobal=false` enforced server-side)
 
 ## Tech Stack
 
@@ -67,6 +72,10 @@ java -version
 
 The server runs on `http://localhost:8080` by default.
 
+Production server:
+
+- `https://coffeenotes-api.onrender.com`
+
 ## Database & Migrations
 
 - Migrations live in `src/main/resources/db/migration`
@@ -78,16 +87,13 @@ The server runs on `http://localhost:8080` by default.
   - `V6`: auth refresh sessions table (`auth_refresh_sessions`)
   - `V7`: versioned recipe foundation and transition columns (`coffee_beans`, `recipe_tracks`, `recipe_versions`, relation backfill to version/track IDs)
   - `V8`: completes relation cutover from legacy recipe ids to version/track ids for favorites and version children
+  - `V9`: makes `recipe_tracks.bean_id` optional
+  - `V10`: adds `user_equipment` table for per-user equipment preferences
 
 ## Docs
 
 - Root backend overview: `README.md`
-- Frontend integration docs index: `docs/README.md`
-- API contract: `docs/API_CONTRACT.md`
-- Auth/session behavior: `docs/AUTH_FLOW.md`
-- Render deployment guide: `docs/DEPLOY_RENDER.md`
-- Domain/data model notes: `docs/DOMAIN_MODELS.md`
-- Error and validation guide: `docs/ERRORS.md`
+- Delivery plan and progress tracking: `IMPLEMENTATION_PLAN.md`
 
 ## API (WIP)
 
@@ -98,6 +104,8 @@ Current endpoints:
 - `PUT /api/brewMethods/editBrewMethods/{id}`
 - `DELETE /api/brewMethods/deleteBrewMethods/{id}`
 - `GET /api/equipment/listAll`
+- `GET /api/equipment/mine`
+- `PUT /api/equipment/mine`
 - `POST /api/equipment/createEquipment`
 - `PUT /api/equipment/editEquipment/{id}`
 - `DELETE /api/equipment/deleteEquipment/{id}`
@@ -126,7 +134,9 @@ Notes:
 - Current bean routes are still exposed under legacy-style controller paths (`/api/coffeeBean/...`).
 - Equipment routes use `{id}` as UUID. Recipe routes use `{trackId}` as UUID.
 - Coffee bean create/list routes resolve ownership from JWT `sub` and return own + global non-deleted beans.
-- Equipment DTO responses currently expose `name` and `description`.
+- Equipment DTO responses expose `id`, `name`, and `description`.
+- `GET /api/equipment/mine` returns only the authenticated user's selected equipment list.
+- `PUT /api/equipment/mine` fully replaces the authenticated user's selected equipment list with `{ equipmentIds: UUID[] }`.
 - Brew-method `POST`/`PUT`/`DELETE` routes currently require `ADMIN`.
 - Equipment `POST`/`PUT`/`DELETE` routes currently require `ADMIN`.
 - Recipe endpoints resolve user ownership from JWT `sub` claim and now operate on `trackId`.
@@ -134,9 +144,13 @@ Notes:
 - Favorite toggle responses return `{ trackId, favorite }` with idempotent add/remove behavior.
 - Favorites list currently reuses `TrackSummaryResponseDTO`, but only `trackId`, `title`, `global`, `favorite`, and `updatedAt` are populated by the current implementation.
 - Recipe `create`/`update` supports `methodPayload` JSON text and validates/normalizes it via method strategy.
+- Recipe `create` accepts optional `beanId` and optional `equipmentIds`.
+- Recipe list/detail payloads may include nullable bean fields when a track has no bean linked.
 - Method strategy registry currently routes unknown methods to `pour_over` fallback strategy.
 - Method metadata endpoint currently returns the strategy-driven FE field contract for supported methods.
 - User endpoints resolve account identity from JWT `sub` claim.
+- Recipe list supports filters: `methodId`, `beanId`, `equipmentId`, `isGlobal`, `hasBean`, `favoritesOnly`, `ratingMin`, `ratingMax`, `brewTimeMinSeconds`, `brewTimeMaxSeconds`, `updatedFrom`, `updatedTo`, and `q`.
+- Blank `q` is normalized as no search filter.
 - Access token claims include `sub`, `email`, `role`, `iss`, `aud`, `iat`, `exp`.
 - Resource-server auth maps JWT `role` into Spring `ROLE_*` authorities.
 - standardized API errors now serialize as `{ timestamp, status, error, message, path }` for the handler-covered exception set.
@@ -314,3 +328,6 @@ For implementation details, check:
 - Added integration coverage for versioned recipe create/update/delete persistence invariants
 - Added `V8__complete_relation_cutover.sql` to finish version/track relation migration for favorites and child tables
 - Added auth flow integration coverage for duplicate registration conflict, refresh rotation, password change revocation, and account deletion teardown
+- Added `V9__recipe_track_bean_optional.sql` to allow recipes without linked beans
+- Added `V10__user_equipment_preferences.sql` and user equipment selection endpoints (`GET/PUT /api/equipment/mine`)
+- Extended recipe list filters and stabilized query behavior for PostgreSQL parameter typing and `DISTINCT` ordering

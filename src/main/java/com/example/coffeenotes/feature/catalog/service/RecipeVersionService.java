@@ -19,18 +19,19 @@ import com.example.coffeenotes.feature.catalog.repository.recipe.RecipeVersionRe
 import com.example.coffeenotes.feature.catalog.repository.recipe.RecipeWaterPourRepository;
 import com.example.coffeenotes.feature.user.repository.UserRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.time.LocalDateTime;
+import java.util.Locale;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -55,23 +56,37 @@ public class RecipeVersionService {
         if(dto == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Body is required");
         }
-        if(userId == null|| dto.getBeanId() == null|| dto.getMethodId() == null || dto.getTitle() == null) {
+        if(userId == null || dto.getMethodId() == null || dto.getTitle() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "There is a required field that is missing");
         }
         String title = dto.getTitle().trim();
         if(title.isBlank()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Title should not be blank");
         }
+        if (dto.getEquipmentIds() != null) {
+            Set<UUID> seenEquipmentIds = new HashSet<>();
+            for (UUID equipmentId : dto.getEquipmentIds()) {
+                if (equipmentId == null) {
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Equipment id must not be null.");
+                }
+                if (!seenEquipmentIds.add(equipmentId)) {
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Duplicate equipment id.");
+                }
+            }
+        }
         User owner = userRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
-        CoffeeBean bean = coffeeBeanRepository.findById(dto.getBeanId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Coffee bean not found"));
+        CoffeeBean bean = null;
+        if (dto.getBeanId() != null) {
+            bean = coffeeBeanRepository.findById(dto.getBeanId())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Coffee bean not found"));
 
-        if(bean.getDeletedAt() != null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Coffee bean not found");
-        }
-        if(!bean.getOwner().getId().equals(userId) && !bean.isGlobal()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Coffee bean not found");
+            if(bean.getDeletedAt() != null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Coffee bean not found");
+            }
+            if(!bean.getOwner().getId().equals(userId) && !bean.isGlobal()) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Coffee bean not found");
+            }
         }
 
         BrewMethods method =  brewMethodsRepository.findById(dto.getMethodId())
@@ -96,12 +111,14 @@ public class RecipeVersionService {
         } catch (JsonProcessingException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to serialize methodPayload JSON.", e);
         }
-        boolean trackAlreadyExists = recipeTrackRepository
-                .findByOwner_IdAndBean_IdAndMethod_IdAndDeletedAtIsNull(userId, bean.getId(), method.getId())
-                .isPresent();
+        if (bean != null) {
+            boolean trackAlreadyExists = recipeTrackRepository
+                    .findByOwner_IdAndBean_IdAndMethod_IdAndDeletedAtIsNull(userId, bean.getId(), method.getId())
+                    .isPresent();
 
-        if(trackAlreadyExists) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Track already exists for this bean and method");
+            if(trackAlreadyExists) {
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "Track already exists for this bean and method");
+            }
         }
 
         RecipeTrack track = new RecipeTrack();
@@ -121,12 +138,37 @@ public class RecipeVersionService {
         version.setMethodPayload(normalizedPayloadString);
 
         RecipeVersion savedVersion = recipeVersionRepository.save(version);
+        if (dto.getEquipmentIds() != null) {
+            List<UUID> equipmentIds = dto.getEquipmentIds();
+            Set<UUID> seen = new HashSet<>();
+            for (UUID eid : equipmentIds) {
+                if (!seen.add(eid)) {
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Duplicate equipment id: " + eid);
+                }
+            }
+            Map<UUID, Equipment> equipmentMap = equipmentRepository.findAllById(equipmentIds).stream()
+                    .collect(Collectors.toMap(Equipment::getId, e -> e));
+            if (equipmentMap.size() != equipmentIds.size()) {
+                Set<UUID> missing = new LinkedHashSet<>(equipmentIds);
+                missing.removeAll(equipmentMap.keySet());
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Equipment not found: " + missing);
+            }
+            List<RecipeEquipment> initialEquipments = equipmentIds.stream().map(eid -> {
+                Equipment equipment = equipmentMap.get(eid);
+                RecipeEquipment row = new RecipeEquipment();
+                row.setId(new RecipeEquipmentId(savedVersion.getId(), equipment.getId()));
+                row.setRecipeVersion(savedVersion);
+                row.setEquipment(equipment);
+                return row;
+            }).toList();
+            recipeEquipmentRepository.saveAll(initialEquipments);
+        }
 
         RecipeVersionResponseDTO answer = new RecipeVersionResponseDTO();
         answer.setTrackId(saved.getId());
         answer.setVersionId(savedVersion.getId());
         answer.setVersionNumber(savedVersion.getVersionNumber());
-        answer.setBeanId(bean.getId());
+        answer.setBeanId(bean != null ? bean.getId() : null);
         answer.setMethodId(method.getId());
         answer.setTitle(saved.getTitle());
         answer.setGlobal(saved.isGlobal());
@@ -135,32 +177,111 @@ public class RecipeVersionService {
         return answer;
     }
 
+    @Transactional(readOnly = true)
     public Page<TrackSummaryResponseDTO> listRecipes(UUID userId, RecipeFilterDTO filter, Pageable pageable) {
         if(userId == null || pageable == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "userId and pageable parameters must not be null.");
         }
 
         UUID methodId = filter != null ? filter.getMethodId() : null;
+        UUID beanId = filter != null ? filter.getBeanId() : null;
+        UUID equipmentId = filter != null ? filter.getEquipmentId() : null;
         Boolean isGlobal = filter != null ? filter.getIsGlobal() : null;
+        Boolean hasBean = filter != null ? filter.getHasBean() : null;
         boolean favoriteOnly = filter != null && Boolean.TRUE.equals(filter.getFavoritesOnly());
+        Integer ratingMin = filter != null ? filter.getRatingMin() : null;
+        Integer ratingMax = filter != null ? filter.getRatingMax() : null;
+        Integer brewTimeMinSeconds = filter != null ? filter.getBrewTimeMinSeconds() : null;
+        Integer brewTimeMaxSeconds = filter != null ? filter.getBrewTimeMaxSeconds() : null;
+        LocalDateTime updatedFrom = filter != null ? filter.getUpdatedFrom() : null;
+        LocalDateTime updatedTo = filter != null ? filter.getUpdatedTo() : null;
+        String q = filter != null ? filter.getQ() : null;
+        if (q != null) {
+            q = q.trim();
+            if (q.isEmpty()) {
+                q = null;
+            }
+        }
+        boolean qEnabled = q != null;
+        String qPattern = qEnabled ? "%" + q.toLowerCase(Locale.ROOT) + "%" : "%";
+
+        if (ratingMin != null && (ratingMin < 1 || ratingMin > 5)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "ratingMin must be between 1 and 5.");
+        }
+        if (ratingMax != null && (ratingMax < 1 || ratingMax > 5)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "ratingMax must be between 1 and 5.");
+        }
+        if (ratingMin != null && ratingMax != null && ratingMin > ratingMax) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "ratingMin must be less than or equal to ratingMax.");
+        }
+        if (brewTimeMinSeconds != null && brewTimeMinSeconds < 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "brewTimeMinSeconds must be non-negative.");
+        }
+        if (brewTimeMaxSeconds != null && brewTimeMaxSeconds < 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "brewTimeMaxSeconds must be non-negative.");
+        }
+        if (brewTimeMinSeconds != null && brewTimeMaxSeconds != null && brewTimeMinSeconds > brewTimeMaxSeconds) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "brewTimeMinSeconds must be less than or equal to brewTimeMaxSeconds.");
+        }
+        if (updatedFrom != null && updatedTo != null && updatedFrom.isAfter(updatedTo)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "updatedFrom must be before or equal to updatedTo.");
+        }
+        boolean applyUpdatedFrom = updatedFrom != null;
+        boolean applyUpdatedTo = updatedTo != null;
+        LocalDateTime effectiveUpdatedFrom = applyUpdatedFrom ? updatedFrom : LocalDateTime.of(1970, 1, 1, 0, 0);
+        LocalDateTime effectiveUpdatedTo = applyUpdatedTo ? updatedTo : LocalDateTime.of(9999, 12, 31, 23, 59, 59);
 
         Set<UUID> favoriteTracks = favoriteRepository.findByUser_Id(userId).stream()
                 .map(f -> f.getRecipeTrack().getId())
                 .collect(Collectors.toSet());
 
-        Page<RecipeTrack> trackPage = recipeTrackRepository.findVisibleTracks(userId, methodId, isGlobal, favoriteOnly, pageable);
+        Page<RecipeTrack> trackPage = recipeTrackRepository.findVisibleTracks(
+                userId,
+                methodId,
+                beanId,
+                equipmentId,
+                isGlobal,
+                hasBean,
+                favoriteOnly,
+                ratingMin,
+                ratingMax,
+                brewTimeMinSeconds,
+                brewTimeMaxSeconds,
+                applyUpdatedFrom,
+                effectiveUpdatedFrom,
+                applyUpdatedTo,
+                effectiveUpdatedTo,
+                qEnabled,
+                qPattern,
+                pageable
+        );
 
         List<UUID> trackIds = trackPage.getContent().stream().map(RecipeTrack::getId).toList();
         Map<UUID, RecipeVersion> currentVersionsByTrackId = trackIds.isEmpty()
                 ? Map.of()
                 : recipeVersionRepository.findByTrack_IdInAndIsCurrentTrue(trackIds).stream()
-                        .collect(Collectors.toMap(v -> v.getTrack().getId(), v -> v));
+                        .collect(Collectors.toMap(
+                                v -> v.getTrack().getId(),
+                                v -> v,
+                                (left, right) -> {
+                                    Integer leftVersion = left.getVersionNumber();
+                                    Integer rightVersion = right.getVersionNumber();
+                                    if (leftVersion == null) {
+                                        return right;
+                                    }
+                                    if (rightVersion == null) {
+                                        return left;
+                                    }
+                                    return rightVersion >= leftVersion ? right : left;
+                                }
+                        ));
 
         List<TrackSummaryResponseDTO> summaries = trackPage.getContent().stream().map(track -> {
             TrackSummaryResponseDTO dto = new TrackSummaryResponseDTO();
             dto.setTrackId(track.getId());
-            dto.setBeanId(track.getBean().getId());
-            dto.setBeanName(track.getBean().getName());
+            CoffeeBean bean = track.getBean();
+            dto.setBeanId(bean != null ? bean.getId() : null);
+            dto.setBeanName(bean != null ? bean.getName() : null);
             dto.setMethodId(track.getMethod().getId());
             dto.setMethodName(track.getMethod().getName());
             dto.setTitle(track.getTitle());
@@ -180,6 +301,7 @@ public class RecipeVersionService {
         return new PageImpl<>(summaries, pageable, trackPage.getTotalElements());
     }
 
+    @Transactional(readOnly = true)
     public TrackDetailsResponseDTO getRecipe(UUID userId, UUID trackId) {
         if(userId == null || trackId == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "userId or trackId null.");
@@ -198,12 +320,13 @@ public class RecipeVersionService {
             TrackDetailsResponseDTO dto = new TrackDetailsResponseDTO();
 
             dto.setTrackId(recipe.getId());
-            dto.setBeanId(recipe.getBean().getId());
-            dto.setBeanName(recipe.getBean().getName());
-            dto.setRoaster(recipe.getBean().getRoaster());
-            dto.setOrigin(recipe.getBean().getOrigin());
-            dto.setProcess(recipe.getBean().getProcess());
-            dto.setNotes(recipe.getBean().getNotes());
+            CoffeeBean bean = recipe.getBean();
+            dto.setBeanId(bean != null ? bean.getId() : null);
+            dto.setBeanName(bean != null ? bean.getName() : null);
+            dto.setRoaster(bean != null ? bean.getRoaster() : null);
+            dto.setOrigin(bean != null ? bean.getOrigin() : null);
+            dto.setProcess(bean != null ? bean.getProcess() : null);
+            dto.setNotes(bean != null ? bean.getNotes() : null);
 
             dto.setMethodId(recipe.getMethod().getId());
             dto.setMethodName(recipe.getMethod().getName());
@@ -423,7 +546,7 @@ public class RecipeVersionService {
             answer.setVersionId(saved.getId());
             answer.setVersionNumber(saved.getVersionNumber());
             answer.setCurrent(saved.isCurrent());
-            answer.setBeanId(recipe.getBean().getId());
+            answer.setBeanId(recipe.getBean() != null ? recipe.getBean().getId() : null);
             answer.setMethodId(recipe.getMethod().getId());
             answer.setTitle(saved.getTitle());
             answer.setGlobal(recipe.isGlobal());
@@ -463,6 +586,7 @@ public class RecipeVersionService {
         recipeTrackRepository.save(track);
     }
 
+    @Transactional(readOnly = true)
     public List<VersionHistoryItemDTO> listRecipeVersions(UUID userId, UUID trackId) {
         if(userId == null || trackId == null){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "There are missing fields");

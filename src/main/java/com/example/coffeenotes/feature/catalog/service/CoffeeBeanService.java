@@ -37,7 +37,8 @@ public class CoffeeBeanService {
         }
         CoffeeBean bean = new CoffeeBean();
         bean.setName(name);
-        bean.setGlobal(dto.isGlobal());
+        // User-created beans are always private to avoid public catalog sprawl.
+        bean.setGlobal(false);
         bean.setRoaster(dto.getRoaster());
         bean.setOrigin(dto.getOrigin());
         bean.setProcess(dto.getProcess());
