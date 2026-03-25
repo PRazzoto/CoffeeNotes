@@ -139,10 +139,22 @@ public class RecipeVersionService {
 
         RecipeVersion savedVersion = recipeVersionRepository.save(version);
         if (dto.getEquipmentIds() != null) {
-            List<RecipeEquipment> initialEquipments = dto.getEquipmentIds().stream().map(equipmentId -> {
-                Equipment equipment = equipmentRepository.findById(equipmentId)
-                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Equipment not found"));
-
+            List<UUID> equipmentIds = dto.getEquipmentIds();
+            Set<UUID> seen = new HashSet<>();
+            for (UUID eid : equipmentIds) {
+                if (!seen.add(eid)) {
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Duplicate equipment id: " + eid);
+                }
+            }
+            Map<UUID, Equipment> equipmentMap = equipmentRepository.findAllById(equipmentIds).stream()
+                    .collect(Collectors.toMap(Equipment::getId, e -> e));
+            if (equipmentMap.size() != equipmentIds.size()) {
+                Set<UUID> missing = new LinkedHashSet<>(equipmentIds);
+                missing.removeAll(equipmentMap.keySet());
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Equipment not found: " + missing);
+            }
+            List<RecipeEquipment> initialEquipments = equipmentIds.stream().map(eid -> {
+                Equipment equipment = equipmentMap.get(eid);
                 RecipeEquipment row = new RecipeEquipment();
                 row.setId(new RecipeEquipmentId(savedVersion.getId(), equipment.getId()));
                 row.setRecipeVersion(savedVersion);

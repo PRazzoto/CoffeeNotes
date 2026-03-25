@@ -67,7 +67,9 @@ public class EquipmentService {
             if (id == null) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Equipment id must not be null.");
             }
-            uniqueIds.add(id);
+            if (!uniqueIds.add(id)) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Duplicate equipment id: " + id);
+            }
         }
 
         List<UUID> requestedIds = List.copyOf(uniqueIds);
