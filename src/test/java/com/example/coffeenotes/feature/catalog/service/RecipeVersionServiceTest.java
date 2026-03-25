@@ -40,6 +40,7 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -142,6 +143,36 @@ class RecipeVersionServiceTest {
     }
 
     @Test
+    void createRecipe_whenBeanMissingButMethodAndTitlePresent_createsTrackWithoutBean() {
+        User owner = user(USER_ID, "owner@test.com");
+        BrewMethods method = method(METHOD_ID, "V60");
+
+        CreateTrackRequestDTO dto = new CreateTrackRequestDTO();
+        dto.setBeanId(null);
+        dto.setMethodId(METHOD_ID);
+        dto.setTitle("No Bean Recipe");
+        dto.setGlobal(false);
+
+        RecipeTrack savedTrack = track(TRACK_ID, owner, null, method, "No Bean Recipe", false, null);
+        RecipeVersion savedVersion = version(VERSION_ID, savedTrack, 1, true, "No Bean Recipe", null);
+        savedVersion.setUpdatedAt(LocalDateTime.now());
+
+        when(userRepository.findById(USER_ID)).thenReturn(Optional.of(owner));
+        when(brewMethodsRepository.findById(METHOD_ID)).thenReturn(Optional.of(method));
+        stubMethodPayloadFlow("{}");
+        when(recipeTrackRepository.save(any())).thenReturn(savedTrack);
+        when(recipeVersionRepository.save(any())).thenReturn(savedVersion);
+
+        RecipeVersionResponseDTO out = recipeVersionService.createRecipe(USER_ID, dto);
+
+        assertEquals(TRACK_ID, out.getTrackId());
+        assertNull(out.getBeanId());
+        assertEquals(METHOD_ID, out.getMethodId());
+        verify(coffeeBeanRepository, never()).findById(any());
+        verify(recipeTrackRepository, never()).findByOwner_IdAndBean_IdAndMethod_IdAndDeletedAtIsNull(any(), any(), any());
+    }
+
+    @Test
     void listRecipes_whenFilteredByMethodAndFavorites_returnsExpectedPage() {
         User owner = user(USER_ID, "owner@test.com");
         User other = user(OTHER_USER_ID, "other@test.com");
@@ -166,7 +197,25 @@ class RecipeVersionServiceTest {
         Page<RecipeTrack> trackPage = new PageImpl<>(List.of(t2), pageable, 1);
 
         when(favoriteRepository.findByUser_Id(USER_ID)).thenReturn(List.of(favorite));
-        when(recipeTrackRepository.findVisibleTracks(USER_ID, method2.getId(), null, true, pageable))
+        when(recipeTrackRepository.findVisibleTracks(
+                eq(USER_ID),
+                eq(method2.getId()),
+                isNull(),
+                isNull(),
+                isNull(),
+                isNull(),
+                eq(true),
+                isNull(),
+                isNull(),
+                isNull(),
+                isNull(),
+                eq(false),
+                any(LocalDateTime.class),
+                eq(false),
+                any(LocalDateTime.class),
+                eq(false),
+                eq("%"),
+                eq(pageable)))
                 .thenReturn(trackPage);
         when(recipeVersionRepository.findByTrack_IdInAndIsCurrentTrue(List.of(t2.getId())))
                 .thenReturn(List.of(v2));
@@ -179,6 +228,106 @@ class RecipeVersionServiceTest {
         assertEquals(t2.getBean().getId(), dto.getBeanId());
         assertTrue(dto.isFavorite());
         assertEquals(3, dto.getCurrentVersionNumber());
+    }
+
+    @Test
+    void listRecipes_whenMultipleCurrentVersionsForSameTrack_usesHighestVersionNumberWithoutCrashing() {
+        User owner = user(USER_ID, "owner@test.com");
+        CoffeeBean bean = bean(BEAN_ID, owner, true);
+        BrewMethods method = method(METHOD_ID, "V60");
+        RecipeTrack track = track(TRACK_ID, owner, bean, method, "Inconsistent Data Track", true, null);
+
+        RecipeVersion v1 = version(UUID.randomUUID(), track, 1, true, "v1", null);
+        v1.setRating(2);
+        RecipeVersion v2 = version(UUID.randomUUID(), track, 2, true, "v2", null);
+        v2.setRating(5);
+
+        Pageable pageable = PageRequest.of(0, 10);
+        Page<RecipeTrack> trackPage = new PageImpl<>(List.of(track), pageable, 1);
+
+        when(favoriteRepository.findByUser_Id(USER_ID)).thenReturn(List.of());
+        when(recipeTrackRepository.findVisibleTracks(
+                eq(USER_ID),
+                isNull(),
+                isNull(),
+                isNull(),
+                isNull(),
+                isNull(),
+                eq(false),
+                isNull(),
+                isNull(),
+                isNull(),
+                isNull(),
+                eq(false),
+                any(LocalDateTime.class),
+                eq(false),
+                any(LocalDateTime.class),
+                eq(false),
+                eq("%"),
+                eq(pageable)))
+                .thenReturn(trackPage);
+        when(recipeVersionRepository.findByTrack_IdInAndIsCurrentTrue(List.of(TRACK_ID)))
+                .thenReturn(List.of(v1, v2));
+
+        Page<TrackSummaryResponseDTO> page = recipeVersionService.listRecipes(USER_ID, null, pageable);
+
+        assertEquals(1, page.getContent().size());
+        TrackSummaryResponseDTO dto = page.getContent().get(0);
+        assertEquals(TRACK_ID, dto.getTrackId());
+        assertEquals(2, dto.getCurrentVersionNumber());
+        assertEquals(5, dto.getRating());
+    }
+
+    @Test
+    void listRecipes_whenQIsBlank_passesNullToRepository() {
+        Pageable pageable = PageRequest.of(0, 10);
+        RecipeFilterDTO filter = new RecipeFilterDTO();
+        filter.setQ("   ");
+
+        when(favoriteRepository.findByUser_Id(USER_ID)).thenReturn(List.of());
+        when(recipeTrackRepository.findVisibleTracks(
+                eq(USER_ID),
+                isNull(),
+                isNull(),
+                isNull(),
+                isNull(),
+                isNull(),
+                eq(false),
+                isNull(),
+                isNull(),
+                isNull(),
+                isNull(),
+                eq(false),
+                any(LocalDateTime.class),
+                eq(false),
+                any(LocalDateTime.class),
+                eq(false),
+                eq("%"),
+                eq(pageable)))
+                .thenReturn(new PageImpl<>(List.of(), pageable, 0));
+
+        recipeVersionService.listRecipes(USER_ID, filter, pageable);
+
+        verify(recipeTrackRepository).findVisibleTracks(
+                eq(USER_ID),
+                isNull(),
+                isNull(),
+                isNull(),
+                isNull(),
+                isNull(),
+                eq(false),
+                isNull(),
+                isNull(),
+                isNull(),
+                isNull(),
+                eq(false),
+                any(LocalDateTime.class),
+                eq(false),
+                any(LocalDateTime.class),
+                eq(false),
+                eq("%"),
+                eq(pageable)
+        );
     }
 
     @Test

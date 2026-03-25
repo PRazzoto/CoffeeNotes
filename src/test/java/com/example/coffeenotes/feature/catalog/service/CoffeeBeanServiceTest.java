@@ -137,7 +137,7 @@ class CoffeeBeanServiceTest {
         CoffeeBean saved = captor.getValue();
 
         assertEquals("Ethiopia", saved.getName());
-        assertTrue(saved.isGlobal());
+        assertFalse(saved.isGlobal());
         assertEquals("April", saved.getRoaster());
         assertEquals("Yirgacheffe", saved.getOrigin());
         assertEquals("Washed", saved.getProcess());
@@ -146,7 +146,7 @@ class CoffeeBeanServiceTest {
 
         assertEquals(BEAN_ID, out.getId());
         assertEquals("Ethiopia", out.getName());
-        assertTrue(out.isGlobal());
+        assertFalse(out.isGlobal());
         assertEquals("April", out.getRoaster());
         assertEquals("Yirgacheffe", out.getOrigin());
         assertEquals("Washed", out.getProcess());

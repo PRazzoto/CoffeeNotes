@@ -55,7 +55,42 @@ class EquipmentControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[*].name", containsInAnyOrder("Grinder", "Scale")))
                 .andExpect(jsonPath("$[*].description", containsInAnyOrder("Burr", "Precision")))
-                .andExpect(jsonPath("$[*].id").doesNotExist());
+                .andExpect(jsonPath("$[*].id", containsInAnyOrder(ID_1.toString(), ID_2.toString())));
+    }
+
+    @Test
+    void mine_returnsDtos() throws Exception {
+        when(equipmentService.listMyEquipments(USER_ID)).thenReturn(List.of(
+                new Equipment(ID_1, "Grinder", "Burr")
+        ));
+
+        mockMvc.perform(get("/api/equipment/mine").with(userJwt()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].id").value(ID_1.toString()))
+                .andExpect(jsonPath("$[0].name").value("Grinder"))
+                .andExpect(jsonPath("$[0].description").value("Burr"));
+    }
+
+    @Test
+    void replaceMine_returnsDtos() throws Exception {
+        when(equipmentService.replaceMyEquipments(eq(USER_ID), any())).thenReturn(List.of(
+                new Equipment(ID_1, "Grinder", "Burr"),
+                new Equipment(ID_2, "Scale", "Precision")
+        ));
+
+        mockMvc.perform(put("/api/equipment/mine")
+                        .with(userJwt())
+                        .contentType("application/json")
+                        .content("""
+                                {
+                                  "equipmentIds": [
+                                    "11111111-1111-1111-1111-111111111111",
+                                    "22222222-2222-2222-2222-222222222222"
+                                  ]
+                                }
+                                """))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[*].id", containsInAnyOrder(ID_1.toString(), ID_2.toString())));
     }
 
     @Test
@@ -70,7 +105,7 @@ class EquipmentControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name").value("Kettle"))
                 .andExpect(jsonPath("$.description").value("Stovetop"))
-                .andExpect(jsonPath("$.id").doesNotExist());
+                .andExpect(jsonPath("$.id").value(ID_10.toString()));
     }
 
     @Test
@@ -85,7 +120,7 @@ class EquipmentControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("New Name"))
                 .andExpect(jsonPath("$.description").value("Old Desc"))
-                .andExpect(jsonPath("$.id").doesNotExist());
+                .andExpect(jsonPath("$.id").value(ID_1.toString()));
     }
 
     @Test
@@ -151,6 +186,12 @@ class EquipmentControllerTest {
         mockMvc.perform(post("/api/equipment/createEquipment")
                         .contentType("application/json")
                         .content("{\"name\":\"Kettle\"}"))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void mine_whenJwtMissing_returns401() throws Exception {
+        mockMvc.perform(get("/api/equipment/mine"))
                 .andExpect(status().isUnauthorized());
     }
 

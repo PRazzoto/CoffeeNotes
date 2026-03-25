@@ -30,8 +30,8 @@ public class RecipeTrack {
     private User owner;
 
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "bean_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "bean_id", nullable = true)
     private CoffeeBean bean;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

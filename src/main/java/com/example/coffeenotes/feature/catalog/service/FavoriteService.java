@@ -12,6 +12,7 @@ import com.example.coffeenotes.feature.user.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -62,6 +63,7 @@ public class FavoriteService {
         return dto;
     }
 
+    @Transactional
     public FavoriteResponseDTO removeFavorite(UUID userId, UUID trackId) {
         if(userId == null || trackId == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Required fields missing.");

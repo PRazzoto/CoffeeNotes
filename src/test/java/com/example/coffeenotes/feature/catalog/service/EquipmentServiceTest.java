@@ -2,7 +2,11 @@ package com.example.coffeenotes.feature.catalog.service;
 
 import com.example.coffeenotes.api.dto.catalog.EquipmentDTO;
 import com.example.coffeenotes.domain.catalog.Equipment;
+import com.example.coffeenotes.domain.catalog.Role;
+import com.example.coffeenotes.domain.user.User;
 import com.example.coffeenotes.feature.catalog.repository.EquipmentRepository;
+import com.example.coffeenotes.feature.catalog.repository.UserEquipmentRepository;
+import com.example.coffeenotes.feature.user.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -14,6 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 import java.util.UUID;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -25,6 +30,10 @@ class EquipmentServiceTest {
 
     @Mock
     private EquipmentRepository equipmentRepository;
+    @Mock
+    private UserEquipmentRepository userEquipmentRepository;
+    @Mock
+    private UserRepository userRepository;
 
     @InjectMocks
     private EquipmentService equipmentService;
@@ -173,5 +182,39 @@ class EquipmentServiceTest {
         equipmentService.delete(ID_1);
 
         verify(equipmentRepository).deleteById(ID_1);
+    }
+
+    @Test
+    void listMyEquipments_whenUserMissing_throws404() {
+        when(userRepository.existsById(ID_1)).thenReturn(false);
+
+        ResponseStatusException ex = assertThrows(
+                ResponseStatusException.class,
+                () -> equipmentService.listMyEquipments(ID_1)
+        );
+
+        assertEquals(HttpStatus.NOT_FOUND, ex.getStatusCode());
+    }
+
+    @Test
+    void replaceMyEquipments_whenValid_replacesAndReturnsInRequestOrder() {
+        User user = new User();
+        user.setId(ID_1);
+        user.setRole(Role.USER);
+
+        Equipment e1 = new Equipment(ID_1, "Grinder", "Burr");
+        Equipment e2 = new Equipment(ID_10, "Scale", "Precision");
+
+        when(userRepository.findById(ID_1)).thenReturn(Optional.of(user));
+        when(equipmentRepository.findAllById(List.of(ID_10, ID_1))).thenReturn(List.of(e1, e2));
+
+        List<Equipment> out = equipmentService.replaceMyEquipments(ID_1, List.of(ID_10, ID_1));
+
+        assertEquals(2, out.size());
+        assertEquals(ID_10, out.get(0).getId());
+        assertEquals(ID_1, out.get(1).getId());
+
+        verify(userEquipmentRepository).deleteByUser_Id(ID_1);
+        verify(userEquipmentRepository).saveAll(any());
     }
 }
