@@ -62,7 +62,8 @@ class RecipeReadServiceIntegrationTest {
     @Test
     void listRecipes_returnsVisibleCurrentSnapshotsAndFavoriteFlags() {
         User viewer = persistedUser();
-        User other = persistedUser();
+        User other = persistedAdminUser();
+        String marker = "scope-" + UUID.randomUUID();
 
         BrewMethods pourOver = persistedMethod("V60");
         BrewMethods aeroPress = persistedMethod("AeroPress");
@@ -73,37 +74,39 @@ class RecipeReadServiceIntegrationTest {
 
         RecipeVersionResponseDTO ownTrack = recipeVersionService.createRecipe(
                 viewer.getId(),
-                createTrackRequest(viewerBean.getId(), pourOver.getId(), "Viewer V60", false,
+                createTrackRequest(viewerBean.getId(), pourOver.getId(), "Viewer V60 " + marker, false,
                         "{\"filterShape\":\"cone\"}")
         );
 
         UpdateRecipeRequestDTO ownUpdate = new UpdateRecipeRequestDTO();
-        ownUpdate.setTitle("Viewer V60 v2");
+        ownUpdate.setTitle("Viewer V60 v2 " + marker);
         ownUpdate.setRating(4);
         recipeVersionService.updateRecipe(viewer.getId(), ownTrack.getTrackId(), ownUpdate);
 
         RecipeVersionResponseDTO globalTrack = recipeVersionService.createRecipe(
                 other.getId(),
-                createTrackRequest(otherBeanGlobalTrack.getId(), aeroPress.getId(), "Global Aero", true,
+                createTrackRequest(otherBeanGlobalTrack.getId(), aeroPress.getId(), "Global Aero " + marker, true,
                         "{\"steepTimeSeconds\":60,\"pressSeconds\":30,\"orientation\":\"standard\"}")
         );
 
         UpdateRecipeRequestDTO globalUpdate = new UpdateRecipeRequestDTO();
-        globalUpdate.setTitle("Global Aero v2");
+        globalUpdate.setTitle("Global Aero v2 " + marker);
         globalUpdate.setRating(5);
         recipeVersionService.updateRecipe(other.getId(), globalTrack.getTrackId(), globalUpdate);
 
         RecipeVersionResponseDTO hiddenTrack = recipeVersionService.createRecipe(
                 other.getId(),
-                createTrackRequest(otherBeanPrivateTrack.getId(), pourOver.getId(), "Hidden Private", false,
+                createTrackRequest(otherBeanPrivateTrack.getId(), pourOver.getId(), "Hidden Private " + marker, false,
                         "{\"filterShape\":\"cone\"}")
         );
 
         favoriteService.addFavorite(viewer.getId(), globalTrack.getTrackId());
 
+        RecipeFilterDTO scopedFilter = new RecipeFilterDTO();
+        scopedFilter.setQ(marker);
         Page<TrackSummaryResponseDTO> page = recipeVersionService.listRecipes(
                 viewer.getId(),
-                null,
+                scopedFilter,
                 PageRequest.of(0, 10)
         );
 
@@ -120,7 +123,7 @@ class RecipeReadServiceIntegrationTest {
         TrackSummaryResponseDTO ownSummary = byId.get(ownTrack.getTrackId());
         assertEquals(viewerBean.getId(), ownSummary.getBeanId());
         assertEquals(viewerBean.getName(), ownSummary.getBeanName());
-        assertEquals("Viewer V60 v2", ownSummary.getTitle());
+        assertEquals("Viewer V60 v2 " + marker, ownSummary.getTitle());
         assertEquals(pourOver.getId(), ownSummary.getMethodId());
         assertEquals("V60", ownSummary.getMethodName());
         assertEquals(2, ownSummary.getCurrentVersionNumber());
@@ -131,7 +134,7 @@ class RecipeReadServiceIntegrationTest {
 
         TrackSummaryResponseDTO globalSummary = byId.get(globalTrack.getTrackId());
         assertEquals(otherBeanGlobalTrack.getId(), globalSummary.getBeanId());
-        assertEquals("Global Aero v2", globalSummary.getTitle());
+        assertEquals("Global Aero v2 " + marker, globalSummary.getTitle());
         assertEquals(aeroPress.getId(), globalSummary.getMethodId());
         assertEquals("AeroPress", globalSummary.getMethodName());
         assertEquals(2, globalSummary.getCurrentVersionNumber());
@@ -144,7 +147,8 @@ class RecipeReadServiceIntegrationTest {
     @Test
     void listRecipes_appliesFavoritesOnlyIsGlobalAndMethodFilters() {
         User viewer = persistedUser();
-        User other = persistedUser();
+        User other = persistedAdminUser();
+        String marker = "scope-" + UUID.randomUUID();
 
         BrewMethods pourOver = persistedMethod("V60");
         BrewMethods aeroPress = persistedMethod("AeroPress");
@@ -154,12 +158,12 @@ class RecipeReadServiceIntegrationTest {
 
         RecipeVersionResponseDTO ownTrack = recipeVersionService.createRecipe(
                 viewer.getId(),
-                createTrackRequest(viewerBean.getId(), pourOver.getId(), "Viewer V60", false,
+                createTrackRequest(viewerBean.getId(), pourOver.getId(), "Viewer V60 " + marker, false,
                         "{\"filterShape\":\"cone\"}")
         );
         RecipeVersionResponseDTO globalTrack = recipeVersionService.createRecipe(
                 other.getId(),
-                createTrackRequest(globalBean.getId(), aeroPress.getId(), "Global Aero", true,
+                createTrackRequest(globalBean.getId(), aeroPress.getId(), "Global Aero " + marker, true,
                         "{\"steepTimeSeconds\":60,\"pressSeconds\":30,\"orientation\":\"standard\"}")
         );
 
@@ -167,6 +171,7 @@ class RecipeReadServiceIntegrationTest {
 
         RecipeFilterDTO favoritesOnly = new RecipeFilterDTO();
         favoritesOnly.setFavoritesOnly(true);
+        favoritesOnly.setQ(marker);
 
         Page<TrackSummaryResponseDTO> favoritesPage = recipeVersionService.listRecipes(
                 viewer.getId(),
@@ -179,6 +184,7 @@ class RecipeReadServiceIntegrationTest {
 
         RecipeFilterDTO globalsOnly = new RecipeFilterDTO();
         globalsOnly.setIsGlobal(true);
+        globalsOnly.setQ(marker);
 
         Page<TrackSummaryResponseDTO> globalsPage = recipeVersionService.listRecipes(
                 viewer.getId(),
@@ -191,6 +197,7 @@ class RecipeReadServiceIntegrationTest {
 
         RecipeFilterDTO methodOnly = new RecipeFilterDTO();
         methodOnly.setMethodId(pourOver.getId());
+        methodOnly.setQ(marker);
 
         Page<TrackSummaryResponseDTO> methodPage = recipeVersionService.listRecipes(
                 viewer.getId(),
@@ -205,12 +212,11 @@ class RecipeReadServiceIntegrationTest {
     @Test
     void getRecipe_returnsCurrentVersionChildrenForVisibleGlobalTrack() throws Exception {
         User viewer = persistedUser();
-        User owner = persistedUser();
+        User owner = persistedAdminUser();
 
         BrewMethods method = persistedMethod("V60");
         CoffeeBean bean = persistedBean(owner, false);
         Equipment grinder = persistedEquipment("Grinder");
-        Equipment kettle = persistedEquipment("Kettle");
 
         RecipeVersionResponseDTO created = recipeVersionService.createRecipe(
                 owner.getId(),
@@ -231,7 +237,7 @@ class RecipeReadServiceIntegrationTest {
                 waterPour(110, "00:25", 0),
                 waterPour(190, "01:10", 1)
         ));
-        update.setEquipmentIds(List.of(grinder.getId(), kettle.getId()));
+        update.setEquipmentIds(List.of(grinder.getId()));
         recipeVersionService.updateRecipe(owner.getId(), created.getTrackId(), update);
 
         favoriteService.addFavorite(viewer.getId(), created.getTrackId());
@@ -255,14 +261,14 @@ class RecipeReadServiceIntegrationTest {
         assertEquals(2, details.getWaterPours().size());
         assertEquals(List.of(0, 1), details.getWaterPours().stream().map(WaterPourDTO::getOrderIndex).toList());
         assertEquals(List.of(110, 190), details.getWaterPours().stream().map(WaterPourDTO::getWaterAmountMl).toList());
-        assertEquals(2, details.getEquipmentIds().size());
-        assertTrue(details.getEquipmentIds().containsAll(List.of(grinder.getId(), kettle.getId())));
+        assertEquals(1, details.getEquipmentIds().size());
+        assertEquals(grinder.getId(), details.getEquipmentIds().get(0));
     }
 
     @Test
     void listRecipeVersions_returnsVisibleHistoryInDescendingVersionOrder() {
         User viewer = persistedUser();
-        User owner = persistedUser();
+        User owner = persistedAdminUser();
 
         BrewMethods method = persistedMethod("V60");
         CoffeeBean bean = persistedBean(owner, false);
@@ -300,6 +306,15 @@ class RecipeReadServiceIntegrationTest {
         user.setPasswordHash("hashed-password");
         user.setDisplayName("Integration Read User");
         user.setRole(Role.USER);
+        return userRepository.saveAndFlush(user);
+    }
+
+    private User persistedAdminUser() {
+        User user = new User();
+        user.setEmail("integration-read-admin-" + UUID.randomUUID() + "@coffee.test");
+        user.setPasswordHash("hashed-password");
+        user.setDisplayName("Integration Read Admin");
+        user.setRole(Role.ADMIN);
         return userRepository.saveAndFlush(user);
     }
 

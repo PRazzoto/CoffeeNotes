@@ -29,7 +29,7 @@ public class TrackDetailsResponseDTO {
     private boolean isCurrent;
     private String coffeeAmount;
     private String waterAmount;
-    private String grindSize;
+    private Integer grindSize;
     private Integer brewTimeSeconds;
     private Integer waterTemperatureCelsius;
     private Integer rating;

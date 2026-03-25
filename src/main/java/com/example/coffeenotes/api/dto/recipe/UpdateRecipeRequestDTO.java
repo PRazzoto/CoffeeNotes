@@ -12,7 +12,7 @@ public class UpdateRecipeRequestDTO {
     private String title;
     private String coffeeAmount;
     private String waterAmount;
-    private String grindSize;
+    private Integer grindSize;
     private Integer brewTimeSeconds;
     private Integer waterTemperatureCelsius;
     private Integer rating;

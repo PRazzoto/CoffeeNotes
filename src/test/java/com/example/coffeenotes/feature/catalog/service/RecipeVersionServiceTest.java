@@ -20,6 +20,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.mockito.ArgumentCaptor;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -84,7 +85,7 @@ class RecipeVersionServiceTest {
 
     @Test
     void createRecipe_whenValid_returnsCreatedVersion() {
-        User owner = user(USER_ID, "owner@test.com");
+        User owner = user(USER_ID, "owner@test.com", Role.ADMIN);
         CoffeeBean bean = bean(BEAN_ID, owner, false);
         BrewMethods method = method(METHOD_ID, "V60");
 
@@ -116,6 +117,25 @@ class RecipeVersionServiceTest {
         assertEquals(METHOD_ID, out.getMethodId());
         assertEquals("Morning", out.getTitle());
         assertTrue(out.isGlobal());
+    }
+
+    @Test
+    void createRecipe_whenNonAdminRequestsGlobal_throws403() {
+        User owner = user(USER_ID, "owner@test.com", Role.USER);
+
+        CreateTrackRequestDTO dto = new CreateTrackRequestDTO();
+        dto.setMethodId(METHOD_ID);
+        dto.setTitle("Morning");
+        dto.setGlobal(true);
+
+        when(userRepository.findById(USER_ID)).thenReturn(Optional.of(owner));
+
+        ResponseStatusException ex = assertThrows(ResponseStatusException.class,
+                () -> recipeVersionService.createRecipe(USER_ID, dto));
+
+        assertEquals(HttpStatus.FORBIDDEN, ex.getStatusCode());
+        assertEquals("Only admins can create global recipes.", ex.getReason());
+        verify(recipeTrackRepository, never()).save(any());
     }
 
     @Test
@@ -170,6 +190,20 @@ class RecipeVersionServiceTest {
         assertEquals(METHOD_ID, out.getMethodId());
         verify(coffeeBeanRepository, never()).findById(any());
         verify(recipeTrackRepository, never()).findByOwner_IdAndBean_IdAndMethod_IdAndDeletedAtIsNull(any(), any(), any());
+    }
+
+    @Test
+    void createRecipe_whenMoreThanOneEquipmentProvided_throws400() {
+        CreateTrackRequestDTO dto = new CreateTrackRequestDTO();
+        dto.setMethodId(METHOD_ID);
+        dto.setTitle("Morning");
+        dto.setEquipmentIds(List.of(UUID.randomUUID(), UUID.randomUUID()));
+
+        ResponseStatusException ex = assertThrows(ResponseStatusException.class,
+                () -> recipeVersionService.createRecipe(USER_ID, dto));
+
+        assertEquals(HttpStatus.BAD_REQUEST, ex.getStatusCode());
+        assertEquals("Only one equipment is allowed per recipe.", ex.getReason());
     }
 
     @Test
@@ -380,7 +414,7 @@ class RecipeVersionServiceTest {
         RecipeVersion current = version(UUID.randomUUID(), track, 1, true, "Old title", null);
         current.setCoffeeAmount("15g");
         current.setWaterAmount("250ml");
-        current.setGrindSize("Medium");
+        current.setGrindSize(24);
         current.setBrewTimeSeconds(120);
         current.setWaterTemperatureCelsius(94);
         current.setRating(4);
@@ -428,6 +462,103 @@ class RecipeVersionServiceTest {
 
         verify(recipeWaterPourRepository).saveAll(any());
         verify(recipeEquipmentRepository).saveAll(any());
+    }
+
+    @Test
+    void updateRecipe_whenGrindSizeIsNegative_throws400() {
+        UpdateRecipeRequestDTO dto = new UpdateRecipeRequestDTO();
+        dto.setGrindSize(-1);
+
+        ResponseStatusException ex = assertThrows(ResponseStatusException.class,
+                () -> recipeVersionService.updateRecipe(USER_ID, TRACK_ID, dto));
+
+        assertEquals(HttpStatus.BAD_REQUEST, ex.getStatusCode());
+        assertEquals("Grind size clicks cannot be negative.", ex.getReason());
+    }
+
+    @Test
+    void updateRecipe_whenMoreThanOneEquipmentProvided_throws400() {
+        UpdateRecipeRequestDTO dto = new UpdateRecipeRequestDTO();
+        dto.setEquipmentIds(List.of(UUID.randomUUID(), UUID.randomUUID()));
+
+        ResponseStatusException ex = assertThrows(ResponseStatusException.class,
+                () -> recipeVersionService.updateRecipe(USER_ID, TRACK_ID, dto));
+
+        assertEquals(HttpStatus.BAD_REQUEST, ex.getStatusCode());
+        assertEquals("Only one equipment is allowed per recipe.", ex.getReason());
+    }
+
+    @Test
+    void updateRecipe_whenNonOwnerEditsGlobalTrack_createsPrivateForkOwnedByEditor() {
+        User owner = user(OTHER_USER_ID, "owner@test.com");
+        User editor = user(USER_ID, "editor@test.com");
+        CoffeeBean globalBean = bean(BEAN_ID, owner, true);
+        BrewMethods method = method(METHOD_ID, "V60");
+        RecipeTrack sourceTrack = track(TRACK_ID, owner, globalBean, method, "Original title", true, null);
+
+        RecipeVersion sourceVersion = version(UUID.randomUUID(), sourceTrack, 3, true, "Original title", null);
+        sourceVersion.setCoffeeAmount("15g");
+        sourceVersion.setWaterAmount("250ml");
+        sourceVersion.setGrindSize(20);
+        sourceVersion.setBrewTimeSeconds(180);
+        sourceVersion.setWaterTemperatureCelsius(92);
+        sourceVersion.setRating(4);
+        sourceVersion.setMethodPayload("{}");
+
+        RecipeWaterPour sourcePour = new RecipeWaterPour();
+        sourcePour.setRecipeVersion(sourceVersion);
+        sourcePour.setWaterAmount(120);
+        sourcePour.setTime("00:30");
+        sourcePour.setOrderIndex(0);
+
+        Equipment equipment = new Equipment();
+        equipment.setId(EQUIPMENT_ID);
+        RecipeEquipment sourceEquipment = new RecipeEquipment();
+        sourceEquipment.setId(new RecipeEquipmentId(sourceVersion.getId(), EQUIPMENT_ID));
+        sourceEquipment.setRecipeVersion(sourceVersion);
+        sourceEquipment.setEquipment(equipment);
+
+        UUID forkTrackId = UUID.fromString("99999999-9999-9999-9999-999999999999");
+        UpdateRecipeRequestDTO dto = new UpdateRecipeRequestDTO();
+        dto.setTitle("Forked title");
+
+        when(recipeTrackRepository.findById(TRACK_ID)).thenReturn(Optional.of(sourceTrack));
+        when(recipeVersionRepository.findByTrack_IdAndIsCurrentTrue(TRACK_ID)).thenReturn(Optional.of(sourceVersion));
+        when(recipeWaterPourRepository.findByRecipeVersion_IdOrderByOrderIndexAsc(sourceVersion.getId())).thenReturn(List.of(sourcePour));
+        when(recipeEquipmentRepository.findByRecipeVersion_Id(sourceVersion.getId())).thenReturn(List.of(sourceEquipment));
+        when(userRepository.findById(USER_ID)).thenReturn(Optional.of(editor));
+        when(recipeTrackRepository.save(any())).thenAnswer(invocation -> {
+            RecipeTrack arg = invocation.getArgument(0);
+            if (arg.getId() == null) {
+                arg.setId(forkTrackId);
+            }
+            return arg;
+        });
+        when(equipmentRepository.findById(EQUIPMENT_ID)).thenReturn(Optional.of(equipment));
+        when(recipeVersionRepository.save(any())).thenAnswer(invocation -> {
+            RecipeVersion arg = invocation.getArgument(0);
+            arg.setId(VERSION_ID);
+            arg.setUpdatedAt(LocalDateTime.now());
+            return arg;
+        });
+
+        RecipeVersionResponseDTO out = recipeVersionService.updateRecipe(USER_ID, TRACK_ID, dto);
+
+        assertEquals(forkTrackId, out.getTrackId());
+        assertEquals(VERSION_ID, out.getVersionId());
+        assertEquals(1, out.getVersionNumber());
+        assertFalse(out.isGlobal());
+        assertEquals("Forked title", out.getTitle());
+        assertTrue(sourceVersion.isCurrent());
+
+        verify(recipeVersionRepository, never()).saveAndFlush(sourceVersion);
+
+        ArgumentCaptor<RecipeTrack> trackCaptor = ArgumentCaptor.forClass(RecipeTrack.class);
+        verify(recipeTrackRepository).save(trackCaptor.capture());
+        RecipeTrack savedFork = trackCaptor.getValue();
+        assertEquals(USER_ID, savedFork.getOwner().getId());
+        assertFalse(savedFork.isGlobal());
+        assertEquals(BEAN_ID, savedFork.getBean().getId());
     }
 
     @Test
@@ -585,12 +716,16 @@ class RecipeVersionServiceTest {
     }
 
     private User user(UUID id, String email) {
+        return user(id, email, Role.USER);
+    }
+
+    private User user(UUID id, String email, Role role) {
         User u = new User();
         u.setId(id);
         u.setEmail(email);
         u.setPasswordHash("hash");
         u.setDisplayName("Name");
-        u.setRole(Role.USER);
+        u.setRole(role);
         return u;
     }
 

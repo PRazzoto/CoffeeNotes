@@ -39,8 +39,8 @@ public class RecipeVersion {
     private String coffeeAmount;
     @Column(name = "water_amount", length = 50)
     private String waterAmount;
-    @Column(name = "grind_size", length = 100)
-    private String grindSize;
+    @Column(name = "grind_size")
+    private Integer grindSize;
 
     @Column(name = "brew_time_seconds")
     private Integer brewTimeSeconds;

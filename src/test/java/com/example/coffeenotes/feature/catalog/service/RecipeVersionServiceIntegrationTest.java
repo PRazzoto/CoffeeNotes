@@ -71,7 +71,7 @@ class RecipeVersionServiceIntegrationTest {
 
     @Test
     void createRecipe_persistsTrackInitialVersionAndNormalizedPayload() throws Exception {
-        User owner = persistedUser();
+        User owner = persistedAdminUser();
         CoffeeBean bean = persistedBean(owner, false);
         BrewMethods method = persistedMethod("V60");
 
@@ -115,7 +115,6 @@ class RecipeVersionServiceIntegrationTest {
         CoffeeBean bean = persistedBean(owner, false);
         BrewMethods method = persistedMethod("V60");
         Equipment grinder = persistedEquipment("Grinder");
-        Equipment kettle = persistedEquipment("Kettle");
 
         RecipeVersionResponseDTO created = recipeVersionService.createRecipe(owner.getId(),
                 createTrackRequest(bean.getId(), method.getId(), "Morning Brew",
@@ -129,7 +128,7 @@ class RecipeVersionServiceIntegrationTest {
         update.setTitle("Evening Brew");
         update.setCoffeeAmount("18g");
         update.setWaterAmount("300ml");
-        update.setGrindSize("Medium-Fine");
+        update.setGrindSize(24);
         update.setBrewTimeSeconds(210);
         update.setWaterTemperatureCelsius(93);
         update.setRating(5);
@@ -143,7 +142,7 @@ class RecipeVersionServiceIntegrationTest {
                 waterPour(120, "00:30", 0),
                 waterPour(180, "01:15", 1)
         ));
-        update.setEquipmentIds(List.of(grinder.getId(), kettle.getId()));
+        update.setEquipmentIds(List.of(grinder.getId()));
 
         RecipeVersionResponseDTO updated = recipeVersionService.updateRecipe(owner.getId(), created.getTrackId(), update);
 
@@ -173,7 +172,7 @@ class RecipeVersionServiceIntegrationTest {
         assertEquals("Evening Brew", currentVersion.getTitle());
         assertEquals("18g", currentVersion.getCoffeeAmount());
         assertEquals("300ml", currentVersion.getWaterAmount());
-        assertEquals("Medium-Fine", currentVersion.getGrindSize());
+        assertEquals(24, currentVersion.getGrindSize());
         assertEquals(210, currentVersion.getBrewTimeSeconds());
         assertEquals(93, currentVersion.getWaterTemperatureCelsius());
         assertEquals(5, currentVersion.getRating());
@@ -183,10 +182,80 @@ class RecipeVersionServiceIntegrationTest {
         assertEquals(2, pours.size());
         assertEquals(List.of(0, 1), pours.stream().map(RecipeWaterPour::getOrderIndex).toList());
         assertEquals(List.of(120, 180), pours.stream().map(RecipeWaterPour::getWaterAmount).toList());
-        assertEquals(Set.of(grinder.getId(), kettle.getId()), equipmentIds);
+        assertEquals(Set.of(grinder.getId()), equipmentIds);
 
         assertTrue(recipeWaterPourRepository.findByRecipeVersion_IdOrderByOrderIndexAsc(initialVersion.getId()).isEmpty());
         assertTrue(recipeEquipmentRepository.findByRecipeVersion_Id(initialVersion.getId()).isEmpty());
+    }
+
+    @Test
+    void updateRecipe_whenNonOwnerEditsGlobalTrack_createsPrivateForkForEditor() throws Exception {
+        User owner = persistedAdminUser();
+        User editor = persistedUser();
+        CoffeeBean globalBean = persistedBean(owner, true);
+        BrewMethods method = persistedMethod("V60");
+        Equipment grinder = persistedEquipment("Hand Grinder");
+
+        CreateTrackRequestDTO create = new CreateTrackRequestDTO();
+        create.setBeanId(globalBean.getId());
+        create.setMethodId(method.getId());
+        create.setTitle("Shared Recipe");
+        create.setGlobal(true);
+        create.setMethodPayload("{\"filterShape\":\"cone\"}");
+        RecipeVersionResponseDTO sourceCreated = recipeVersionService.createRecipe(owner.getId(), create);
+
+        UpdateRecipeRequestDTO edit = new UpdateRecipeRequestDTO();
+        edit.setTitle("My Private Copy");
+        edit.setCoffeeAmount("19g");
+        edit.setWaterAmount("300ml");
+        edit.setGrindSize(18);
+        edit.setBrewTimeSeconds(210);
+        edit.setWaterTemperatureCelsius(91);
+        edit.setMethodPayload("{\"filterShape\":\"wave\"}");
+        edit.setWaterPours(List.of(
+                waterPour(100, "00:30", 0),
+                waterPour(200, "01:20", 1)
+        ));
+        edit.setEquipmentIds(List.of(grinder.getId()));
+
+        RecipeVersionResponseDTO forked = recipeVersionService.updateRecipe(editor.getId(), sourceCreated.getTrackId(), edit);
+
+        assertNotEquals(sourceCreated.getTrackId(), forked.getTrackId());
+        assertEquals(1, forked.getVersionNumber());
+        assertFalse(forked.isGlobal());
+        assertEquals("My Private Copy", forked.getTitle());
+
+        RecipeTrack sourceTrack = recipeTrackRepository.findById(sourceCreated.getTrackId()).orElseThrow();
+        RecipeVersion sourceCurrent = recipeVersionRepository.findByTrack_IdAndIsCurrentTrue(sourceCreated.getTrackId()).orElseThrow();
+        List<RecipeVersion> sourceVersions = recipeVersionRepository.findByTrack_IdOrderByVersionNumberDesc(sourceCreated.getTrackId());
+        assertEquals(owner.getId(), sourceTrack.getOwner().getId());
+        assertTrue(sourceTrack.isGlobal());
+        assertEquals("Shared Recipe", sourceTrack.getTitle());
+        assertTrue(sourceCurrent.isCurrent());
+        assertEquals(1, sourceVersions.size());
+
+        RecipeTrack forkTrack = recipeTrackRepository.findById(forked.getTrackId()).orElseThrow();
+        RecipeVersion forkCurrent = recipeVersionRepository.findByTrack_IdAndIsCurrentTrue(forked.getTrackId()).orElseThrow();
+        List<RecipeWaterPour> forkPours = recipeWaterPourRepository.findByRecipeVersion_IdOrderByOrderIndexAsc(forkCurrent.getId());
+        List<RecipeEquipment> forkEquipment = recipeEquipmentRepository.findByRecipeVersion_Id(forkCurrent.getId());
+        JsonNode forkPayload = objectMapper.readTree(forkCurrent.getMethodPayload());
+
+        assertEquals(editor.getId(), forkTrack.getOwner().getId());
+        assertFalse(forkTrack.isGlobal());
+        assertEquals("My Private Copy", forkTrack.getTitle());
+        assertEquals(globalBean.getId(), forkTrack.getBean().getId());
+
+        assertEquals(1, forkCurrent.getVersionNumber());
+        assertEquals("19g", forkCurrent.getCoffeeAmount());
+        assertEquals("300ml", forkCurrent.getWaterAmount());
+        assertEquals(18, forkCurrent.getGrindSize());
+        assertEquals(210, forkCurrent.getBrewTimeSeconds());
+        assertEquals(91, forkCurrent.getWaterTemperatureCelsius());
+        assertEquals("wave", forkPayload.get("filterShape").asText());
+
+        assertEquals(2, forkPours.size());
+        assertEquals(1, forkEquipment.size());
+        assertEquals(grinder.getId(), forkEquipment.get(0).getEquipment().getId());
     }
 
     @Test
@@ -233,6 +302,15 @@ class RecipeVersionServiceIntegrationTest {
         user.setPasswordHash("hashed-password");
         user.setDisplayName("Integration User");
         user.setRole(Role.USER);
+        return userRepository.saveAndFlush(user);
+    }
+
+    private User persistedAdminUser() {
+        User user = new User();
+        user.setEmail("integration-admin-" + UUID.randomUUID() + "@coffee.test");
+        user.setPasswordHash("hashed-password");
+        user.setDisplayName("Integration Admin");
+        user.setRole(Role.ADMIN);
         return userRepository.saveAndFlush(user);
     }
 

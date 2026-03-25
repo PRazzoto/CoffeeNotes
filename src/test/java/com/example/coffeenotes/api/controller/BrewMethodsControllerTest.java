@@ -63,7 +63,7 @@ class BrewMethodsControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[*].name", containsInAnyOrder("V60", "French Press")))
                 .andExpect(jsonPath("$[*].description", containsInAnyOrder("Cone dripper", "Immersion")))
-                .andExpect(jsonPath("$[*].id").doesNotExist());
+                .andExpect(jsonPath("$[*].id", containsInAnyOrder(ID_1.toString(), ID_2.toString())));
     }
 
     @Test
@@ -78,7 +78,7 @@ class BrewMethodsControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name").value("AeroPress"))
                 .andExpect(jsonPath("$.description").value("Immersion"))
-                .andExpect(jsonPath("$.id").doesNotExist());
+                .andExpect(jsonPath("$.id").value(ID_10.toString()));
     }
 
     @Test
@@ -93,7 +93,7 @@ class BrewMethodsControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("Kalita Wave"))
                 .andExpect(jsonPath("$.description").value("Flat-bottom dripper"))
-                .andExpect(jsonPath("$.id").doesNotExist());
+                .andExpect(jsonPath("$.id").value(ID_1.toString()));
     }
 
     @Test
