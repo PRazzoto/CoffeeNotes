@@ -51,6 +51,29 @@ Generated on: `2026-03-25` (UTC)
 - `scripts/grinder_conversion/convert_with_reference_dataset.py`
   - Local/offline conversion helper using the generated reference mapping file.
 
+## Backend API (Implemented)
+
+The backend now exposes:
+
+1. `GET /api/grinder-conversion/grinders`
+- returns supported grinder catalog for FE selectors
+- includes `id`, `name`, `make`, `model`, `tier`, and `units[]`
+
+2. `POST /api/grinder-conversion/convert`
+- request body:
+  - `sourceGrinderId`
+  - `targetGrinderId`
+  - `sourceSetting` (`rotation`, `number`, `click`)
+- response includes:
+  - normalized/clamped `sourceSetting`
+  - converted `targetSetting`
+  - `sourceFlat`, `targetFlat`, `referenceFlatEstimated`, `confidence`
+
+FE integration notes:
+1. Treat missing source fields as optional; backend defaults missing values to `0`.
+2. Always use returned `sourceSetting` to update FE state after conversion, since backend clamps out-of-range inputs.
+3. Render input fields dynamically from `units` returned by `GET /grinders`.
+
 ## Quick Usage
 
 Rebuild dataset:
@@ -80,6 +103,6 @@ This avoids direct pairwise storage for every grinder pair and keeps the model c
 
 ## Accuracy and Caveats
 
-- Free grinders: high-confidence mappings (no preview mode in source API).
-- Pro grinders: API is preview-limited in public mode; avoid treating those conversions as authoritative unless you obtain paid/full data access.
-- Any grinder converter is approximate in practice because burr wear, zero-point calibration, coffee density, roast level, and humidity change outcomes.
+1. Current committed conversion dataset is intentionally scoped to the reference file coverage (`free_grinders_reference_conversion.json`, 41 grinders).
+2. Conversion output is deterministic for the committed dataset, but real-world grinding is still approximate (calibration zero-point, burr wear, bean density, roast level, humidity).
+3. If you expand the dataset, rebuild and validate the files before shipping (`build_grinder_conversion_dataset.py`).
