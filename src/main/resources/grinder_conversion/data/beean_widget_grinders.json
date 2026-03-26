@@ -1,0 +1,3467 @@
+[
+  {
+    "id": "1zpresso_j_ultra",
+    "name": "1Zpresso J-Ultra",
+    "make": "1Zpresso",
+    "model": "J-Ultra",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "rotation",
+        "maximum": 5
+      },
+      {
+        "label": "number",
+        "maximum": 9
+      },
+      {
+        "label": "click",
+        "maximum": 9
+      }
+    ],
+    "imageUrl": "/grinder-images/1z-j-ultra.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0,
+          0
+        ],
+        "end": [
+          5,
+          0,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "1zpresso_jx",
+    "name": "1Zpresso JX",
+    "make": "1Zpresso",
+    "model": "JX",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "rotation",
+        "maximum": 4
+      },
+      {
+        "label": "number",
+        "maximum": 9
+      },
+      {
+        "label": "click",
+        "maximum": 2
+      }
+    ],
+    "imageUrl": "/grinder-images/1z-jx.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0,
+          0
+        ],
+        "end": [
+          4,
+          0,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "1zpresso_jx_pro_grey",
+    "name": "1Zpresso JX Pro (Grey dot)",
+    "make": "1Zpresso",
+    "model": "JX Pro (Grey dot)",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "rotation",
+        "maximum": 5
+      },
+      {
+        "label": "number",
+        "maximum": 9
+      },
+      {
+        "label": "click",
+        "maximum": 3
+      }
+    ],
+    "imageUrl": "/grinder-images/1z-jx.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0,
+          0
+        ],
+        "end": [
+          5,
+          0,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "1zpresso_jx_pro_red",
+    "name": "1Zpresso JX Pro (Red dot)",
+    "make": "1Zpresso",
+    "model": "JX Pro (Red dot)",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "rotation",
+        "maximum": 5
+      },
+      {
+        "label": "number",
+        "maximum": 9
+      },
+      {
+        "label": "click",
+        "maximum": 3
+      }
+    ],
+    "imageUrl": "/grinder-images/1z-jx.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0,
+          0
+        ],
+        "end": [
+          5,
+          0,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "1zpresso_k_max",
+    "name": "1Zpresso K-Max",
+    "make": "1Zpresso",
+    "model": "K-Max",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "maximum": 10
+      },
+      {
+        "label": "click",
+        "maximum": 9
+      }
+    ],
+    "imageUrl": "/grinder-images/1z-k-max.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          10,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "1zpresso_k_plus",
+    "name": "1Zpresso K-Plus",
+    "make": "1Zpresso",
+    "model": "K-Plus",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "maximum": 10
+      },
+      {
+        "label": "click",
+        "maximum": 9
+      }
+    ],
+    "imageUrl": "/grinder-images/1z-k-plus.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          10,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "1zpresso_k_pro",
+    "name": "1Zpresso K-Pro",
+    "make": "1Zpresso",
+    "model": "K-Pro",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "maximum": 10
+      },
+      {
+        "label": "click",
+        "maximum": 9
+      }
+    ],
+    "imageUrl": "/grinder-images/1z-k-pro.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          10,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "1zpresso_k_ultra",
+    "name": "1Zpresso K-Ultra",
+    "make": "1Zpresso",
+    "model": "K-Ultra",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "rotation",
+        "maximum": 1
+      },
+      {
+        "label": "number",
+        "maximum": 9
+      },
+      {
+        "label": "click",
+        "maximum": 9
+      }
+    ],
+    "imageUrl": "/grinder-images/1z-j-ultra.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0,
+          0
+        ],
+        "end": [
+          1,
+          5,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "1zpresso_q_series",
+    "name": "1Zpresso Q-Series",
+    "make": "1Zpresso",
+    "model": "Q-Series",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "rotation",
+        "maximum": 4
+      },
+      {
+        "label": "number",
+        "maximum": 9
+      },
+      {
+        "label": "click",
+        "maximum": 2
+      }
+    ],
+    "imageUrl": "/grinder-images/1z-q.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0,
+          0
+        ],
+        "end": [
+          3,
+          0,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "1zpresso_x_series",
+    "name": "1Zpresso X-Series",
+    "make": "1Zpresso",
+    "model": "X-Series",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "rotation",
+        "maximum": 4
+      },
+      {
+        "label": "number",
+        "maximum": 5
+      },
+      {
+        "label": "click",
+        "maximum": 9
+      }
+    ],
+    "imageUrl": "/grinder-images/1z-x.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0,
+          0
+        ],
+        "end": [
+          4,
+          0,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "1zpresso_zp6_special",
+    "name": "1Zpresso ZP6 Special",
+    "make": "1Zpresso",
+    "model": "ZP6 Special",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "maximum": 8
+      },
+      {
+        "label": "click",
+        "maximum": 9
+      }
+    ],
+    "imageUrl": "/grinder-images/1z-j-ultra.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          8,
+          9
+        ]
+      }
+    }
+  },
+  {
+    "id": "acaia_orbit",
+    "name": "Acaia Orbit",
+    "make": "Acaia",
+    "model": "Orbit",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "rotation",
+        "maximum": 1
+      },
+      {
+        "label": "number",
+        "maximum": 9
+      },
+      {
+        "label": "click",
+        "maximum": 9
+      }
+    ],
+    "imageUrl": "/grinder-images/acaia-orbit.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0,
+          0
+        ],
+        "end": [
+          2,
+          0,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "aeropress_grinder",
+    "name": "Aeropress Manual Grinder",
+    "make": "Aeropress",
+    "model": "Manual Grinder",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "maximum": 70
+      }
+    ],
+    "imageUrl": "/grinder-images/aeropress-grinder.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          70
+        ]
+      }
+    }
+  },
+  {
+    "id": "1zpresso_j_max",
+    "name": "1Zpresso J-Max",
+    "make": "1Zpresso",
+    "model": "J-Max",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "rotation",
+        "maximum": 5
+      },
+      {
+        "label": "number",
+        "maximum": 8
+      },
+      {
+        "label": "click",
+        "maximum": 9
+      }
+    ],
+    "imageUrl": "/grinder-images/1z-j-max-2.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0,
+          0
+        ],
+        "end": [
+          5,
+          0,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "anfim_sp2",
+    "name": "Anfim SP II",
+    "make": "Anfim",
+    "model": "SP II",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "maximum": 13
+      },
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 4
+      }
+    ],
+    "imageUrl": "/grinder-images/anfim-sp2.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          13,
+          2
+        ]
+      }
+    }
+  },
+  {
+    "id": "baratza_encore",
+    "name": "Baratza Encore",
+    "make": "Baratza",
+    "model": "Encore",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 40
+      }
+    ],
+    "imageUrl": "/grinder-images/baratza-encore-3.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          40
+        ]
+      }
+    }
+  },
+  {
+    "id": "baratza_encore_esp_espresso",
+    "name": "Baratza Encore ESP (Espresso mode)",
+    "make": "Baratza",
+    "model": "Encore ESP (Espresso mode)",
+    "tier": "free",
+    "group": "baratza_encore_esp",
+    "units": [
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 20
+      }
+    ],
+    "imageUrl": "/grinder-images/baratza-encore-2.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          20
+        ]
+      }
+    }
+  },
+  {
+    "id": "baratza_encore_esp",
+    "name": "Baratza Encore ESP (Filter mode)",
+    "make": "Baratza",
+    "model": "Encore ESP (Filter mode)",
+    "tier": "free",
+    "group": "baratza_encore_esp",
+    "units": [
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 40
+      }
+    ],
+    "imageUrl": "/grinder-images/baratza-encore-2.png",
+    "range": {
+      "grinder": {
+        "start": [
+          20
+        ],
+        "end": [
+          40
+        ]
+      }
+    }
+  },
+  {
+    "id": "baratza_encore_esp_pro_espresso",
+    "name": "Baratza Encore ESP Pro (Espresso mode)",
+    "make": "Baratza",
+    "model": "Encore ESP Pro (Espresso mode)",
+    "tier": "Pro",
+    "group": "baratza_encore_esp_pro",
+    "units": [
+      {
+        "label": "number",
+        "maximum": 40
+      },
+      {
+        "label": "click",
+        "alt-label": "half-step",
+        "maximum": 1
+      }
+    ],
+    "imageUrl": "/grinder-images/baratza-encore-esp-pro.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          40,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "baratza_encore_esp_pro_filter",
+    "name": "Baratza Encore ESP Pro (Filter mode)",
+    "make": "Baratza",
+    "model": "Encore ESP Pro (Filter mode)",
+    "tier": "Pro",
+    "group": "baratza_encore_esp_pro",
+    "units": [
+      {
+        "label": "number",
+        "maximum": 60
+      },
+      {
+        "label": "click",
+        "alt-label": "half-step",
+        "maximum": 1
+      }
+    ],
+    "imageUrl": "/grinder-images/baratza-encore-esp-pro.png",
+    "range": {
+      "grinder": {
+        "start": [
+          40,
+          0
+        ],
+        "end": [
+          60,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "baratza_forte_bg",
+    "name": "Baratza Forté BG",
+    "make": "Baratza",
+    "model": "Forté BG",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "maximum": 10
+      },
+      {
+        "label": "click",
+        "alt-label": "letter",
+        "maximum": 25
+      }
+    ],
+    "imageUrl": "/grinder-images/baratza-forte-bg.png",
+    "range": {
+      "grinder": {
+        "start": [
+          1,
+          0
+        ],
+        "end": [
+          10,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "baratza_virtuoso",
+    "name": "Baratza Virtuoso",
+    "make": "Baratza",
+    "model": "Virtuoso",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 40
+      }
+    ],
+    "imageUrl": "/grinder-images/baratza-virtuoso.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          40
+        ]
+      }
+    }
+  },
+  {
+    "id": "breville_dose_control_pro",
+    "name": "Breville (Sage) Dose Control Pro",
+    "make": "Breville (Sage)",
+    "model": "Dose Control Pro",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 60
+      }
+    ],
+    "imageUrl": "/grinder-images/breville-dose-control.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          60
+        ]
+      }
+    }
+  },
+  {
+    "id": "breville_smart_grinder_pro",
+    "name": "Breville (Sage) Smart Grinder Pro",
+    "make": "Breville (Sage)",
+    "model": "Smart Grinder Pro",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 60
+      }
+    ],
+    "imageUrl": "/grinder-images/smart-grinder.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          60
+        ]
+      }
+    }
+  },
+  {
+    "id": "breville_barista_pro",
+    "name": "Breville (Sage) Barista Pro",
+    "make": "Breville (Sage)",
+    "model": "Barista Pro",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 30
+      }
+    ],
+    "imageUrl": "/grinder-images/breville-barista-pro.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          30
+        ]
+      }
+    }
+  },
+  {
+    "id": "bravo_it",
+    "name": "Bravo IT",
+    "make": "Bravo",
+    "model": "IT",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "alt-label": "rotation",
+        "maximum": 3
+      },
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 44
+      }
+    ],
+    "imageUrl": "/grinder-images/bravo-it.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          3,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "capresso_infinity",
+    "name": "Capresso Infinity",
+    "make": "Capresso",
+    "model": "Infinity",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 16
+      }
+    ],
+    "imageUrl": "/grinder-images/capresso-infinity.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          16
+        ]
+      }
+    }
+  },
+  {
+    "id": "capresso_infinity_plus",
+    "name": "Capresso Infinity Plus",
+    "make": "Capresso",
+    "model": "Infinity Plus",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "alt-label": "dot",
+        "maximum": 16
+      }
+    ],
+    "imageUrl": "/grinder-images/capresso-infinity.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          16
+        ]
+      }
+    }
+  },
+  {
+    "id": "comandante_c40",
+    "name": "Comandante C40",
+    "make": "Comandante",
+    "model": "C40",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "maximum": 40
+      }
+    ],
+    "imageUrl": "/grinder-images/comandante-c40.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          40
+        ]
+      }
+    }
+  },
+  {
+    "id": "comandante_c40_red_clix",
+    "name": "Comandante C40 Red Clix",
+    "make": "Comandante",
+    "model": "C40 Red Clix",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "maximum": 80
+      }
+    ],
+    "imageUrl": "/grinder-images/comandante-c40.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          80
+        ]
+      }
+    }
+  },
+  {
+    "id": "comandante_c60",
+    "name": "Comandante C60 Baracuda",
+    "make": "Comandante",
+    "model": "C60 Baracuda",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "maximum": 55
+      }
+    ],
+    "imageUrl": "/grinder-images/comandante-c60.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          55
+        ]
+      }
+    }
+  },
+  {
+    "id": "ceado_e5sd",
+    "name": "Ceado E5SD",
+    "make": "Ceado",
+    "model": "E5SD",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "maximum": 8
+      },
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 19
+      }
+    ],
+    "imageUrl": "/grinder-images/ceado-e5sd.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          8,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "ceado_e37sd",
+    "name": "Ceado E37SD",
+    "make": "Ceado",
+    "model": "E37SD",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "rotation",
+        "alt-label": "number",
+        "maximum": 4
+      },
+      {
+        "label": "number",
+        "alt-label": "step",
+        "maximum": 9
+      },
+      {
+        "label": "click",
+        "alt-label": "half-step",
+        "maximum": 1
+      }
+    ],
+    "imageUrl": "/grinder-images/ceado-e37sd.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0,
+          0
+        ],
+        "end": [
+          4,
+          0,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "ditting_807",
+    "name": "Ditting 807",
+    "make": "Ditting",
+    "model": "807",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "maximum": 13
+      },
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 9
+      }
+    ],
+    "imageUrl": "/grinder-images/ditting-807.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          14,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "df_64_gen_1",
+    "name": "DF64 Gen 1 (2021)",
+    "make": "DF64",
+    "model": "Gen 1 (2021)",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 90
+      }
+    ],
+    "imageUrl": "/grinder-images/df64.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          90
+        ]
+      }
+    }
+  },
+  {
+    "id": "df_64_gen_2",
+    "name": "DF64 Gen 2 (2023)",
+    "make": "DF64",
+    "model": "Gen 2 (2023)",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 90
+      }
+    ],
+    "imageUrl": "/grinder-images/df64.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          90
+        ]
+      }
+    }
+  },
+  {
+    "id": "df_64_v",
+    "name": "DF64V (2023)",
+    "make": "DF64V",
+    "model": "(2023)",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 90
+      }
+    ],
+    "imageUrl": "/grinder-images/df64v.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          90
+        ]
+      }
+    }
+  },
+  {
+    "id": "df_54",
+    "name": "DF54 ",
+    "make": "DF54",
+    "model": "",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 90
+      }
+    ],
+    "imageUrl": "/grinder-images/df54.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          90
+        ]
+      }
+    }
+  },
+  {
+    "id": "df_83v",
+    "name": "DF83V ",
+    "make": "DF83V",
+    "model": "",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 90
+      }
+    ],
+    "imageUrl": "/grinder-images/df83v.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          90
+        ]
+      }
+    }
+  },
+  {
+    "id": "ek_43_11",
+    "name": "Mahlkönig EK43 (1-11)",
+    "make": "Mahlkönig",
+    "model": "EK43 (1-11)",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "maximum": 10
+      },
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 9
+      }
+    ],
+    "imageUrl": "/grinder-images/ek_43.png",
+    "range": {
+      "grinder": {
+        "start": [
+          1,
+          0
+        ],
+        "end": [
+          11,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "ek_43_16",
+    "name": "Mahlkönig EK43 (0-16)",
+    "make": "Mahlkönig",
+    "model": "EK43 (0-16)",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "maximum": 15
+      },
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 9
+      }
+    ],
+    "imageUrl": "/grinder-images/ek_43.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          16,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "ek_43s",
+    "name": "Mahlkönig EK43s",
+    "make": "Mahlkönig",
+    "model": "EK43s",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "maximum": 15
+      },
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 9
+      }
+    ],
+    "imageUrl": "/grinder-images/ek_43s.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          16,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "eureka_mignon_classico",
+    "name": "Eureka Mignon Classico",
+    "make": "Eureka",
+    "model": "Mignon Classico",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "rotation",
+        "maximum": 5
+      },
+      {
+        "label": "number",
+        "maximum": 5
+      },
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 1
+      }
+    ],
+    "imageUrl": "/grinder-images/eureka-mignon.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0,
+          0
+        ],
+        "end": [
+          5,
+          5,
+          1
+        ]
+      }
+    }
+  },
+  {
+    "id": "eureka_mignon_specialita",
+    "name": "Eureka Mignon Specialità",
+    "make": "Eureka",
+    "model": "Mignon Specialità",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "rotation",
+        "maximum": 5
+      },
+      {
+        "label": "number",
+        "maximum": 5
+      },
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 1
+      }
+    ],
+    "imageUrl": "/grinder-images/eureka-mignon.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0,
+          0
+        ],
+        "end": [
+          5,
+          5,
+          1
+        ]
+      }
+    }
+  },
+  {
+    "id": "eureka_mignon_silenzio",
+    "name": "Eureka Mignon Silenzio",
+    "make": "Eureka",
+    "model": "Mignon Silenzio",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "rotation",
+        "maximum": 5
+      },
+      {
+        "label": "number",
+        "maximum": 5
+      },
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 1
+      }
+    ],
+    "imageUrl": "/grinder-images/eureka-mignon.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0,
+          0
+        ],
+        "end": [
+          5,
+          5,
+          1
+        ]
+      }
+    }
+  },
+  {
+    "id": "mahlkonig_x64_sd",
+    "name": "Mahlkönig X64 SD",
+    "make": "Mahlkönig",
+    "model": "X64 SD",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "maximum": 12
+      },
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 4
+      }
+    ],
+    "imageUrl": "/grinder-images/mahlkoning-x64-sd.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          12,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "fellow_ode",
+    "name": "Fellow Ode Gen 1",
+    "make": "Fellow",
+    "model": "Ode Gen 1",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "maximum": 11
+      },
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 2
+      }
+    ],
+    "imageUrl": "/grinder-images/fellow-ode.png",
+    "range": {
+      "grinder": {
+        "start": [
+          1,
+          0
+        ],
+        "end": [
+          11,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "fellow_ode_gen_2",
+    "name": "Fellow Ode Gen 2",
+    "make": "Fellow",
+    "model": "Ode Gen 2",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "maximum": 11
+      },
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 2
+      }
+    ],
+    "imageUrl": "/grinder-images/fellow-ode-gen-2.png",
+    "range": {
+      "grinder": {
+        "start": [
+          1,
+          0
+        ],
+        "end": [
+          11,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "fellow_opus",
+    "name": "Fellow Opus",
+    "make": "Fellow",
+    "model": "Opus",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "maximum": 11
+      },
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 3
+      }
+    ],
+    "imageUrl": "/grinder-images/fellow-opus.png",
+    "range": {
+      "grinder": {
+        "start": [
+          1,
+          0
+        ],
+        "end": [
+          11,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "femobook_a2",
+    "name": "Femobook A2",
+    "make": "Femobook",
+    "model": "A2",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "maximum": 150
+      }
+    ],
+    "imageUrl": "/grinder-images/femobook-a2.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          150
+        ]
+      }
+    }
+  },
+  {
+    "id": "femobook_a4z",
+    "name": "Femobook A4z",
+    "make": "Femobook",
+    "model": "A4z",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "rotation",
+        "maximum": 2
+      },
+      {
+        "label": "number",
+        "maximum": 9
+      },
+      {
+        "label": "click",
+        "alt-label": "dot",
+        "maximum": 9
+      }
+    ],
+    "imageUrl": "/grinder-images/femobook-a4z.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          9,
+          1
+        ]
+      }
+    }
+  },
+  {
+    "id": "arco_goat_story",
+    "name": "Arco Goat Story",
+    "make": "Arco",
+    "model": "Goat Story",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "alt-label": "rotation",
+        "maximum": 3
+      },
+      {
+        "label": "click",
+        "maximum": 59
+      }
+    ],
+    "imageUrl": "/grinder-images/arco-goat-story.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          5,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "hario_mini_mill_slim",
+    "name": "Hario Mini Mill Slim",
+    "make": "Hario",
+    "model": "Mini Mill Slim",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "maximum": 20
+      }
+    ],
+    "imageUrl": "/grinder-images/hario-mini-slim.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          25
+        ]
+      }
+    }
+  },
+  {
+    "id": "hario_mini_mill_slim_plus",
+    "name": "Hario Mini Mill Slim Plus",
+    "make": "Hario",
+    "model": "Mini Mill Slim Plus",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "maximum": 20
+      }
+    ],
+    "imageUrl": "/grinder-images/hario-mini-slim.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          25
+        ]
+      }
+    }
+  },
+  {
+    "id": "hario_skerton",
+    "name": "Hario Skerton",
+    "make": "Hario",
+    "model": "Skerton",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "alt-label": "notch",
+        "maximum": 9
+      }
+    ],
+    "imageUrl": "/grinder-images/hario-skerton.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          10
+        ]
+      }
+    }
+  },
+  {
+    "id": "hario_skerton_pro",
+    "name": "Hario Skerton Pro",
+    "make": "Hario",
+    "model": "Skerton Pro",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "maximum": 9
+      }
+    ],
+    "imageUrl": "/grinder-images/hario-skerton.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          16
+        ]
+      }
+    }
+  },
+  {
+    "id": "helor_101",
+    "name": "Helor 101",
+    "make": "Helor",
+    "model": "101",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "maximum": 80
+      }
+    ],
+    "imageUrl": "/grinder-images/helor-101.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          80
+        ]
+      }
+    }
+  },
+  {
+    "id": "kingrinder_k0",
+    "name": "KINGrinder K0",
+    "make": "KINGrinder",
+    "model": "K0",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "maximum": 140
+      }
+    ],
+    "imageUrl": "/grinder-images/kingrinder-k.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          140
+        ]
+      }
+    }
+  },
+  {
+    "id": "kingrinder_k1",
+    "name": "KINGrinder K1",
+    "make": "KINGrinder",
+    "model": "K1",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "maximum": 140
+      }
+    ],
+    "imageUrl": "/grinder-images/kingrinder-k.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          140
+        ]
+      }
+    }
+  },
+  {
+    "id": "kingrinder_k2",
+    "name": "KINGrinder K2",
+    "make": "KINGrinder",
+    "model": "K2",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "maximum": 140
+      }
+    ],
+    "imageUrl": "/grinder-images/kingrinder-k.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          140
+        ]
+      }
+    }
+  },
+  {
+    "id": "kingrinder_k3",
+    "name": "KINGrinder K3",
+    "make": "KINGrinder",
+    "model": "K3",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "maximum": 140
+      }
+    ],
+    "imageUrl": "/grinder-images/kingrinder-k.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          140
+        ]
+      }
+    }
+  },
+  {
+    "id": "kingrinder_k4",
+    "name": "KINGrinder K4",
+    "make": "KINGrinder",
+    "model": "K4",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "maximum": 160
+      }
+    ],
+    "imageUrl": "/grinder-images/kingrinder-k.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          160
+        ]
+      }
+    }
+  },
+  {
+    "id": "kingrinder_k5",
+    "name": "KINGrinder K5",
+    "make": "KINGrinder",
+    "model": "K5",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "maximum": 140
+      }
+    ],
+    "imageUrl": "/grinder-images/kingrinder-k.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          140
+        ]
+      }
+    }
+  },
+  {
+    "id": "kingrinder_k6",
+    "name": "KINGrinder K6",
+    "make": "KINGrinder",
+    "model": "K6",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "maximum": 160
+      }
+    ],
+    "imageUrl": "/grinder-images/kingrinder-k.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          160
+        ]
+      }
+    }
+  },
+  {
+    "id": "kingrinder_p0",
+    "name": "KINGrinder P0",
+    "make": "KINGrinder",
+    "model": "P0",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "maximum": 130
+      }
+    ],
+    "imageUrl": "/grinder-images/kingrinder-p.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          130
+        ]
+      }
+    }
+  },
+  {
+    "id": "kingrinder_p1",
+    "name": "KINGrinder P1",
+    "make": "KINGrinder",
+    "model": "P1",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "maximum": 130
+      }
+    ],
+    "imageUrl": "/grinder-images/kingrinder-p.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          130
+        ]
+      }
+    }
+  },
+  {
+    "id": "kingrinder_p2",
+    "name": "KINGrinder P2",
+    "make": "KINGrinder",
+    "model": "P2",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "maximum": 130
+      }
+    ],
+    "imageUrl": "/grinder-images/kingrinder-p.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          130
+        ]
+      }
+    }
+  },
+  {
+    "id": "kinu_m47",
+    "name": "Kinu M47 Classic",
+    "make": "Kinu",
+    "model": "M47 Classic",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "rotation",
+        "maximum": 8
+      },
+      {
+        "label": "number",
+        "maximum": 9
+      },
+      {
+        "label": "click",
+        "maximum": 4
+      }
+    ],
+    "imageUrl": "/grinder-images/kinu-m47-classic.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0,
+          0
+        ],
+        "end": [
+          8,
+          5,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "kinu_m47_pourover",
+    "name": "Kinu M47 (Pour-Over burr)",
+    "make": "Kinu",
+    "model": "M47 (Pour-Over burr)",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "rotation",
+        "maximum": 8
+      },
+      {
+        "label": "number",
+        "maximum": 9
+      },
+      {
+        "label": "click",
+        "maximum": 4
+      }
+    ],
+    "imageUrl": "/grinder-images/kinu-m47-classic.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0,
+          0
+        ],
+        "end": [
+          8,
+          5,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "knock_aergrind",
+    "name": "Knock Aergrind",
+    "make": "Knock",
+    "model": "Aergrind",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "alt-label": "rotation",
+        "maximum": 5
+      },
+      {
+        "label": "click",
+        "alt-label": "notch",
+        "maximum": 12
+      }
+    ],
+    "imageUrl": "/grinder-images/knock.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          1
+        ],
+        "end": [
+          4,
+          1
+        ]
+      }
+    }
+  },
+  {
+    "id": "mazzer_philos",
+    "name": "Mazzer Philos",
+    "make": "Mazzer",
+    "model": "Philos",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "maximum": 145
+      }
+    ],
+    "imageUrl": "/grinder-images/mazzer-philos.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          145
+        ]
+      }
+    }
+  },
+  {
+    "id": "mazzer_omega",
+    "name": "Mazzer Omega",
+    "make": "Mazzer",
+    "model": "Omega",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "rotation",
+        "maximum": 1
+      },
+      {
+        "label": "number",
+        "maximum": 9
+      },
+      {
+        "label": "click",
+        "maximum": 5
+      }
+    ],
+    "imageUrl": "/grinder-images/mazzer-omega-x.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0,
+          0
+        ],
+        "end": [
+          1,
+          3,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "mazzer_omega_x",
+    "name": "Mazzer Omega X",
+    "make": "Mazzer",
+    "model": "Omega X",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "rotation",
+        "maximum": 2
+      },
+      {
+        "label": "number",
+        "maximum": 9
+      },
+      {
+        "label": "click",
+        "maximum": 5
+      }
+    ],
+    "imageUrl": "/grinder-images/mazzer-omega-x.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0,
+          0
+        ],
+        "end": [
+          2,
+          9,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "mavo_phantox_pro",
+    "name": "Mavo Phantox Pro",
+    "make": "Mavo",
+    "model": "Phantox Pro",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "maximum": 12
+      },
+      {
+        "label": "click",
+        "maximum": 9
+      }
+    ],
+    "imageUrl": "/grinder-images/mavo-phantox-pro.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          12,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "mhw_3bomber_r3",
+    "name": "MHW-3BOMBER Blade R3",
+    "make": "MHW-3BOMBER",
+    "model": "Blade R3",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "rotation",
+        "maximum": 2
+      },
+      {
+        "label": "number",
+        "maximum": 11
+      },
+      {
+        "label": "click",
+        "maximum": 4
+      }
+    ],
+    "imageUrl": "/grinder-images/mhw-3bomber-r3.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0,
+          0
+        ],
+        "end": [
+          3,
+          0,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "niche_zero",
+    "name": "Niche Zero",
+    "make": "Niche",
+    "model": "Zero",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 110
+      }
+    ],
+    "imageUrl": "/grinder-images/niche-zero.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          110
+        ]
+      }
+    }
+  },
+  {
+    "id": "porlex_mini",
+    "name": "Porlex Mini",
+    "make": "Porlex",
+    "model": "Mini",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "maximum": 12
+      }
+    ],
+    "imageUrl": "/grinder-images/porlex-mini.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          12
+        ]
+      }
+    }
+  },
+  {
+    "id": "porlex_tall",
+    "name": "Porlex Tall",
+    "make": "Porlex",
+    "model": "Tall",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "maximum": 12
+      }
+    ],
+    "imageUrl": "/grinder-images/porlex-tall.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          12
+        ]
+      }
+    }
+  },
+  {
+    "id": "timemore_chestnut_c2",
+    "name": "Timemore Chestnut C2",
+    "make": "Timemore",
+    "model": "Chestnut C2",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "maximum": 30
+      }
+    ],
+    "imageUrl": "/grinder-images/timemore-c2.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          36
+        ]
+      }
+    }
+  },
+  {
+    "id": "timemore_chestnut_c3",
+    "name": "Timemore Chestnut C3",
+    "make": "Timemore",
+    "model": "Chestnut C3",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "maximum": 25
+      }
+    ],
+    "imageUrl": "/grinder-images/timemore-c3.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          36
+        ]
+      }
+    }
+  },
+  {
+    "id": "timemore_c3_esp",
+    "name": "Timemore Chestnut C3 ESP",
+    "make": "Timemore",
+    "model": "Chestnut C3 ESP",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "rotation",
+        "maximum": 3
+      },
+      {
+        "label": "number",
+        "maximum": 9
+      },
+      {
+        "label": "click",
+        "maximum": 2
+      }
+    ],
+    "imageUrl": "/grinder-images/timemore-c3-esp.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0,
+          0
+        ],
+        "end": [
+          3,
+          0,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "timemore_c3_esp_pro",
+    "name": "Timemore Chestnut C3 ESP Pro",
+    "make": "Timemore",
+    "model": "Chestnut C3 ESP Pro",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "rotation",
+        "maximum": 3
+      },
+      {
+        "label": "number",
+        "maximum": 9
+      },
+      {
+        "label": "click",
+        "maximum": 2
+      }
+    ],
+    "imageUrl": "/grinder-images/timemore-c3-esp.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0,
+          0
+        ],
+        "end": [
+          3,
+          0,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "timemore_c3s_pro",
+    "name": "Timemore Chestnut C3S Pro",
+    "make": "Timemore",
+    "model": "Chestnut C3S Pro",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "maximum": 25
+      }
+    ],
+    "imageUrl": "/grinder-images/timemore-c3-esp.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "timemore_s3",
+    "name": "Timemore Chestnut S3",
+    "make": "Timemore Chestnut",
+    "model": "S3",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "maximum": 8
+      },
+      {
+        "label": "click",
+        "maximum": 9
+      }
+    ],
+    "imageUrl": "/grinder-images/timemore-s3.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          9,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "timemore_s3_esp",
+    "name": "Timemore Chestnut S3 ESP",
+    "make": "Timemore Chestnut",
+    "model": "S3 ESP",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "maximum": 8
+      },
+      {
+        "label": "click",
+        "maximum": 9
+      }
+    ],
+    "imageUrl": "/grinder-images/timemore-s3.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          9,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "timemore_c5",
+    "name": "Timemore Chestnut C5",
+    "make": "Timemore",
+    "model": "Chestnut C5",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "maximum": 15
+      },
+      {
+        "label": "click",
+        "maximum": 2
+      }
+    ],
+    "imageUrl": "/grinder-images/timemore-s3.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          15,
+          2
+        ]
+      }
+    }
+  },
+  {
+    "id": "timemore_c5_esp_pro",
+    "name": "Timemore Chestnut C5 ESP Pro",
+    "make": "Timemore",
+    "model": "Chestnut C5 ESP Pro",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "rotation",
+        "maximum": 3
+      },
+      {
+        "label": "number",
+        "maximum": 9
+      },
+      {
+        "label": "click",
+        "maximum": 4
+      }
+    ],
+    "imageUrl": "/grinder-images/timemore-s3.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0,
+          0
+        ],
+        "end": [
+          3,
+          9,
+          4
+        ]
+      }
+    }
+  },
+  {
+    "id": "timemore_slim",
+    "name": "Timemore Chestnut Slim",
+    "make": "Timemore",
+    "model": "Chestnut Slim",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "maximum": 30
+      }
+    ],
+    "imageUrl": "/grinder-images/timemore-slim.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          30
+        ]
+      }
+    }
+  },
+  {
+    "id": "timemore_chestnut_x_lite",
+    "name": "Timemore Chestnut X Lite",
+    "make": "Timemore",
+    "model": "Chestnut X Lite",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "maximum": 23
+      },
+      {
+        "label": "click",
+        "alt-label": "half-step",
+        "maximum": 1
+      }
+    ],
+    "imageUrl": "/grinder-images/timemore-s3.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          24,
+          1
+        ]
+      }
+    }
+  },
+  {
+    "id": "timemore_millab_m01",
+    "name": "Timemore Millab M01",
+    "make": "Timemore",
+    "model": "Millab M01",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "maximum": 10
+      },
+      {
+        "label": "click",
+        "maximum": 9
+      }
+    ],
+    "imageUrl": "/grinder-images/millab-m01.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          10,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "timemore_millab_e01",
+    "name": "Timemore Millab E01",
+    "make": "Timemore",
+    "model": "Millab E01",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "maximum": 19
+      },
+      {
+        "label": "click",
+        "maximum": 2
+      }
+    ],
+    "imageUrl": "/grinder-images/millab-e01.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          19,
+          2
+        ]
+      }
+    }
+  },
+  {
+    "id": "timemore_sculptor_064",
+    "name": "Timemore Sculptor 064",
+    "make": "Timemore",
+    "model": "Sculptor 064",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "maximum": 16
+      },
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 1
+      }
+    ],
+    "imageUrl": "/grinder-images/timemore-sculptor.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          16,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "timemore_sculptor_064_s",
+    "name": "Timemore Sculptor 064s",
+    "make": "Timemore",
+    "model": "Sculptor 064s",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "maximum": 16
+      },
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 9
+      }
+    ],
+    "imageUrl": "/grinder-images/timemore-sculptor.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          16,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "timemore_sculptor_078",
+    "name": "Timemore Sculptor 078 (Turbo burrs)",
+    "make": "Timemore",
+    "model": "Sculptor 078 (Turbo burrs)",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "maximum": 18
+      },
+      {
+        "label": "click",
+        "alt-label": "half-step",
+        "maximum": 1
+      }
+    ],
+    "imageUrl": "/grinder-images/timemore-sculptor.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          18,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "timemore_sculptor_078s",
+    "name": "Timemore Sculptor 078s",
+    "make": "Timemore",
+    "model": "Sculptor 078s",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "maximum": 18
+      },
+      {
+        "label": "click",
+        "alt-label": "half-step",
+        "maximum": 9
+      }
+    ],
+    "imageUrl": "/grinder-images/timemore-sculptor.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          18,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "option-o-p100",
+    "name": "Option-O Lagom P100",
+    "make": "Option-O",
+    "model": "Lagom P100",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "maximum": 9
+      },
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 9
+      }
+    ],
+    "imageUrl": "/grinder-images/p100-silver.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          9,
+          9
+        ]
+      }
+    }
+  },
+  {
+    "id": "option-o-lagom-mini-moonshine",
+    "name": "Option-O Lagom Mini (Moonshine burrs)",
+    "make": "Option-O",
+    "model": "Lagom Mini (Moonshine burrs)",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "rotation",
+        "maximum": 4
+      },
+      {
+        "label": "number",
+        "alt-label": "large dot",
+        "maximum": 9
+      },
+      {
+        "label": "click",
+        "alt-label": "small dot",
+        "maximum": 4
+      }
+    ],
+    "imageUrl": "/grinder-images/lagom-mini.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0,
+          0
+        ],
+        "end": [
+          2,
+          0,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "option-o-lagom-mini-obsidian",
+    "name": "Option-O Lagom Mini (Obsidian burrs)",
+    "make": "Option-O",
+    "model": "Lagom Mini (Obsidian burrs)",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "rotation",
+        "maximum": 4
+      },
+      {
+        "label": "number",
+        "alt-label": "large dot",
+        "maximum": 9
+      },
+      {
+        "label": "click",
+        "alt-label": "small dot",
+        "maximum": 4
+      }
+    ],
+    "imageUrl": "/grinder-images/lagom-mini.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0,
+          0
+        ],
+        "end": [
+          4,
+          0,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "option-o-lagom-mini-2-mazzer",
+    "name": "Option-O Lagom Mini 2",
+    "make": "Option-O",
+    "model": "Lagom Mini 2",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "rotation",
+        "maximum": 4
+      },
+      {
+        "label": "number",
+        "alt-label": "large dot",
+        "maximum": 9
+      },
+      {
+        "label": "click",
+        "alt-label": "small dot",
+        "maximum": 4
+      }
+    ],
+    "imageUrl": "/grinder-images/lagom-mini.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0,
+          0
+        ],
+        "end": [
+          4,
+          0,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "option-o-lagom-p-64",
+    "name": "Option-O Lagom P64 (Mizen Omni burrs)",
+    "make": "Option-O",
+    "model": "Lagom P64 (Mizen Omni burrs)",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "maximum": 9
+      },
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 9
+      }
+    ],
+    "imageUrl": "/grinder-images/lagom-p64.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          4,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "option-o-lagom-p-64-ssp",
+    "name": "Option-O Lagom P64 (SSP Ultra/MPV1)",
+    "make": "Option-O",
+    "model": "Lagom P64 (SSP Ultra/MPV1)",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "maximum": 9
+      },
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 9
+      }
+    ],
+    "imageUrl": "/grinder-images/lagom-p64.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          4,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "option-o-lagom-p-80-mizen",
+    "name": "Option-O Lagom P80 (Mizen burrs)",
+    "make": "Option-O",
+    "model": "Lagom P80 (Mizen burrs)",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "maximum": 9
+      },
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 9
+      }
+    ],
+    "imageUrl": "/grinder-images/lagom-p64.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          4,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "oxo_conical_burr",
+    "name": "OXO Conical Burr Grinder",
+    "make": "OXO",
+    "model": "Conical Burr Grinder",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "maximum": 15
+      },
+      {
+        "label": "click",
+        "alt-label": "dot",
+        "maximum": 2
+      }
+    ],
+    "imageUrl": "/grinder-images/oxo-conical-burr.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          15,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "pietro",
+    "name": "Pietro (B-Modal burrs) ",
+    "make": "Pietro (B-Modal burrs)",
+    "model": "",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "maximum": 9
+      },
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 9
+      }
+    ],
+    "imageUrl": "/grinder-images/pietro.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          9,
+          9
+        ]
+      }
+    }
+  },
+  {
+    "id": "pietro-m-modal",
+    "name": "Pietro (M-Modal burrs) ",
+    "make": "Pietro (M-Modal burrs)",
+    "model": "",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "number",
+        "maximum": 9
+      },
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 9
+      }
+    ],
+    "imageUrl": "/grinder-images/pietro.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          10,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "varia_evo_hybrid",
+    "name": "Varia Evo Hybrid",
+    "make": "Varia",
+    "model": "Evo Hybrid",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "maximum": 144
+      }
+    ],
+    "imageUrl": "/grinder-images/varia-evo-hybrid.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          144
+        ]
+      }
+    }
+  },
+  {
+    "id": "varia_vs3",
+    "name": "Varia VS3",
+    "make": "Varia",
+    "model": "VS3",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "rotation",
+        "maximum": 2
+      },
+      {
+        "label": "number",
+        "maximum": 9
+      },
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 9
+      }
+    ],
+    "imageUrl": "/grinder-images/varia-vs3.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0,
+          0
+        ],
+        "end": [
+          2,
+          9,
+          9
+        ]
+      }
+    }
+  },
+  {
+    "id": "varia_vs6",
+    "name": "Varia VS6",
+    "make": "Varia",
+    "model": "VS6",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "rotation",
+        "maximum": 2
+      },
+      {
+        "label": "number",
+        "maximum": 9
+      },
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 9
+      }
+    ],
+    "imageUrl": "/grinder-images/varia-vs6.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0,
+          0
+        ],
+        "end": [
+          2,
+          9,
+          9
+        ]
+      }
+    }
+  },
+  {
+    "id": "wilfa_aroma",
+    "name": "Wilfa Svart Aroma",
+    "make": "Wilfa",
+    "model": "Svart Aroma",
+    "tier": "free",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 18
+      }
+    ],
+    "imageUrl": "/grinder-images/wilfa-aroma.png",
+    "range": {
+      "grinder": {
+        "start": [
+          1
+        ],
+        "end": [
+          18
+        ]
+      }
+    }
+  },
+  {
+    "id": "weber_eg1",
+    "name": "Weber EG-1",
+    "make": "Weber",
+    "model": "EG-1",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "rotation",
+        "maximum": 2
+      },
+      {
+        "label": "number",
+        "maximum": 9
+      },
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 9
+      }
+    ],
+    "imageUrl": "/grinder-images/weber-eg1.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0,
+          0
+        ],
+        "end": [
+          2,
+          8,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "weber_eg1_ssp",
+    "name": "Weber EG-1 (SSP Ultra burrs)",
+    "make": "Weber",
+    "model": "EG-1 (SSP Ultra burrs)",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "rotation",
+        "maximum": 2
+      },
+      {
+        "label": "number",
+        "maximum": 9
+      },
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 9
+      }
+    ],
+    "imageUrl": "/grinder-images/weber-eg1.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0,
+          0,
+          0
+        ],
+        "end": [
+          2,
+          8,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "id": "xbloom_studio",
+    "name": "xBloom Studio",
+    "make": "xBloom",
+    "model": "Studio",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "alt-label": "step",
+        "maximum": 80
+      }
+    ],
+    "imageUrl": "/grinder-images/xbloom-studio.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          80
+        ]
+      }
+    }
+  },
+  {
+    "id": "zerno_z1",
+    "name": "Zerno Z1",
+    "make": "Zerno",
+    "model": "Z1",
+    "tier": "Pro",
+    "group": null,
+    "units": [
+      {
+        "label": "click",
+        "alt-label": "μm",
+        "maximum": 1400
+      }
+    ],
+    "imageUrl": "/grinder-images/zerno-z1.png",
+    "range": {
+      "grinder": {
+        "start": [
+          0
+        ],
+        "end": [
+          1400
+        ]
+      }
+    }
+  }
+]

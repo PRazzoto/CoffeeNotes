@@ -1,0 +1,3366 @@
+[
+  {
+    "url": "https://beeancoffee.com/1zpresso-j-max-grind-settings/",
+    "slug": "1zpresso-j-max-grind-settings",
+    "title": "1Zpresso J-Max grind settings",
+    "h1": "1Zpresso J-Max Grind Settings",
+    "qa_count": 3,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best 1Zpresso J-Max settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best 1Zpresso J-Max settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 8.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per clicks 1Zpresso J-Max uses?",
+        "source_answer": "1Zpresso J-Max uses ≈ 8,8 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best 1Zpresso J-Max settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best 1Zpresso J-Max settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "How many microns per clicks 1Zpresso J-Max uses?",
+        "answer": "1Zpresso J-Max uses ≈ 8,8 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:05.417100+00:00",
+    "source_index": 1,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/1zpresso-j-ultra-grind-settings/",
+    "slug": "1zpresso-j-ultra-grind-settings",
+    "title": "1Zpresso J-Ultra grind settings",
+    "h1": "1Zpresso J-Ultra Grind Settings",
+    "qa_count": 3,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best 1Zpresso J-Ultra settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best 1Zpresso J-Ultra settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 8.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per click 1Zpresso J-Ultra uses?",
+        "source_answer": "1Zpresso 1Zpresso J-Ultra uses ≈8 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best 1Zpresso J-Ultra settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best 1Zpresso J-Ultra settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "How many microns per click 1Zpresso J-Ultra uses?",
+        "answer": "1Zpresso 1Zpresso J-Ultra uses ≈8 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:06.092034+00:00",
+    "source_index": 2,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/1zpresso-jx-grind-settings/",
+    "slug": "1zpresso-jx-grind-settings",
+    "title": "1Zpresso JX Grind Settings",
+    "h1": "1Zpresso JX Grind Settings Grind Settings",
+    "qa_count": 4,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best 1Zpresso JX settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best 1Zpresso JX settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "method": "espresso",
+        "min_microns": 120.0,
+        "max_microns": 370.0,
+        "source_question": "What’s the best 1Zpresso JX settings for espresso?",
+        "source_answer": "The typical range for espresso brewing method is between 120-370 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 9.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per click 1Zpresso JX uses?",
+        "source_answer": "1Zpresso JX uses ≈ 9 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best 1Zpresso JX settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best 1Zpresso JX settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "What’s the best 1Zpresso JX settings for espresso?",
+        "answer": "The typical range for espresso brewing method is between 120-370 microns."
+      },
+      {
+        "question": "How many microns per click 1Zpresso JX uses?",
+        "answer": "1Zpresso JX uses ≈ 9 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:06.824888+00:00",
+    "source_index": 3,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/1zpresso-jx-pro-grind-settings/",
+    "slug": "1zpresso-jx-pro-grind-settings",
+    "title": "1Zpresso JX Pro Grind Settings",
+    "h1": "1Zpresso JX Pro Grind Settings Grind Settings",
+    "qa_count": 4,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best 1Zpresso JX Pro settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best 1Zpresso JX Pro settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "method": "espresso",
+        "min_microns": 120.0,
+        "max_microns": 370.0,
+        "source_question": "What’s the best 1Zpresso JX Pro settings for espresso?",
+        "source_answer": "The typical range for espresso brewing method is between 120-370 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 5.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per click 1Zpresso JX Pro uses?",
+        "source_answer": "1Zpresso JX Pro uses ≈ 5 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best 1Zpresso JX Pro settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best 1Zpresso JX Pro settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "What’s the best 1Zpresso JX Pro settings for espresso?",
+        "answer": "The typical range for espresso brewing method is between 120-370 microns."
+      },
+      {
+        "question": "How many microns per click 1Zpresso JX Pro uses?",
+        "answer": "1Zpresso JX Pro uses ≈ 5 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:07.466855+00:00",
+    "source_index": 4,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/1zpresso-k-max-grind-settings/",
+    "slug": "1zpresso-k-max-grind-settings",
+    "title": "1Zpresso K-Max Grind Settings",
+    "h1": "1Zpresso K-Max Grind Settings",
+    "qa_count": 3,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best 1Zpresso K-Max settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best 1Zpresso K-Max settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 22.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per click 1Zpresso K-Max uses?",
+        "source_answer": "1Zpresso K-Max uses ≈ 22 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best 1Zpresso K-Max settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best 1Zpresso K-Max settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "How many microns per click 1Zpresso K-Max uses?",
+        "answer": "1Zpresso K-Max uses ≈ 22 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:08.120868+00:00",
+    "source_index": 5,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/1zpresso-k-plus-grind-settings/",
+    "slug": "1zpresso-k-plus-grind-settings",
+    "title": "1Zpresso K-Plus Grind Settings",
+    "h1": "1Zpresso K-Plus Grind Settings",
+    "qa_count": 3,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best 1Zpresso K-Plus settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best 1Zpresso K-Plus settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 22.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per click 1Zpresso K-Plus uses?",
+        "source_answer": "1Zpresso K-Plus uses ≈ 22 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best 1Zpresso K-Plus settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best 1Zpresso K-Plus settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "How many microns per click 1Zpresso K-Plus uses?",
+        "answer": "1Zpresso K-Plus uses ≈ 22 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:08.837596+00:00",
+    "source_index": 6,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/1zpresso-k-pro-grind-settings/",
+    "slug": "1zpresso-k-pro-grind-settings",
+    "title": "1Zpresso K-Pro Grind Settings",
+    "h1": "1Zpresso K-Pro Grind Settings",
+    "qa_count": 3,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best 1Zpresso K-Pro settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best 1Zpresso K-Pro settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 22.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per click 1Zpresso K-Pro uses?",
+        "source_answer": "1Zpresso K-Pro uses ≈22 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best 1Zpresso K-Pro settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best 1Zpresso K-Pro settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "How many microns per click 1Zpresso K-Pro uses?",
+        "answer": "1Zpresso K-Pro uses ≈22 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:09.479367+00:00",
+    "source_index": 7,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/1zpresso-k-ultra-grind-settings/",
+    "slug": "1zpresso-k-ultra-grind-settings",
+    "title": "1Zpresso K-Ultra grind settings",
+    "h1": "1Zpresso K-Ultra Grind Settings",
+    "qa_count": 3,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best 1Zpresso K-Ultra settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best 1Zpresso K-Ultra settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 80.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per click 1Zpresso K-Ultra uses?",
+        "source_answer": "1Zpresso K-Ultra uses ≈ 80 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best 1Zpresso K-Ultra settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best 1Zpresso K-Ultra settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "How many microns per click 1Zpresso K-Ultra uses?",
+        "answer": "1Zpresso K-Ultra uses ≈ 80 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:10.138771+00:00",
+    "source_index": 8,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/1zpresso-q2-grind-settings/",
+    "slug": "1zpresso-q2-grind-settings",
+    "title": "1Zpresso Q2 Grind Settings",
+    "h1": "1Zpresso Q2 Grind Settings",
+    "qa_count": 3,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best 1Zpresso Q2 settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best 1Zpresso Q2 settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 25.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per click 1Zpresso Q2 uses?",
+        "source_answer": "1Zpresso Q2 uses ≈ 25 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best 1Zpresso Q2 settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best 1Zpresso Q2 settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "How many microns per click 1Zpresso Q2 uses?",
+        "answer": "1Zpresso Q2 uses ≈ 25 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:10.878231+00:00",
+    "source_index": 9,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/1zpresso-zp6-special-grind-settings/",
+    "slug": "1zpresso-zp6-special-grind-settings",
+    "title": "1Zpresso ZP6 Special grind settings",
+    "h1": "1Zpresso ZP6 Grind Settings",
+    "qa_count": 3,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best 1Zpresso ZP6 Special settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best 1Zpresso ZP6 Special settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 22.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per click 1Zpresso ZP6 Special uses?",
+        "source_answer": "1Zpresso ZP6 Special uses ≈ 22 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best 1Zpresso ZP6 Special settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best 1Zpresso ZP6 Special settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "How many microns per click 1Zpresso ZP6 Special uses?",
+        "answer": "1Zpresso ZP6 Special uses ≈ 22 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:11.590213+00:00",
+    "source_index": 10,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/acaia-orbit-grind-settings/",
+    "slug": "acaia-orbit-grind-settings",
+    "title": "Acaia Orbit grind settings",
+    "h1": "Acaia Orbit grind settings",
+    "qa_count": 4,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Acaia Orbit V60 setting?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Acaia Orbit AeroPress setting?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "method": "espresso",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Acaia Orbit espresss setting?",
+        "source_answer": "The typical range for espresso brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 5.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "What’s Acaia Orbit microns per click?",
+        "source_answer": "Acaia Orbit uses ≈ 7,5 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Acaia Orbit V60 setting?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Acaia Orbit AeroPress setting?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "What’s the best Acaia Orbit espresss setting?",
+        "answer": "The typical range for espresso brewing method is between 400-900 microns."
+      },
+      {
+        "question": "What’s Acaia Orbit microns per click?",
+        "answer": "Acaia Orbit uses ≈ 7,5 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:12.308503+00:00",
+    "source_index": 11,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/aeropress-manual-grinder-grind-settings/",
+    "slug": "aeropress-manual-grinder-grind-settings",
+    "title": "AeroPresso Manual Grinder - Grind Settings",
+    "h1": "AeroPress Manual Grinder Grind Settings",
+    "qa_count": 4,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best AeroPress Manual Grinder settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best AeroPress Manual Grinder settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "method": "espresso",
+        "min_microns": 120.0,
+        "max_microns": 370.0,
+        "source_question": "What’s the best AeroPress Manual Grinder settings for espresso?",
+        "source_answer": "The typical range for espresso brewing method is between 120-370 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 30.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per click AeroPress Manual Grinder uses?",
+        "source_answer": "AeroPress Manual Grinder uses around 30 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best AeroPress Manual Grinder settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best AeroPress Manual Grinder settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "What’s the best AeroPress Manual Grinder settings for espresso?",
+        "answer": "The typical range for espresso brewing method is between 120-370 microns."
+      },
+      {
+        "question": "How many microns per click AeroPress Manual Grinder uses?",
+        "answer": "AeroPress Manual Grinder uses around 30 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:13.030650+00:00",
+    "source_index": 12,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/arco-goat-story-grind-settings/",
+    "slug": "arco-goat-story-grind-settings",
+    "title": "Arco Goat Story grind settings",
+    "h1": "Arco Goat Story Grind Settings",
+    "qa_count": 4,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Arco Goat Story settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Arco Goat Story settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "method": "espresso",
+        "min_microns": 120.0,
+        "max_microns": 370.0,
+        "source_question": "What’s the best Arco Goat Story settings for espresso?",
+        "source_answer": "The typical range for espresso is between 120-370 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 11.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per clicks Arco Goat Story uses?",
+        "source_answer": "Arco Goat Story uses ≈11 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Arco Goat Story settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Arco Goat Story settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "What’s the best Arco Goat Story settings for espresso?",
+        "answer": "The typical range for espresso is between 120-370 microns."
+      },
+      {
+        "question": "How many microns per clicks Arco Goat Story uses?",
+        "answer": "Arco Goat Story uses ≈11 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:13.754095+00:00",
+    "source_index": 13,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/baratza-encore-grind-settings/",
+    "slug": "baratza-encore-grind-settings",
+    "title": "Baratza Encore grind settings",
+    "h1": "Baratza Encore Grind Settings",
+    "qa_count": 3,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Baratza Encore settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Baratza Encore settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 24.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per click Baratza Encore uses?",
+        "source_answer": "Baratza Encore uses ≈ 24 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Baratza Encore settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Baratza Encore settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "How many microns per click Baratza Encore uses?",
+        "answer": "Baratza Encore uses ≈ 24 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:14.470807+00:00",
+    "source_index": 14,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/bravo-it-grind-settings/",
+    "slug": "bravo-it-grind-settings",
+    "title": "Bravo IT grind settings",
+    "h1": "Bravo IT Grind Settings",
+    "qa_count": 4,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Bravo IT settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Bravo IT settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "method": "espresso",
+        "min_microns": 120.0,
+        "max_microns": 370.0,
+        "source_question": "What’s the best Bravo IT settings for espresso?",
+        "source_answer": "The typical range for espresso brewing method is between 120-370 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 18.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per click Bravo IT uses?",
+        "source_answer": "Bravo IT uses ≈ 18 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Bravo IT settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Bravo IT settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "What’s the best Bravo IT settings for espresso?",
+        "answer": "The typical range for espresso brewing method is between 120-370 microns."
+      },
+      {
+        "question": "How many microns per click Bravo IT uses?",
+        "answer": "Bravo IT uses ≈ 18 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:15.193446+00:00",
+    "source_index": 15,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/breville-sage-barista-pro-grind-settings/",
+    "slug": "breville-sage-barista-pro-grind-settings",
+    "title": "Breville (Sage) Barista Pro Grind Settings",
+    "h1": "Breville (Sage) Barista Pro grind settings",
+    "qa_count": 3,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Breville (Sage) Barista Pro setting?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Breville (Sage) Barista Pro setting?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "method": "espresso",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Breville (Sage) Barista Pro espresss setting?",
+        "source_answer": "The typical range for espresso brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [],
+    "qa_items": [
+      {
+        "question": "What’s the best Breville (Sage) Barista Pro setting?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Breville (Sage) Barista Pro setting?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "What’s the best Breville (Sage) Barista Pro espresss setting?",
+        "answer": "The typical range for espresso brewing method is between 400-900 microns."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:15.846236+00:00",
+    "source_index": 16,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/breville-smart-grinder-pro-grind-settings/",
+    "slug": "breville-smart-grinder-pro-grind-settings",
+    "title": "Breville Smart Grinder Pro grind settings",
+    "h1": "Breville Smart Grinder Pro grind settings",
+    "qa_count": 0,
+    "method_ranges": [],
+    "microns_per_candidates": [],
+    "qa_items": [],
+    "extracted_at_utc": "2026-03-25T16:50:16.497786+00:00",
+    "source_index": 17,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/comandante-c40-grind-settings/",
+    "slug": "comandante-c40-grind-settings",
+    "title": "Comandante C40 grind settings",
+    "h1": "Comandante C40 Grind Settings",
+    "qa_count": 3,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Comandante C40 settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Comandante C40 settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 30.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per click Comandante C40 uses?",
+        "source_answer": "Comandante C40 uses ≈ 30 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Comandante C40 settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Comandante C40 settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "How many microns per click Comandante C40 uses?",
+        "answer": "Comandante C40 uses ≈ 30 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:17.250423+00:00",
+    "source_index": 18,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/df64-grind-settings/",
+    "slug": "df64-grind-settings",
+    "title": "DF64 grind settings",
+    "h1": "DF64 grind settings",
+    "qa_count": 3,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best DF64 settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best DF64 settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 10.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per click DF64 uses?",
+        "source_answer": "DF64 uses ≈ 10 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best DF64 settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best DF64 settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "How many microns per click DF64 uses?",
+        "answer": "DF64 uses ≈ 10 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:17.956738+00:00",
+    "source_index": 19,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/df64v-grind-settings/",
+    "slug": "df64v-grind-settings",
+    "title": "DF64V grind settings",
+    "h1": "DF64V grind settings",
+    "qa_count": 3,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best DF64V settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best DF64V settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 10.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per click DF64V uses?",
+        "source_answer": "DF64V uses ≈ 10 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best DF64V settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best DF64V settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "How many microns per click DF64V uses?",
+        "answer": "DF64V uses ≈ 10 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:18.679126+00:00",
+    "source_index": 20,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/df83v-grind-settings/",
+    "slug": "df83v-grind-settings",
+    "title": "DF83V grind settings",
+    "h1": "DF83V Grind Settings",
+    "qa_count": 3,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best DF83V settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best DF83V settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 11.0,
+        "per_unit": "step",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per step DF83V uses?",
+        "source_answer": "DF83 uses ≈ 11 microns per step."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best DF83V settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best DF83V settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "How many microns per step DF83V uses?",
+        "answer": "DF83 uses ≈ 11 microns per step."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:19.379856+00:00",
+    "source_index": 21,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/ditting-807-grind-settings/",
+    "slug": "ditting-807-grind-settings",
+    "title": "Ditting 807 grind settings",
+    "h1": "Ditting 807 and 807 Lab Sweet Grind Settings",
+    "qa_count": 4,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Ditting 807 settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Ditting 807 settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "method": "espresso",
+        "min_microns": 120.0,
+        "max_microns": 370.0,
+        "source_question": "What’s the best Ditting 807 settings for espresso?",
+        "source_answer": "The typical range for espresso brewing method is between 120-370 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 20.0,
+        "per_unit": "small",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per step Ditting 807 uses?",
+        "source_answer": "The Ditting 807 (and 807 Lab Sweet, 807 Filter, etc.) has is a stepless grinder. The adjustment change is typically around 10–20 microns per small increment (depending on calibration)."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Ditting 807 settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Ditting 807 settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "What’s the best Ditting 807 settings for espresso?",
+        "answer": "The typical range for espresso brewing method is between 120-370 microns."
+      },
+      {
+        "question": "How many microns per step Ditting 807 uses?",
+        "answer": "The Ditting 807 (and 807 Lab Sweet, 807 Filter, etc.) has is a stepless grinder. The adjustment change is typically around 10–20 microns per small increment (depending on calibration)."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:20.102373+00:00",
+    "source_index": 22,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/ek-43-grind-settings/",
+    "slug": "ek-43-grind-settings",
+    "title": "Mahlkönig EK43 grind settings",
+    "h1": "Mahlkönig EK43 Grind Settings",
+    "qa_count": 3,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Mahlkönig EK43 settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Mahlkönig EK43 settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 10.0,
+        "per_unit": "step",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per step Mahlkönig EK43 uses?",
+        "source_answer": "Mahlkönig EK43 uses ≈10 microns per step."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Mahlkönig EK43 settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Mahlkönig EK43 settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "How many microns per step Mahlkönig EK43 uses?",
+        "answer": "Mahlkönig EK43 uses ≈10 microns per step."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:20.836285+00:00",
+    "source_index": 23,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/eureka-mignon-classico-grind-settings/",
+    "slug": "eureka-mignon-classico-grind-settings",
+    "title": "Eureka Mignon Classico grind settings",
+    "h1": "Eureka Mignon Classico Grind Settings",
+    "qa_count": 4,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Eureka Mignon Classico settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Eureka Mignon Classico settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "method": "espresso",
+        "min_microns": 120.0,
+        "max_microns": 370.0,
+        "source_question": "What’s the best Eureka Mignon Classico settings for espresso?",
+        "source_answer": "The typical range for espresso brewing method is between 120-370 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 50.0,
+        "per_unit": "step",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per step Eureka Mignon Classico uses?",
+        "source_answer": "The Eureka Mignon Classico uses ≈ 50 microns per step."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Eureka Mignon Classico settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Eureka Mignon Classico settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "What’s the best Eureka Mignon Classico settings for espresso?",
+        "answer": "The typical range for espresso brewing method is between 120-370 microns."
+      },
+      {
+        "question": "How many microns per step Eureka Mignon Classico uses?",
+        "answer": "The Eureka Mignon Classico uses ≈ 50 microns per step."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:21.555259+00:00",
+    "source_index": 24,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/eureka-mignon-silenzio-grind-settings/",
+    "slug": "eureka-mignon-silenzio-grind-settings",
+    "title": "Eureka Mignon Silenzio grind settings",
+    "h1": "Eureka Mignon Specialità Grind Settings",
+    "qa_count": 4,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Eureka Mignon Silenzio settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Eureka Mignon Silenzio settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "method": "espresso",
+        "min_microns": 120.0,
+        "max_microns": 370.0,
+        "source_question": "What’s the best Eureka Mignon Silenzio settings for espresso?",
+        "source_answer": "The typical range for espresso brewing method is between 120-370 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 25.0,
+        "per_unit": "step",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per step Eureka Mignon Silenzio uses?",
+        "source_answer": "The Eureka Mignon Silenzio uses ≈ 25 microns per step."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Eureka Mignon Silenzio settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Eureka Mignon Silenzio settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "What’s the best Eureka Mignon Silenzio settings for espresso?",
+        "answer": "The typical range for espresso brewing method is between 120-370 microns."
+      },
+      {
+        "question": "How many microns per step Eureka Mignon Silenzio uses?",
+        "answer": "The Eureka Mignon Silenzio uses ≈ 25 microns per step."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:22.194689+00:00",
+    "source_index": 25,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/eureka-mignon-specialita-grind-settings/",
+    "slug": "eureka-mignon-specialita-grind-settings",
+    "title": "Eureka Mignon Specialità grind settings",
+    "h1": "Eureka Mignon Specialità Grind Settings",
+    "qa_count": 4,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Eureka Mignon Specialità settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Eureka Mignon Specialità settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "method": "espresso",
+        "min_microns": 120.0,
+        "max_microns": 370.0,
+        "source_question": "What’s the best Eureka Mignon Specialità settings for espresso?",
+        "source_answer": "The typical range for espresso brewing method is between 120-370 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 25.0,
+        "per_unit": "step",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per step Eureka Mignon Specialità uses?",
+        "source_answer": "The Eureka Mignon Specialità uses ≈ 25 microns per step."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Eureka Mignon Specialità settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Eureka Mignon Specialità settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "What’s the best Eureka Mignon Specialità settings for espresso?",
+        "answer": "The typical range for espresso brewing method is between 120-370 microns."
+      },
+      {
+        "question": "How many microns per step Eureka Mignon Specialità uses?",
+        "answer": "The Eureka Mignon Specialità uses ≈ 25 microns per step."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:22.775312+00:00",
+    "source_index": 26,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/fellow-ode-gen-2-grind-settings/",
+    "slug": "fellow-ode-gen-2-grind-settings",
+    "title": "Fellow Ode Gen 2 grind settings",
+    "h1": "Fellow Ode Gen 2 Grind Settings",
+    "qa_count": 3,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Fellow Ode Gen 2 settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Fellow Ode Gen 2 settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 25.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per click Fellow Ode Gen 2 uses?",
+        "source_answer": "Fellow Ode Gen 2’s settings start at ≈ 250 microns with ≈ 25 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Fellow Ode Gen 2 settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Fellow Ode Gen 2 settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "How many microns per click Fellow Ode Gen 2 uses?",
+        "answer": "Fellow Ode Gen 2’s settings start at ≈ 250 microns with ≈ 25 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:23.276882+00:00",
+    "source_index": 27,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/fellow-opus-grind-settings/",
+    "slug": "fellow-opus-grind-settings",
+    "title": "Fellow Opus grind settings",
+    "h1": "Comandante C40 to Fellow Opus coffee grinder converter",
+    "qa_count": 4,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Fellow Opus V60 setting?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Fellow Opus AeroPress setting?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "method": "espresso",
+        "min_microns": 170.0,
+        "max_microns": 350.0,
+        "source_question": "What’s the best Fellow Opus AeroPress setting?",
+        "source_answer": "The typical range for espresso brewing method is between 170-350 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 50.0,
+        "per_unit": "click/tick",
+        "extract_pattern": "microns_per",
+        "source_question": "What’s Fellow Opus microns per click?",
+        "source_answer": "Fellow Opus macro adjustment uses ≈ 50 microns per click/tick. Micro adjustments (inner blue ring) allows 3x finer tuning, with each tick ≈16.7 microns of burr movement."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Fellow Opus V60 setting?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Fellow Opus AeroPress setting?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "What’s the best Fellow Opus AeroPress setting?",
+        "answer": "The typical range for espresso brewing method is between 170-350 microns."
+      },
+      {
+        "question": "What’s Fellow Opus microns per click?",
+        "answer": "Fellow Opus macro adjustment uses ≈ 50 microns per click/tick. Micro adjustments (inner blue ring) allows 3x finer tuning, with each tick ≈16.7 microns of burr movement."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:24.026885+00:00",
+    "source_index": 28,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/femobook-a2-grind-settings/",
+    "slug": "femobook-a2-grind-settings",
+    "title": "Femobook A2 Grind Settings",
+    "h1": "Femobook A2 Grind Settings",
+    "qa_count": 5,
+    "method_ranges": [
+      {
+        "method": "pourover",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Femobook A2 pourover settings? (V60, Kalita Wave)",
+        "source_answer": "The typical range for pourover brewing methods is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Femobook A2 AeroPress settings?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 18.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per click Femobook A2 uses?",
+        "source_answer": "The A2 uses around 18 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Femobook A2 pourover settings? (V60, Kalita Wave)",
+        "answer": "The typical range for pourover brewing methods is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Femobook A2 AeroPress settings?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "What’s the best Femobook A2 espresso settings?",
+        "answer": "The typical range for brewing espresso is between 120–370 microns."
+      },
+      {
+        "question": "What’s the medium-coarse range for Femobook A2?",
+        "answer": "You can find the grind settings for all ranges like fine, medium-fine, medium, medium-coarse and coarse by switching the tab above from settings to range."
+      },
+      {
+        "question": "How many microns per click Femobook A2 uses?",
+        "answer": "The A2 uses around 18 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:24.695080+00:00",
+    "source_index": 29,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/femobook-a4z-fine-medium-coarse-grind-settings/",
+    "slug": "femobook-a4z-fine-medium-coarse-grind-settings",
+    "title": "Femobook A4Z Fine, Medium, Coarse & More Range Settings",
+    "h1": "Femobook A4Z Fine, Medium, Coarse & More grind range settings",
+    "qa_count": 0,
+    "method_ranges": [],
+    "microns_per_candidates": [],
+    "qa_items": [],
+    "extracted_at_utc": "2026-03-25T16:50:25.385906+00:00",
+    "source_index": 30,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/femobook-a4z-grind-settings/",
+    "slug": "femobook-a4z-grind-settings",
+    "title": "Femobook A4Z Grind Settings",
+    "h1": "Femobook A4Z Grind Settings",
+    "qa_count": 4,
+    "method_ranges": [
+      {
+        "method": "pourover",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Femobook A4Z pourover settings? (V60, Kalita Wave)",
+        "source_answer": "The typical range for pourover brewing methods is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Femobook A4Z AeroPress settings?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 8.0,
+        "per_unit": "click/dot",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per click Femobook A4Z uses?",
+        "source_answer": "The A4Z uses around 8 microns per click/dot."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Femobook A4Z pourover settings? (V60, Kalita Wave)",
+        "answer": "The typical range for pourover brewing methods is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Femobook A4Z AeroPress settings?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "What’s the best Femobook A4Z espresso settings?",
+        "answer": "Even though the Femobook A4Z is optimized for espresso brewing due to its slow, low-RPM motor, which results in longer grind times and provides the fine adjustment precision needed for espresso, it can still grind within the espresso range of 120–370 microns."
+      },
+      {
+        "question": "How many microns per click Femobook A4Z uses?",
+        "answer": "The A4Z uses around 8 microns per click/dot."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:26.107400+00:00",
+    "source_index": 31,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/kingrinder-k6-grind-settings/",
+    "slug": "kingrinder-k6-grind-settings",
+    "title": "KINGrinder K6 Grind Settings",
+    "h1": "KINGrinder K6 grind settings",
+    "qa_count": 3,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best KINGrinder K6 V60 setting?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best KINGrinder K6 AeroPress setting?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 16.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "What’s KINGrinder K6 microns per click?",
+        "source_answer": "KINGrinder K6 uses ≈ 16 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best KINGrinder K6 V60 setting?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best KINGrinder K6 AeroPress setting?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "What’s KINGrinder K6 microns per click?",
+        "answer": "KINGrinder K6 uses ≈ 16 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:26.835531+00:00",
+    "source_index": 32,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/kinu-m47-classic-grind-settings/",
+    "slug": "kinu-m47-classic-grind-settings",
+    "title": "Kinu M47 Classic Grind Settings",
+    "h1": "Kinu M47 Classic Grind Settings",
+    "qa_count": 4,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Kinu M47 Classic settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Kinu M47 Classic settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "method": "espresso",
+        "min_microns": 120.0,
+        "max_microns": 370.0,
+        "source_question": "What’s the best Kinu M47 Classic settings for espresso?",
+        "source_answer": "The typical range for espresso brewing method is between 120-370 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 10.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per click Kinu M47 Classic uses?",
+        "source_answer": "Kinu M47 Classic uses ≈ 10 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Kinu M47 Classic settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Kinu M47 Classic settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "What’s the best Kinu M47 Classic settings for espresso?",
+        "answer": "The typical range for espresso brewing method is between 120-370 microns."
+      },
+      {
+        "question": "How many microns per click Kinu M47 Classic uses?",
+        "answer": "Kinu M47 Classic uses ≈ 10 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:27.565366+00:00",
+    "source_index": 33,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/kinu-m47-pourover-burr-grind-settings/",
+    "slug": "kinu-m47-pourover-burr-grind-settings",
+    "title": "Kinu M47 (Pour-Over burr) Grind Settings",
+    "h1": "Kinu M47 (Pour-Over burr) Grind Settings",
+    "qa_count": 4,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Kinu M47 (Pour-Over burr) settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Kinu M47 (Pour-Over burr) settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "method": "espresso",
+        "min_microns": 120.0,
+        "max_microns": 370.0,
+        "source_question": "What’s the best Kinu M47 (Pour-Over burr) settings for espresso?",
+        "source_answer": "The typical range for espresso brewing method is between 120-370 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 10.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per click Kinu M47 (Pour-Over burr) uses?",
+        "source_answer": "Kinu M47 (Pour-Over burr) uses ≈ 10 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Kinu M47 (Pour-Over burr) settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Kinu M47 (Pour-Over burr) settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "What’s the best Kinu M47 (Pour-Over burr) settings for espresso?",
+        "answer": "The typical range for espresso brewing method is between 120-370 microns."
+      },
+      {
+        "question": "How many microns per click Kinu M47 (Pour-Over burr) uses?",
+        "answer": "Kinu M47 (Pour-Over burr) uses ≈ 10 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:28.221190+00:00",
+    "source_index": 34,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/mahlkonig-x64-sd-grind-settings/",
+    "slug": "mahlkonig-x64-sd-grind-settings",
+    "title": "Mahlkönig X64 SD grind settings",
+    "h1": "Mahlkönig X64 SD Grind Settings",
+    "qa_count": 4,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Mahlkönig X64 SD settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Mahlkönig X64 SD settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "method": "espresso",
+        "min_microns": 120.0,
+        "max_microns": 370.0,
+        "source_question": "What’s the best Mahlkönig X64 SD settings for espresso?",
+        "source_answer": "The typical range for espresso brewing method is between 120-370 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 9.0,
+        "per_unit": "step",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per step Mahlkönig X64 SD uses?",
+        "source_answer": "Mahlkönig X64 SD uses ≈ 9 microns per step."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Mahlkönig X64 SD settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Mahlkönig X64 SD settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "What’s the best Mahlkönig X64 SD settings for espresso?",
+        "answer": "The typical range for espresso brewing method is between 120-370 microns."
+      },
+      {
+        "question": "How many microns per step Mahlkönig X64 SD uses?",
+        "answer": "Mahlkönig X64 SD uses ≈ 9 microns per step."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:28.869337+00:00",
+    "source_index": 35,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/mavo-phantox-pro-grind-settings/",
+    "slug": "mavo-phantox-pro-grind-settings",
+    "title": "Mavo Phantox Pro grind settings",
+    "h1": "Mavo Phantox Pro Grind Settings",
+    "qa_count": 4,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Mavo Phantox Pro settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Mavo Phantox Pro settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "method": "espresso",
+        "min_microns": 120.0,
+        "max_microns": 370.0,
+        "source_question": "What’s the best Mavo Phantox Pro settings for espresso?",
+        "source_answer": "The typical range for espresso is between 120-370 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 17.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per clicks Mavo Phantox Pro uses?",
+        "source_answer": "Mavo Phantox Pro uses ≈17 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Mavo Phantox Pro settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Mavo Phantox Pro settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "What’s the best Mavo Phantox Pro settings for espresso?",
+        "answer": "The typical range for espresso is between 120-370 microns."
+      },
+      {
+        "question": "How many microns per clicks Mavo Phantox Pro uses?",
+        "answer": "Mavo Phantox Pro uses ≈17 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:29.623331+00:00",
+    "source_index": 36,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/mazzer-omega-x-grind-settings/",
+    "slug": "mazzer-omega-x-grind-settings",
+    "title": "Mazzer Omega X Grind Settings",
+    "h1": "Mazzer Omega X Grind Settings",
+    "qa_count": 3,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Mazzer Omega X settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Mazzer Omega X settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 11.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per click Mazzer Omega X uses?",
+        "source_answer": "Mazzer Omega X uses ≈ 11 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Mazzer Omega X settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Mazzer Omega X settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "How many microns per click Mazzer Omega X uses?",
+        "answer": "Mazzer Omega X uses ≈ 11 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:30.320084+00:00",
+    "source_index": 37,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/mazzer-philos-grind-settings/",
+    "slug": "mazzer-philos-grind-settings",
+    "title": "Mazzer Philos grind settings",
+    "h1": "Mazzer Philos Grind Settings",
+    "qa_count": 3,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Mazzer Philos settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Mazzer Philos settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 6.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per click Mazzer Philos uses?",
+        "source_answer": "Mazzer Philos uses ≈6 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Mazzer Philos settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Mazzer Philos settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "How many microns per click Mazzer Philos uses?",
+        "answer": "Mazzer Philos uses ≈6 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:30.963879+00:00",
+    "source_index": 38,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/mhw-3bomber-r3-grind-settings/",
+    "slug": "mhw-3bomber-r3-grind-settings",
+    "title": "MHW-3BOMBER R3 grind settings",
+    "h1": "MHW-3BOMBER R3 Grind Settings",
+    "qa_count": 3,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best MHW-3BOMBER R3 settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best MHW-3BOMBER R3 settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 16.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per click MHW-3BOMBER R3 uses?",
+        "source_answer": "1Zpresso K-Ultra uses ≈ 16 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best MHW-3BOMBER R3 settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best MHW-3BOMBER R3 settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "How many microns per click MHW-3BOMBER R3 uses?",
+        "answer": "1Zpresso K-Ultra uses ≈ 16 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:31.618914+00:00",
+    "source_index": 39,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/option-o-lagom-mini-2-grind-settings/",
+    "slug": "option-o-lagom-mini-2-grind-settings",
+    "title": "Option-O Lagom Mini 2 grind settings",
+    "h1": "Option-O Lagom Mini 2 Grind Settings",
+    "qa_count": 4,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Option-O Lagom Mini 2 settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Option-O Lagom Mini 2 settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "method": "espresso",
+        "min_microns": 120.0,
+        "max_microns": 370.0,
+        "source_question": "What’s the best Option-O Lagom Mini 2 settings for espresso?",
+        "source_answer": "The typical range for espresso is between 120-370 microns."
+      }
+    ],
+    "microns_per_candidates": [],
+    "qa_items": [
+      {
+        "question": "What’s the best Option-O Lagom Mini 2 settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Option-O Lagom Mini 2 settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "What’s the best Option-O Lagom Mini 2 settings for espresso?",
+        "answer": "The typical range for espresso is between 120-370 microns."
+      },
+      {
+        "question": "How many microns per clicks Option-O Lagom Mini 2 (Mazzer burrs) uses?",
+        "answer": "Option-O Lagom Mini 2 is a stepless grinder and therefore there’s no fixed burr movement."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:32.367028+00:00",
+    "source_index": 40,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/option-o-lagom-mini-moonshine-grind-settings/",
+    "slug": "option-o-lagom-mini-moonshine-grind-settings",
+    "title": "Option-O Lagom Mini (Moonshine burrs) grind settings",
+    "h1": "Option-O Lagom Mini (Moonshine burrs) Grind Settings",
+    "qa_count": 4,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Option-O Lagom Mini (Moonshine burrs) settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Option-O Lagom Mini (Moonshine burrs) settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "method": "espresso",
+        "min_microns": 120.0,
+        "max_microns": 370.0,
+        "source_question": "What’s the best Option-O Lagom Mini (Moonshine burrs) settings for espresso?",
+        "source_answer": "The typical range for espresso is between 120-370 microns."
+      }
+    ],
+    "microns_per_candidates": [],
+    "qa_items": [
+      {
+        "question": "What’s the best Option-O Lagom Mini (Moonshine burrs) settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Option-O Lagom Mini (Moonshine burrs) settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "What’s the best Option-O Lagom Mini (Moonshine burrs) settings for espresso?",
+        "answer": "The typical range for espresso is between 120-370 microns."
+      },
+      {
+        "question": "How many microns per clicks Option-O Lagom Mini (Moonshine burrs) uses?",
+        "answer": "Option-O Lagom Mini is a stepless grinder and therefore there’s no fixed burr movement."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:33.041631+00:00",
+    "source_index": 41,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/option-o-lagom-mini-obsidian-grind-settings/",
+    "slug": "option-o-lagom-mini-obsidian-grind-settings",
+    "title": "Option-O Lagom Mini (Obsidian burrs) Grind Settings",
+    "h1": "Option-O Lagom Mini (Obsidian burrs) Grind Settings",
+    "qa_count": 4,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Option-O Lagom Mini (Obsidian burrs) settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Option-O Lagom Mini (Obsidian burrs) settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "method": "espresso",
+        "min_microns": 120.0,
+        "max_microns": 370.0,
+        "source_question": "What’s the best Option-O Lagom Mini (Obsidian burrs) settings for espresso?",
+        "source_answer": "The typical range for espresso is between 120-370 microns."
+      }
+    ],
+    "microns_per_candidates": [],
+    "qa_items": [
+      {
+        "question": "What’s the best Option-O Lagom Mini (Obsidian burrs) settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Option-O Lagom Mini (Obsidian burrs) settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "What’s the best Option-O Lagom Mini (Obsidian burrs) settings for espresso?",
+        "answer": "The typical range for espresso is between 120-370 microns."
+      },
+      {
+        "question": "How many microns per clicks Option-O Lagom Mini (Obsidian burrs) uses?",
+        "answer": "Option-O Lagom Mini is a stepless grinder and therefore there’s no fixed burr movement."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:33.697571+00:00",
+    "source_index": 42,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/option-o-lagom-p80-grind-settings/",
+    "slug": "option-o-lagom-p80-grind-settings",
+    "title": "Option-O Lagom P80 Grind Settings",
+    "h1": "Option-O Lagom P80 Grind Settings",
+    "qa_count": 4,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Option-O Lagom P80 settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Option-O Lagom P80 settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "method": "espresso",
+        "min_microns": 120.0,
+        "max_microns": 370.0,
+        "source_question": "What’s the best Option-O Lagom P80 settings for espresso?",
+        "source_answer": "The typical range for espresso brewing method is between 120-370 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 10.0,
+        "per_unit": "tick",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per tick Option-O Lagom P80 uses?",
+        "source_answer": "Option-O Lagom P80 uses ≈10 microns per tick."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Option-O Lagom P80 settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Option-O Lagom P80 settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "What’s the best Option-O Lagom P80 settings for espresso?",
+        "answer": "The typical range for espresso brewing method is between 120-370 microns."
+      },
+      {
+        "question": "How many microns per tick Option-O Lagom P80 uses?",
+        "answer": "Option-O Lagom P80 uses ≈10 microns per tick."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:34.352118+00:00",
+    "source_index": 43,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/pietro-b-modal-grind-settings/",
+    "slug": "pietro-b-modal-grind-settings",
+    "title": "Pietro (B-Modal burrs) grind settings",
+    "h1": "Pietro (B-Modal burrs) Grind Settings",
+    "qa_count": 4,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Pietro (B-Modal burrs) settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Pietro (B-Modal burrs) settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "method": "espresso",
+        "min_microns": 120.0,
+        "max_microns": 370.0,
+        "source_question": "What’s the best Pietro (B-Modal burrs) settings for espresso?",
+        "source_answer": "The typical range for espresso is between 120-370 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 15.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per clicks Pietro (B-Modal burrs) uses?",
+        "source_answer": "Pietro (B-Modal burrs) uses ≈15 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Pietro (B-Modal burrs) settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Pietro (B-Modal burrs) settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "What’s the best Pietro (B-Modal burrs) settings for espresso?",
+        "answer": "The typical range for espresso is between 120-370 microns."
+      },
+      {
+        "question": "How many microns per clicks Pietro (B-Modal burrs) uses?",
+        "answer": "Pietro (B-Modal burrs) uses ≈15 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:35.103421+00:00",
+    "source_index": 44,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/pietro-m-modal-grind-settings/",
+    "slug": "pietro-m-modal-grind-settings",
+    "title": "Pietro (M-Modal burrs) grind settings",
+    "h1": "Pietro (M-Modal burrs) Grind Settings",
+    "qa_count": 3,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Pietro (M-Modal burrs) settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Pietro (M-Modal burrs) settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 15.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per clicks Pietro (M-Modal burrs) uses?",
+        "source_answer": "Pietro (M-Modal burrs) uses ≈15 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Pietro (M-Modal burrs) settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Pietro (M-Modal burrs) settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "How many microns per clicks Pietro (M-Modal burrs) uses?",
+        "answer": "Pietro (M-Modal burrs) uses ≈15 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:35.726187+00:00",
+    "source_index": 45,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/timemore-c2-grind-settings/",
+    "slug": "timemore-c2-grind-settings",
+    "title": "Timemore Chestnut C2 grind settings",
+    "h1": "Timemore C2 Grind Settings",
+    "qa_count": 3,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Timemore C2 settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Timemore C2 settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 80.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per clicks Timemore C2 uses?",
+        "source_answer": "Timemore C2 uses ≈ 80 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Timemore C2 settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Timemore C2 settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "How many microns per clicks Timemore C2 uses?",
+        "answer": "Timemore C2 uses ≈ 80 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:36.398293+00:00",
+    "source_index": 46,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/timemore-c3-grind-settings/",
+    "slug": "timemore-c3-grind-settings",
+    "title": "Timemore C3 grind settings",
+    "h1": "Timemore C3 Grind Settings",
+    "qa_count": 3,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Timemore C3 settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Timemore C3 settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 83.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per clicks Timemore C3 uses?",
+        "source_answer": "Timemore C3 uses ≈ 83 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Timemore C3 settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Timemore C3 settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "How many microns per clicks Timemore C3 uses?",
+        "answer": "Timemore C3 uses ≈ 83 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:37.120983+00:00",
+    "source_index": 47,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/timemore-c5-esp-pro-grind-settings/",
+    "slug": "timemore-c5-esp-pro-grind-settings",
+    "title": "Timemore C5 ESP Pro grind settings",
+    "h1": "Timemore C5 ESP Pro Grind Settings",
+    "qa_count": 4,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Timemore C5 ESP Pro settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Timemore C5 ESP Pro settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "method": "espresso",
+        "min_microns": 120.0,
+        "max_microns": 370.0,
+        "source_question": "What’s the best Timemore C5 ESP Pro settings for espresso?",
+        "source_answer": "The typical range for espresso brewing method is between 120-370 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 15.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per click Timemore C5 ESP Pro uses?",
+        "source_answer": "Timemore C5 uses ≈ 15 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Timemore C5 ESP Pro settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Timemore C5 ESP Pro settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "What’s the best Timemore C5 ESP Pro settings for espresso?",
+        "answer": "The typical range for espresso brewing method is between 120-370 microns."
+      },
+      {
+        "question": "How many microns per click Timemore C5 ESP Pro uses?",
+        "answer": "Timemore C5 uses ≈ 15 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:37.834142+00:00",
+    "source_index": 48,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/timemore-c5-grind-settings/",
+    "slug": "timemore-c5-grind-settings",
+    "title": "Timemore C5 Grind Settings",
+    "h1": "Timemore C5 Grind Settings",
+    "qa_count": 5,
+    "method_ranges": [
+      {
+        "method": "pourover",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Timemore C5 pourover settings? (V60, Kalita Wave)",
+        "source_answer": "The typical range for pourover brewing methods is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Timemore C5 AeroPress settings?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 31.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per click Timemore C5 uses?",
+        "source_answer": "The C5 uses around 31 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Timemore C5 pourover settings? (V60, Kalita Wave)",
+        "answer": "The typical range for pourover brewing methods is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Timemore C5 AeroPress settings?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "What’s the best Timemore C5 espresso settings?",
+        "answer": "The typical range for brewing espresso is between 120–370 microns."
+      },
+      {
+        "question": "What’s the medium-coarse range for Timemore C5?",
+        "answer": "You can find the grind settings for all ranges like fine, medium-fine, medium, medium-coarse and coarse by switching the tab above from settings to range."
+      },
+      {
+        "question": "How many microns per click Timemore C5 uses?",
+        "answer": "The C5 uses around 31 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:38.472494+00:00",
+    "source_index": 49,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/timemore-millab-e01-grind-settings/",
+    "slug": "timemore-millab-e01-grind-settings",
+    "title": "Timemore Millab E01 Grind Settings",
+    "h1": "Timemore Millab E01 Grind Settings",
+    "qa_count": 5,
+    "method_ranges": [
+      {
+        "method": "pourover",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Timemore Millab E01 pourover settings? (V60, Kalita Wave)",
+        "source_answer": "The typical range for pourover brewing methods is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Timemore Millab E01 AeroPress settings?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 12.5,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per click Timemore Millab E01 uses?",
+        "source_answer": "The E01 uses around 12.5 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Timemore Millab E01 pourover settings? (V60, Kalita Wave)",
+        "answer": "The typical range for pourover brewing methods is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Timemore Millab E01 AeroPress settings?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "What’s the best Timemore Millab E01 espresso settings?",
+        "answer": "The typical range for brewing espresso is between 120–370 microns."
+      },
+      {
+        "question": "What are the Timemore Millab E01 medium-coarse settings?",
+        "answer": "You can find the grind settings for all ranges like fine, medium-fine, medium, medium-coarse and coarse by switching the tab above from settings to range."
+      },
+      {
+        "question": "How many microns per click Timemore Millab E01 uses?",
+        "answer": "The E01 uses around 12.5 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:39.127172+00:00",
+    "source_index": 50,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/timemore-millab-m01-grind-settings/",
+    "slug": "timemore-millab-m01-grind-settings",
+    "title": "Timemore Millab M01 grind settings",
+    "h1": "Timemore Millab M01 Grind Settings",
+    "qa_count": 4,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Timemore Millab M01 settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Timemore Millab M01 settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "method": "espresso",
+        "min_microns": 170.0,
+        "max_microns": 350.0,
+        "source_question": "What’s the best Timemore Millab M01 settings for espresso?",
+        "source_answer": "The typical range for espresso brewing method is between 170-350 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 5.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per clicks Timemore Millab M01 uses?",
+        "source_answer": "Timemore Millab M01 uses ≈ 12,5 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Timemore Millab M01 settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Timemore Millab M01 settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "What’s the best Timemore Millab M01 settings for espresso?",
+        "answer": "The typical range for espresso brewing method is between 170-350 microns."
+      },
+      {
+        "question": "How many microns per clicks Timemore Millab M01 uses?",
+        "answer": "Timemore Millab M01 uses ≈ 12,5 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:39.848721+00:00",
+    "source_index": 51,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/timemore-s3-esp-grind-settings/",
+    "slug": "timemore-s3-esp-grind-settings",
+    "title": "Timemore S3 ESP grind settings",
+    "h1": "Timemore S3 ESP Grind Settings",
+    "qa_count": 3,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Timemore S3 ESP settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Timemore S3 ESP settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 15.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per click Timemore S3 ESP uses?",
+        "source_answer": "Timemore S3 ESP uses ≈ 15 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Timemore S3 ESP settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Timemore S3 ESP settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "How many microns per click Timemore S3 ESP uses?",
+        "answer": "Timemore S3 ESP uses ≈ 15 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:40.552352+00:00",
+    "source_index": 52,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/timemore-s3-grind-settings/",
+    "slug": "timemore-s3-grind-settings",
+    "title": "Timemore S3 grind settings",
+    "h1": "Timemore S3 Grind Settings",
+    "qa_count": 3,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Timemore S3 settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Timemore S3 settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 15.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per click Timemore S3 uses?",
+        "source_answer": "Timemore S3 uses ≈ 15 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Timemore S3 settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Timemore S3 settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "How many microns per click Timemore S3 uses?",
+        "answer": "Timemore S3 uses ≈ 15 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:41.206255+00:00",
+    "source_index": 53,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/timemore-sculptor-064-grind-settings/",
+    "slug": "timemore-sculptor-064-grind-settings",
+    "title": "Timemore Sculptor 064 Grind Settings",
+    "h1": "Timemore Sculptor 064 Grind Settings",
+    "qa_count": 3,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Timemore Sculptor 064 settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Timemore Sculptor 064 settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 5.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per click Timemore Sculptor 064 uses?",
+        "source_answer": "Timemore Sculptor 064 uses ≈5 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Timemore Sculptor 064 settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Timemore Sculptor 064 settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "How many microns per click Timemore Sculptor 064 uses?",
+        "answer": "Timemore Sculptor 064 uses ≈5 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:41.852096+00:00",
+    "source_index": 54,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/timemore-sculptor-064s-grind-settings/",
+    "slug": "timemore-sculptor-064s-grind-settings",
+    "title": "Timemore Sculptor 064s grind settings",
+    "h1": "Timemore Sculptor 064s Grind Settings",
+    "qa_count": 3,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Timemore Sculptor 064s settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Timemore Sculptor 064s settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 5.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per click Timemore Sculptor 064s uses?",
+        "source_answer": "Timemore Sculptor 064s uses ≈5 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Timemore Sculptor 064s settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Timemore Sculptor 064s settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "How many microns per click Timemore Sculptor 064s uses?",
+        "answer": "Timemore Sculptor 064s uses ≈5 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:42.601374+00:00",
+    "source_index": 55,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/timemore-sculptor-078-grind-settings/",
+    "slug": "timemore-sculptor-078-grind-settings",
+    "title": "Timemore Sculptor 078 grind settings",
+    "h1": "Timemore Sculptor 078 Grind Settings",
+    "qa_count": 3,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Timemore Sculptor 078 settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Timemore Sculptor 078 settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 25.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per click Timemore Sculptor 078 uses?",
+        "source_answer": "Timemore Sculptor 078 uses ≈25 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Timemore Sculptor 078 settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Timemore Sculptor 078 settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "How many microns per click Timemore Sculptor 078 uses?",
+        "answer": "Timemore Sculptor 078 uses ≈25 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:43.228068+00:00",
+    "source_index": 56,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/timemore-sculptor-078s-grind-settings/",
+    "slug": "timemore-sculptor-078s-grind-settings",
+    "title": "Timemore Sculptor 078s grind settings",
+    "h1": "Timemore Sculptor 078s Grind Settings",
+    "qa_count": 3,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Timemore Sculptor 078s settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Timemore Sculptor 078s settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 25.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per click Timemore Sculptor 078s uses?",
+        "source_answer": "Timemore Sculptor 078s uses ≈25 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Timemore Sculptor 078s settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Timemore Sculptor 078s settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "How many microns per click Timemore Sculptor 078s uses?",
+        "answer": "Timemore Sculptor 078s uses ≈25 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:43.615321+00:00",
+    "source_index": 57,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/timemore-xlite-grind-settings/",
+    "slug": "timemore-xlite-grind-settings",
+    "title": "Timemore X Lite Grind Settings",
+    "h1": "Timemore Xlite Grind Settings",
+    "qa_count": 3,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Timemore Xlite settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Timemore Xlite settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 83.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per clicks Timemore Xlite uses?",
+        "source_answer": "Timemore Xlite uses ≈ 83 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Timemore Xlite settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Timemore Xlite settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "How many microns per clicks Timemore Xlite uses?",
+        "answer": "Timemore Xlite uses ≈ 83 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:44.101078+00:00",
+    "source_index": 58,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/varia-evo-hybrid-grind-settings/",
+    "slug": "varia-evo-hybrid-grind-settings",
+    "title": "Varia Evo Hybrid Grind Settings",
+    "h1": "Varia Evo Hybrid Grind Settings",
+    "qa_count": 4,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Varia Evo Hybrid settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Varia Evo Hybrid settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "method": "espresso",
+        "min_microns": 120.0,
+        "max_microns": 370.0,
+        "source_question": "What’s the best Varia Evo Hybrid settings for espresso?",
+        "source_answer": "The typical range for espresso is between 120-370 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 10.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per clicks Varia Evo Hybrid uses?",
+        "source_answer": "Varia Evo Hybrid uses ≈10 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Varia Evo Hybrid settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Varia Evo Hybrid settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "What’s the best Varia Evo Hybrid settings for espresso?",
+        "answer": "The typical range for espresso is between 120-370 microns."
+      },
+      {
+        "question": "How many microns per clicks Varia Evo Hybrid uses?",
+        "answer": "Varia Evo Hybrid uses ≈10 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:44.632378+00:00",
+    "source_index": 59,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/varia-vs3-grind-settings/",
+    "slug": "varia-vs3-grind-settings",
+    "title": "Varia VS3 grind settings",
+    "h1": "Varia VS3 Grind Settings",
+    "qa_count": 4,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Varia VS3 settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Varia VS3 settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "method": "espresso",
+        "min_microns": 120.0,
+        "max_microns": 370.0,
+        "source_question": "What’s the best Varia VS3 settings for espresso?",
+        "source_answer": "The typical range for espresso is between 120-370 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 10.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per clicks Varia VS3 uses?",
+        "source_answer": "Varia Evo Hybrid uses ≈10 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Varia VS3 settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Varia VS3 settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "What’s the best Varia VS3 settings for espresso?",
+        "answer": "The typical range for espresso is between 120-370 microns."
+      },
+      {
+        "question": "How many microns per clicks Varia VS3 uses?",
+        "answer": "Varia Evo Hybrid uses ≈10 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:45.076796+00:00",
+    "source_index": 60,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/varia-vs6-grind-settings/",
+    "slug": "varia-vs6-grind-settings",
+    "title": "Varia VS6 grind settings",
+    "h1": "Varia VS6 Grind Settings",
+    "qa_count": 4,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Varia VS6 settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Varia VS6 settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "method": "espresso",
+        "min_microns": 120.0,
+        "max_microns": 370.0,
+        "source_question": "What’s the best Varia VS6 settings for espresso?",
+        "source_answer": "The typical range for espresso is between 120-370 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 5.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per clicks Varia VS6 uses?",
+        "source_answer": "Varia Evo Hybrid uses ≈5 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Varia VS6 settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Varia VS6 settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "What’s the best Varia VS6 settings for espresso?",
+        "answer": "The typical range for espresso is between 120-370 microns."
+      },
+      {
+        "question": "How many microns per clicks Varia VS6 uses?",
+        "answer": "Varia Evo Hybrid uses ≈5 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:45.561560+00:00",
+    "source_index": 61,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/weber-eg-1-grind-settings/",
+    "slug": "weber-eg-1-grind-settings",
+    "title": "Weber EG-1 grind settings",
+    "h1": "Weber EG-1 Grind Settings",
+    "qa_count": 4,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Weber EG-1 settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Weber EG-1settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "method": "espresso",
+        "min_microns": 170.0,
+        "max_microns": 350.0,
+        "source_question": "What’s the best Weber EG-1settings for espresso?",
+        "source_answer": "The typical range for espresso brewing method is between 170-350 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 5.0,
+        "per_unit": "step",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per step Weber EG-1 uses?",
+        "source_answer": "Weber EG-1 uses 5 microns per step."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Weber EG-1 settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Weber EG-1settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "What’s the best Weber EG-1settings for espresso?",
+        "answer": "The typical range for espresso brewing method is between 170-350 microns."
+      },
+      {
+        "question": "How many microns per step Weber EG-1 uses?",
+        "answer": "Weber EG-1 uses 5 microns per step."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:46.085107+00:00",
+    "source_index": 62,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/xbloom-studio-grind-settings/",
+    "slug": "xbloom-studio-grind-settings",
+    "title": "xBloom Studio grind settings",
+    "h1": "xBloom Studio Grind Settings",
+    "qa_count": 3,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best xBloom Studio settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best xBloom Studio settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 75.0,
+        "per_unit": "step",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per step xBloom Studio uses?",
+        "source_answer": "xBloom Studio uses ≈ 18,75 microns per step."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best xBloom Studio settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best xBloom Studio settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "How many microns per step xBloom Studio uses?",
+        "answer": "xBloom Studio uses ≈ 18,75 microns per step."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:46.616812+00:00",
+    "source_index": 63,
+    "source_total": 64
+  },
+  {
+    "url": "https://beeancoffee.com/zerno-z1-grind-settings/",
+    "slug": "zerno-z1-grind-settings",
+    "title": "Zerno Z1 grind settings",
+    "h1": "Zerno Z1 Grind Settings",
+    "qa_count": 4,
+    "method_ranges": [
+      {
+        "method": "Hario V60",
+        "min_microns": 500.0,
+        "max_microns": 800.0,
+        "source_question": "What’s the best Zerno Z1 settings for V60?",
+        "source_answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "method": "AeroPress",
+        "min_microns": 400.0,
+        "max_microns": 900.0,
+        "source_question": "What’s the best Zerno Z1 settings for AeroPress?",
+        "source_answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "method": "espresso",
+        "min_microns": 120.0,
+        "max_microns": 370.0,
+        "source_question": "What’s the best Zerno Z1 settings for espresso?",
+        "source_answer": "The typical range for espresso is between 120-370 microns."
+      }
+    ],
+    "microns_per_candidates": [
+      {
+        "value_microns": 22.0,
+        "per_unit": "click",
+        "extract_pattern": "microns_per",
+        "source_question": "How many microns per clicks Zerno Z1 uses?",
+        "source_answer": "Zerno Z1 uses ≈22 microns per click."
+      }
+    ],
+    "qa_items": [
+      {
+        "question": "What’s the best Zerno Z1 settings for V60?",
+        "answer": "The typical range for Hario V60 brewing method is between 500-800 microns."
+      },
+      {
+        "question": "What’s the best Zerno Z1 settings for AeroPress?",
+        "answer": "The typical range for AeroPress brewing method is between 400-900 microns."
+      },
+      {
+        "question": "What’s the best Zerno Z1 settings for espresso?",
+        "answer": "The typical range for espresso is between 120-370 microns."
+      },
+      {
+        "question": "How many microns per clicks Zerno Z1 uses?",
+        "answer": "Zerno Z1 uses ≈22 microns per click."
+      }
+    ],
+    "extracted_at_utc": "2026-03-25T16:50:47.131289+00:00",
+    "source_index": 64,
+    "source_total": 64
+  }
+]
