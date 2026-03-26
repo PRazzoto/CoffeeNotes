@@ -35,6 +35,7 @@ CoffeeNotes is a Spring Boot backend for a notes/recipes app focused on coffee b
 - Versioned recipe integration tests added for track/version persistence invariants and soft-delete behavior
 - Recipe create now supports optional `beanId` and optional initial `equipmentIds`
 - User-created beans are now always private (`isGlobal=false` enforced server-side)
+- Grinder conversion API implemented with dataset-backed interpolation (`GET /api/grinder-conversion/grinders`, `POST /api/grinder-conversion/convert`)
 
 ## Tech Stack
 
@@ -94,6 +95,7 @@ Production server:
 
 - Root backend overview: `README.md`
 - Delivery plan and progress tracking: `IMPLEMENTATION_PLAN.md`
+- Grinder conversion dataset + FE contract notes: `src/main/resources/grinder_conversion/README.md`
 
 ## API (WIP)
 
@@ -106,6 +108,8 @@ Current endpoints:
 - `GET /api/equipment/listAll`
 - `GET /api/equipment/mine`
 - `PUT /api/equipment/mine`
+- `GET /api/grinder-conversion/grinders`
+- `POST /api/grinder-conversion/convert`
 - `POST /api/equipment/createEquipment`
 - `PUT /api/equipment/editEquipment/{id}`
 - `DELETE /api/equipment/deleteEquipment/{id}`
@@ -155,6 +159,9 @@ Notes:
 - Resource-server auth maps JWT `role` into Spring `ROLE_*` authorities.
 - standardized API errors now serialize as `{ timestamp, status, error, message, path }` for the handler-covered exception set.
 - Media metadata persistence exists, but public media metadata routes are still not implemented.
+- Grinder conversion endpoints require JWT like other protected routes and currently use the local reference dataset (`free_grinders_reference_conversion.json`) for supported grinder ids.
+- Conversion request shape: `{ sourceGrinderId, targetGrinderId, sourceSetting { rotation?, number?, click? } }`.
+- Conversion response includes normalized/clamped `sourceSetting`, converted `targetSetting`, `sourceFlat`, `targetFlat`, `referenceFlatEstimated`, and `confidence`.
 
 ## Auth & Security (Current State)
 

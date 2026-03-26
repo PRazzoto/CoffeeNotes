@@ -4,6 +4,7 @@ import com.example.coffeenotes.api.dto.recipe.*;
 import com.example.coffeenotes.domain.catalog.BrewMethods;
 import com.example.coffeenotes.domain.catalog.CoffeeBean;
 import com.example.coffeenotes.domain.catalog.Equipment;
+import com.example.coffeenotes.domain.catalog.Role;
 import com.example.coffeenotes.domain.catalog.recipe.*;
 import com.example.coffeenotes.domain.user.User;
 import com.example.coffeenotes.feature.catalog.methodpayload.MethodPayloadStrategy;
@@ -73,9 +74,15 @@ public class RecipeVersionService {
                     throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Duplicate equipment id.");
                 }
             }
+            if (seenEquipmentIds.size() > 1) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Only one equipment is allowed per recipe.");
+            }
         }
         User owner = userRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+        if (dto.isGlobal() && owner.getRole() != Role.ADMIN) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Only admins can create global recipes.");
+        }
         CoffeeBean bean = null;
         if (dto.getBeanId() != null) {
             bean = coffeeBeanRepository.findById(dto.getBeanId())
@@ -409,6 +416,9 @@ public class RecipeVersionService {
        if(dto.getWaterTemperatureCelsius() != null && dto.getWaterTemperatureCelsius() < 0){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Water temperature cannot be negative");
        }
+       if(dto.getGrindSize() != null && dto.getGrindSize() < 0){
+           throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Grind size clicks cannot be negative.");
+       }
         if (dto.getWaterPours() != null) {
             Set<Integer> seenOrderIndexes = new HashSet<>();
 
@@ -442,6 +452,9 @@ public class RecipeVersionService {
                     throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Duplicate equipment id.");
                 }
             }
+            if (seenEquipmentIds.size() > 1) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Only one equipment is allowed per recipe.");
+            }
         }
 
 
@@ -450,112 +463,132 @@ public class RecipeVersionService {
         if(recipe.getDeletedAt() != null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Track not found.");
         }
-        if(recipe.getOwner().getId().equals(userId)) {
-            RecipeVersion version = recipeVersionRepository.findByTrack_IdAndIsCurrentTrue(trackId)
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Version not found"));
-            if(version.getDeletedAt() != null) {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Version not found.");
-            }
-            String rawMethodPayload = dto.getMethodPayload();
-            String normalizedPayloadString;
-            if (rawMethodPayload != null && !rawMethodPayload.isBlank()) {
-                MethodPayloadStrategy strategy = methodPayloadStrategyRegistry.getRequired(recipe.getMethod().getName());
-
-                JsonNode payloadJson;
-                try {
-                    payloadJson = objectMapper.readTree(rawMethodPayload);
-                } catch (JsonProcessingException e){
-                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid methodPayload JSON.");
-                }
-                JsonNode normalizedPayload = strategy.validateAndNormalize(payloadJson);
-                try {
-                    normalizedPayloadString = objectMapper.writeValueAsString(normalizedPayload);
-                } catch (JsonProcessingException e) {
-                    throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to serialize methodPayload JSON.", e);
-                }
-            } else {
-                normalizedPayloadString = version.getMethodPayload();
-            }
-            List<RecipeWaterPour> waterPours = recipeWaterPourRepository.findByRecipeVersion_IdOrderByOrderIndexAsc(version.getId());
-            List<RecipeEquipment> recipeEquipments = recipeEquipmentRepository.findByRecipeVersion_Id(version.getId());
-
-            RecipeVersion newVersion = new RecipeVersion();
-            newVersion.setTrack(recipe);
-            newVersion.setVersionNumber(version.getVersionNumber() + 1);
-            newVersion.setCurrent(true);
-            String updatedTitle = dto.getTitle() != null ? dto.getTitle().trim() : null;
-            newVersion.setTitle(updatedTitle != null && !updatedTitle.isBlank() ? updatedTitle : version.getTitle());
-            recipe.setTitle(newVersion.getTitle());
-            newVersion.setCoffeeAmount(dto.getCoffeeAmount() != null ? dto.getCoffeeAmount() : version.getCoffeeAmount());
-            newVersion.setWaterAmount(dto.getWaterAmount() != null ? dto.getWaterAmount() : version.getWaterAmount());
-            newVersion.setGrindSize(dto.getGrindSize() != null ? dto.getGrindSize() : version.getGrindSize());
-            newVersion.setBrewTimeSeconds(dto.getBrewTimeSeconds() != null ? dto.getBrewTimeSeconds() : version.getBrewTimeSeconds());
-            newVersion.setWaterTemperatureCelsius(dto.getWaterTemperatureCelsius() != null ? dto.getWaterTemperatureCelsius() : version.getWaterTemperatureCelsius());
-            newVersion.setRating(dto.getRating() != null ? dto.getRating() : version.getRating());
-            newVersion.setMethodPayload(normalizedPayloadString);
-            version.setCurrent(false);
-
-            recipeVersionRepository.saveAndFlush(version);
-            recipeTrackRepository.save(recipe);
-            RecipeVersion saved = recipeVersionRepository.save(newVersion);
-
-            List<WaterPourDTO> effectivePours =
-                dto.getWaterPours() != null
-                    ? dto.getWaterPours()
-                    : waterPours.stream().map(p -> {
-                        WaterPourDTO x = new WaterPourDTO();
-                        x.setWaterAmountMl(p.getWaterAmount());
-                        x.setTime(p.getTime());
-                        x.setOrderIndex(p.getOrderIndex());
-                        return x;
-                }).toList();
-            List<RecipeWaterPour> newPours = effectivePours.stream().map(p -> {
-                RecipeWaterPour row = new RecipeWaterPour();
-                row.setRecipeVersion(saved);
-                row.setWaterAmount(p.getWaterAmountMl());
-                row.setTime(p.getTime());
-                row.setOrderIndex(p.getOrderIndex());
-                return row;
-            }).toList();
-            recipeWaterPourRepository.saveAll(newPours);
-
-
-
-            List<UUID> effectiveEquipmentIds =
-                    dto.getEquipmentIds() != null
-                        ? dto.getEquipmentIds()
-                        : recipeEquipments.stream()
-                                    .map(e -> e.getEquipment().getId())
-                                            .toList();
-
-            List<RecipeEquipment> newEquipments = effectiveEquipmentIds.stream().map(equipmentId -> {
-                Equipment equipment = equipmentRepository.findById(equipmentId)
-                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Equipment not found"));
-
-                RecipeEquipment row = new RecipeEquipment();
-                row.setId(new RecipeEquipmentId(saved.getId(), equipment.getId()));
-                row.setRecipeVersion(saved);
-                row.setEquipment(equipment);
-                return row;
-            }).toList();
-
-            recipeEquipmentRepository.saveAll(newEquipments);
-
-            RecipeVersionResponseDTO answer = new RecipeVersionResponseDTO();
-            answer.setTrackId(recipe.getId());
-            answer.setVersionId(saved.getId());
-            answer.setVersionNumber(saved.getVersionNumber());
-            answer.setCurrent(saved.isCurrent());
-            answer.setBeanId(recipe.getBean() != null ? recipe.getBean().getId() : null);
-            answer.setMethodId(recipe.getMethod().getId());
-            answer.setTitle(saved.getTitle());
-            answer.setGlobal(recipe.isGlobal());
-            answer.setUpdatedAt(saved.getUpdatedAt());
-
-            return answer;
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Track not found");
+        RecipeVersion sourceVersion = recipeVersionRepository.findByTrack_IdAndIsCurrentTrue(trackId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Version not found"));
+        if(sourceVersion.getDeletedAt() != null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Version not found.");
         }
+
+        String rawMethodPayload = dto.getMethodPayload();
+        String normalizedPayloadString;
+        if (rawMethodPayload != null && !rawMethodPayload.isBlank()) {
+            MethodPayloadStrategy strategy = methodPayloadStrategyRegistry.getRequired(recipe.getMethod().getName());
+
+            JsonNode payloadJson;
+            try {
+                payloadJson = objectMapper.readTree(rawMethodPayload);
+            } catch (JsonProcessingException e){
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid methodPayload JSON.");
+            }
+            JsonNode normalizedPayload = strategy.validateAndNormalize(payloadJson);
+            try {
+                normalizedPayloadString = objectMapper.writeValueAsString(normalizedPayload);
+            } catch (JsonProcessingException e) {
+                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to serialize methodPayload JSON.", e);
+            }
+        } else {
+            normalizedPayloadString = sourceVersion.getMethodPayload();
+        }
+
+        List<RecipeWaterPour> sourceWaterPours = recipeWaterPourRepository.findByRecipeVersion_IdOrderByOrderIndexAsc(sourceVersion.getId());
+        List<RecipeEquipment> sourceEquipments = recipeEquipmentRepository.findByRecipeVersion_Id(sourceVersion.getId());
+        String updatedTitle = dto.getTitle() != null ? dto.getTitle().trim() : null;
+        String resolvedTitle = updatedTitle != null && !updatedTitle.isBlank() ? updatedTitle : sourceVersion.getTitle();
+
+        boolean isOwner = recipe.getOwner().getId().equals(userId);
+        RecipeTrack targetTrack;
+        int nextVersionNumber;
+
+        if (isOwner) {
+            sourceVersion.setCurrent(false);
+            recipeVersionRepository.saveAndFlush(sourceVersion);
+            recipe.setTitle(resolvedTitle);
+            targetTrack = recipeTrackRepository.save(recipe);
+            nextVersionNumber = sourceVersion.getVersionNumber() + 1;
+        } else {
+            if(!recipe.isGlobal()) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Track not found");
+            }
+            User editor = userRepository.findById(userId)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+
+            RecipeTrack forkedTrack = new RecipeTrack();
+            forkedTrack.setOwner(editor);
+            forkedTrack.setBean(resolveForkBeanForUser(recipe, userId));
+            forkedTrack.setMethod(recipe.getMethod());
+            forkedTrack.setTitle(resolvedTitle);
+            forkedTrack.setGlobal(false);
+            targetTrack = recipeTrackRepository.save(forkedTrack);
+            nextVersionNumber = 1;
+        }
+
+        RecipeVersion newVersion = new RecipeVersion();
+        newVersion.setTrack(targetTrack);
+        newVersion.setVersionNumber(nextVersionNumber);
+        newVersion.setCurrent(true);
+        newVersion.setTitle(resolvedTitle);
+        newVersion.setCoffeeAmount(dto.getCoffeeAmount() != null ? dto.getCoffeeAmount() : sourceVersion.getCoffeeAmount());
+        newVersion.setWaterAmount(dto.getWaterAmount() != null ? dto.getWaterAmount() : sourceVersion.getWaterAmount());
+        newVersion.setGrindSize(dto.getGrindSize() != null ? dto.getGrindSize() : sourceVersion.getGrindSize());
+        newVersion.setBrewTimeSeconds(dto.getBrewTimeSeconds() != null ? dto.getBrewTimeSeconds() : sourceVersion.getBrewTimeSeconds());
+        newVersion.setWaterTemperatureCelsius(dto.getWaterTemperatureCelsius() != null ? dto.getWaterTemperatureCelsius() : sourceVersion.getWaterTemperatureCelsius());
+        newVersion.setRating(dto.getRating() != null ? dto.getRating() : sourceVersion.getRating());
+        newVersion.setMethodPayload(normalizedPayloadString);
+
+        RecipeVersion saved = recipeVersionRepository.save(newVersion);
+
+        List<WaterPourDTO> effectivePours =
+            dto.getWaterPours() != null
+                ? dto.getWaterPours()
+                : sourceWaterPours.stream().map(p -> {
+                    WaterPourDTO x = new WaterPourDTO();
+                    x.setWaterAmountMl(p.getWaterAmount());
+                    x.setTime(p.getTime());
+                    x.setOrderIndex(p.getOrderIndex());
+                    return x;
+            }).toList();
+        List<RecipeWaterPour> newPours = effectivePours.stream().map(p -> {
+            RecipeWaterPour row = new RecipeWaterPour();
+            row.setRecipeVersion(saved);
+            row.setWaterAmount(p.getWaterAmountMl());
+            row.setTime(p.getTime());
+            row.setOrderIndex(p.getOrderIndex());
+            return row;
+        }).toList();
+        recipeWaterPourRepository.saveAll(newPours);
+
+        List<UUID> effectiveEquipmentIds =
+                dto.getEquipmentIds() != null
+                    ? dto.getEquipmentIds()
+                    : sourceEquipments.stream()
+                                .map(e -> e.getEquipment().getId())
+                                        .toList();
+
+        List<RecipeEquipment> newEquipments = effectiveEquipmentIds.stream().map(equipmentId -> {
+            Equipment equipment = equipmentRepository.findById(equipmentId)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Equipment not found"));
+
+            RecipeEquipment row = new RecipeEquipment();
+            row.setId(new RecipeEquipmentId(saved.getId(), equipment.getId()));
+            row.setRecipeVersion(saved);
+            row.setEquipment(equipment);
+            return row;
+        }).toList();
+
+        recipeEquipmentRepository.saveAll(newEquipments);
+
+        RecipeVersionResponseDTO answer = new RecipeVersionResponseDTO();
+        answer.setTrackId(targetTrack.getId());
+        answer.setVersionId(saved.getId());
+        answer.setVersionNumber(saved.getVersionNumber());
+        answer.setCurrent(saved.isCurrent());
+        answer.setBeanId(targetTrack.getBean() != null ? targetTrack.getBean().getId() : null);
+        answer.setMethodId(targetTrack.getMethod().getId());
+        answer.setTitle(saved.getTitle());
+        answer.setGlobal(targetTrack.isGlobal());
+        answer.setUpdatedAt(saved.getUpdatedAt());
+
+        return answer;
 
     }
 
@@ -618,6 +651,20 @@ public class RecipeVersionService {
 
         }
         return ans;
+    }
+
+    private CoffeeBean resolveForkBeanForUser(RecipeTrack sourceTrack, UUID userId) {
+        CoffeeBean sourceBean = sourceTrack.getBean();
+        if (sourceBean == null) {
+            return null;
+        }
+        if (sourceBean.getDeletedAt() != null) {
+            return null;
+        }
+        if (sourceBean.isGlobal() || sourceBean.getOwner().getId().equals(userId)) {
+            return sourceBean;
+        }
+        return null;
     }
 
     public MethodPayloadMetadataDTO getMetadata(UUID methodId) {

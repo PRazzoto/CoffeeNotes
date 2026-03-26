@@ -53,7 +53,7 @@ class FavoriteServiceIntegrationTest {
     @Test
     void addFavorite_andRemoveFavorite_areIdempotentAgainstPersistedRows() {
         User viewer = persistedUser();
-        User owner = persistedUser();
+        User owner = persistedAdminUser();
         BrewMethods method = persistedMethod("V60");
         CoffeeBean bean = persistedBean(owner, false);
 
@@ -87,7 +87,7 @@ class FavoriteServiceIntegrationTest {
     @Test
     void listFavoriteRecipes_returnsOnlyActiveVisibleTracks() {
         User viewer = persistedUser();
-        User owner = persistedUser();
+        User owner = persistedAdminUser();
 
         BrewMethods method = persistedMethod("V60");
         CoffeeBean viewerBean = persistedBean(viewer, false);
@@ -136,6 +136,15 @@ class FavoriteServiceIntegrationTest {
         user.setPasswordHash("hashed-password");
         user.setDisplayName("Integration Favorite User");
         user.setRole(Role.USER);
+        return userRepository.saveAndFlush(user);
+    }
+
+    private User persistedAdminUser() {
+        User user = new User();
+        user.setEmail("integration-favorite-admin-" + UUID.randomUUID() + "@coffee.test");
+        user.setPasswordHash("hashed-password");
+        user.setDisplayName("Integration Favorite Admin");
+        user.setRole(Role.ADMIN);
         return userRepository.saveAndFlush(user);
     }
 

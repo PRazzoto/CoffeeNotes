@@ -26,6 +26,7 @@ public class BrewMethodsController {
         return brewMethods.stream()
                 .map(brewMethod -> {
                     BrewMethodsDTO dto = new BrewMethodsDTO();
+                    dto.setId(brewMethod.getId());
                     dto.setName(brewMethod.getName());
                     dto.setDescription(brewMethod.getDescription());
                     return dto;
@@ -37,6 +38,7 @@ public class BrewMethodsController {
     public ResponseEntity<BrewMethodsDTO> add(@RequestBody BrewMethods brewMethods) {
         BrewMethods addedBrewMethods = this.brewMethodsService.add(brewMethods);
         BrewMethodsDTO dto = new BrewMethodsDTO();
+        dto.setId(addedBrewMethods.getId());
         dto.setName(addedBrewMethods.getName());
         dto.setDescription(addedBrewMethods.getDescription());
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
@@ -52,6 +54,7 @@ public class BrewMethodsController {
     public ResponseEntity<BrewMethodsDTO> updateBrewMethods(@PathVariable UUID id, @RequestBody BrewMethodsDTO body){
         BrewMethods updated = brewMethodsService.update(id, body);
         BrewMethodsDTO dto = new BrewMethodsDTO();
+        dto.setId(updated.getId());
         dto.setName(updated.getName());
         dto.setDescription(updated.getDescription());
         return new ResponseEntity<>(dto,HttpStatus.OK);
